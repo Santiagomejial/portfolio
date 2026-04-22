@@ -1,0 +1,159 @@
+/* ============================================================
+   DESIGN TOKENS — Portafolio Santiago Mejía L.
+   Fuente única de verdad de todo el sistema.
+   Editable en un solo archivo para cambios globales.
+   ============================================================ */
+
+:root {
+  /* ─── Color · Accents (shared across themes) ─────────── */
+  --blue: #3B82F6;
+  --blue-soft: #60A5FA;
+  --rose: #F43F5E;
+  --rose-soft: #FB7185;
+  --cyan: #06B6D4;
+
+  --gradient: linear-gradient(135deg, var(--blue) 0%, var(--rose) 100%);
+  --gradient-soft: linear-gradient(135deg, rgba(59,130,246,0.12) 0%, rgba(244,63,94,0.12) 100%);
+
+  /* ─── Typography ──────────────────────────────────────── */
+  --font-serif: var(--font-young-serif), 'Young Serif', Georgia, serif;
+  --font-sans: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
+
+  --fs-display-xl: clamp(40px, 6vw, 80px);
+  --fs-display-lg: clamp(32px, 5vw, 56px);
+  --fs-display-md: clamp(28px, 3.5vw, 40px);
+  --fs-body-xl: 20px;
+  --fs-body-lg: 17px;
+  --fs-body: 15px;
+  --fs-body-sm: 13px;
+  --fs-eyebrow: 11px;
+
+  --ls-display: -0.02em;
+  --ls-eyebrow: 0.12em;
+  --ls-caps: 0.08em;
+
+  --lh-display: 1.05;
+  --lh-heading: 1.15;
+  --lh-body: 1.55;
+
+  /* ─── Spacing scale ───────────────────────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* ─── Radius ──────────────────────────────────────────── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-full: 9999px;
+
+  /* ─── Motion ──────────────────────────────────────────── */
+  --duration-fast: 100ms;
+  --duration-base: 150ms;
+  --duration-slow: 300ms;
+  --duration-slower: 600ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ─── Layout ──────────────────────────────────────────── */
+  --container-max: 1240px;
+  --container-gutter: 40px;
+
+  /* ─── Z-index ─────────────────────────────────────────── */
+  --z-nav: 100;
+  --z-overlay: 200;
+  --z-modal: 300;
+
+  /* ============================================================
+     THEME · DEFAULT = DARK
+     Se aplica con `[data-theme="dark"]` o por defecto.
+     ============================================================ */
+  --bg: #0F0F10;
+  --bg-elev: #18181B;
+  --bg-block: #1F1F23;
+  --bg-hover: #26262A;
+
+  --ink: #F8FAFC;
+  --ink-soft: #C4C4CE;
+  --ink-mute: #7A7A82;
+
+  --line: #2A2A2D;
+  --line-strong: #3A3A3D;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6);
+
+  --blur-bg: rgba(24, 24, 27, 0.72);
+  --overlay: rgba(0, 0, 0, 0.6);
+}
+
+/* ─── Theme · Dark (explicit) ───────────────────────────── */
+[data-theme="dark"] {
+  --bg: #0F0F10;
+  --bg-elev: #18181B;
+  --bg-block: #1F1F23;
+  --bg-hover: #26262A;
+
+  --ink: #F8FAFC;
+  --ink-soft: #C4C4CE;
+  --ink-mute: #7A7A82;
+
+  --line: #2A2A2D;
+  --line-strong: #3A3A3D;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6);
+
+  --blur-bg: rgba(24, 24, 27, 0.72);
+  --overlay: rgba(0, 0, 0, 0.6);
+
+  color-scheme: dark;
+}
+
+/* ─── Theme · Light ─────────────────────────────────────── */
+[data-theme="light"] {
+  --bg: #FAFAF9;
+  --bg-elev: #FFFFFF;
+  --bg-block: #F4F4F5;
+  --bg-hover: #EBEBED;
+
+  --ink: #0F0F10;
+  --ink-soft: #52525B;
+  --ink-mute: #A1A1AA;
+
+  --line: #E4E4E7;
+  --line-strong: #D4D4D8;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.1);
+
+  --blur-bg: rgba(255, 255, 255, 0.78);
+  --overlay: rgba(0, 0, 0, 0.4);
+
+  color-scheme: light;
+}
+
+/* ─── Accessibility: motion ─────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+  }
+}

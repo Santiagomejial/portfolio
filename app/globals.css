@@ -1,0 +1,122 @@
+@import '../styles/tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   BASE
+   ============================================================ */
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background var(--duration-base) var(--ease-out),
+                color var(--duration-base) var(--ease-out);
+  }
+
+  ::selection {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img, svg, video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+}
+
+/* ============================================================
+   TIPOGRAFÍA — clases utilitarias basadas en tokens
+   ============================================================ */
+@layer components {
+  .display-xl {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: var(--fs-display-xl);
+    line-height: var(--lh-display);
+    letter-spacing: var(--ls-display);
+  }
+  .display-lg {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: var(--fs-display-lg);
+    line-height: var(--lh-display);
+    letter-spacing: var(--ls-display);
+  }
+  .display-md {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: var(--fs-display-md);
+    line-height: var(--lh-heading);
+    letter-spacing: var(--ls-display);
+  }
+
+  .eyebrow {
+    font-size: var(--fs-eyebrow);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--ls-eyebrow);
+    color: var(--ink-mute);
+  }
+
+  .text-gradient {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .container-portfolio {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-gutter);
+  }
+}
+
+/* ============================================================
+   UTILIDADES
+   ============================================================ */
+@layer utilities {
+  .transition-base {
+    transition-duration: var(--duration-base);
+    transition-timing-function: var(--ease-out);
+  }
+}

@@ -1,0 +1,19 @@
+/**
+ * Barrel export de todos los componentes del DS.
+ * Uso: import { PageHero, WorkCard, Footer } from '@/components';
+ */
+export { FloatingNav } from './floating-nav';
+export { Eyebrow } from './eyebrow';
+export { SectionHead } from './section-head';
+export { ChipRow } from './chip-row';
+export { PullQuote } from './pull-quote';
+export { PageHero } from './page-hero';
+export { CaseHero, type CaseMeta } from './case-hero';
+export { WorkCard } from './work-card';
+export { MetricCard } from './metric-card';
+export { CTABlock } from './cta-block';
+export { Footer } from './footer';
+export { Timeline, type TimelineItem } from './timeline';
+export { CaseSection } from './case-section';
+export { CaseNav } from './case-nav';
+export { CaseMedia, type CaseMediaItem } from './case-media';

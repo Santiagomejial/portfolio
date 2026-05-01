@@ -14,6 +14,7 @@ export { MetricCard } from './metric-card';
 export { CTABlock } from './cta-block';
 export { Footer } from './footer';
 export { Timeline, type TimelineItem } from './timeline';
+export { HighlightTitle } from './highlight-title';
 export { CaseSection } from './case-section';
 export { CaseNav } from './case-nav';
 export { CaseMedia, type CaseMediaItem } from './case-media';

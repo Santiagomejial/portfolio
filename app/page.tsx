@@ -1,16 +1,15 @@
 import {
-  Eyebrow,
   SectionHead,
   ChipRow,
   PullQuote,
   PageHero,
   WorkCard,
-  MetricCard,
   Footer,
   Timeline,
   HighlightTitle,
   type TimelineItem,
 } from '@/components';
+// Nota: si se reactiva la sección Snapshot, reimportar Eyebrow y MetricCard.
 import { HOME } from '@/content/home';
 
 /**
@@ -55,7 +54,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 02 · SNAPSHOT */}
+      {/* 02 · SNAPSHOT — oculta (2026-05-01): no aportaba al narrative del home.
+          El contenido sigue en HOME.snapshot por si se quiere reactivar.
+          Para mostrar de nuevo: descomentar el bloque <section> abajo.
+
       <section
         id="snapshot"
         className="container-portfolio border-t border-line py-20 md:py-28"
@@ -72,6 +74,7 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+      */}
 
       {/* PULL QUOTE */}
       <section className="container-portfolio border-t border-line py-20 md:py-28">

@@ -9,8 +9,10 @@ interface PullQuoteProps {
 }
 
 /**
- * Cita editorial grande en serif.
+ * Cita editorial centrada con comillas decorativas.
  * Usada entre secciones para respirar y marcar tono.
+ * El texto va contenido dentro de un wrapper centrado con max-width
+ * y comillas grandes en gradiente arriba como ancla visual.
  */
 export function PullQuote({ children, attribution, className, highlight }: PullQuoteProps) {
   const content =
@@ -21,14 +23,35 @@ export function PullQuote({ children, attribution, className, highlight }: PullQ
     );
 
   return (
-    <figure className={cn('max-w-4xl space-y-4', className)}>
-      <blockquote className="font-serif text-[clamp(24px,3.5vw,36px)] font-normal leading-[1.25] tracking-display text-ink">
+    <figure
+      className={cn(
+        'mx-auto flex max-w-3xl flex-col items-center text-center',
+        className
+      )}
+    >
+      {/* Comilla decorativa en gradiente */}
+      <span
+        aria-hidden
+        className="bg-brand-gradient bg-clip-text font-serif text-[64px] leading-none text-transparent md:text-[80px]"
+      >
+        “
+      </span>
+
+      <blockquote className="mt-2 font-serif text-[clamp(20px,2.4vw,28px)] font-normal leading-[1.35] tracking-display text-ink">
         {content}
       </blockquote>
+
       {attribution && (
-        <figcaption className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-          — {attribution}
-        </figcaption>
+        <>
+          {/* Divisor sutil con gradiente */}
+          <span
+            aria-hidden
+            className="mt-8 h-px w-12 bg-brand-gradient opacity-60"
+          />
+          <figcaption className="mt-4 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
+            {attribution}
+          </figcaption>
+        </>
       )}
     </figure>
   );

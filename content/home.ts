@@ -26,7 +26,7 @@ export const HOME = {
       highlight: 'del concepto a la realidad',
       post: ', pasando por diseño y estrategia de producto Digital.',
     } satisfies HighlightTitle,
-    sub: 'Santiago Mejía, diseñador industrial de profesión especializado en UX/UI y con experiencia como dueño de producto de la App Homecenter y Constructor, líder en Colombia de retail en el mejoramiento del hogar y la construcción.',
+    sub: 'Santiago Mejía, diseñador industrial de profesión y especializado en UX/UI y con experiencia como dueño de producto de la App Homecenter y Constructor, retail líder en el mejoramiento del hogar y la construcción en Colombia.',
     chips: [
       'BA/PO para Homecenter Sodimac Co',
       'Diseñador UX/UI',

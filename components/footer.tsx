@@ -36,7 +36,7 @@ const YEAR = new Date().getFullYear();
  */
 export function Footer({ className }: FooterProps) {
   return (
-    <footer className={cn('relative pb-10 pt-20 md:pt-28', className)}>
+    <footer className={cn('relative pb-8 pt-12 md:pt-14', className)}>
       {/* Línea superior con gradiente — cose el footer con el resto del sitio */}
       <span
         className="absolute inset-x-0 top-0 h-px bg-brand-gradient"
@@ -45,7 +45,7 @@ export function Footer({ className }: FooterProps) {
 
       <div className="container-portfolio">
         {/* Marca */}
-        <h2 className="font-serif text-[clamp(36px,5.5vw,64px)] leading-[1.05] tracking-display text-ink">
+        <h2 className="font-serif text-[clamp(24px,3vw,36px)] leading-[1.05] tracking-display text-ink">
           <span>Santiago</span>{' '}
           <span className="bg-brand-gradient bg-clip-text text-transparent">
             Mejía
@@ -54,58 +54,61 @@ export function Footer({ className }: FooterProps) {
           <span className="text-blue">.</span>
         </h2>
 
-        <p className="mt-4 max-w-xl text-body-lg text-ink-soft">
+        <p className="mt-2 max-w-xl text-body text-ink-soft">
           Diseño y producto digital · Bogotá, CO
         </p>
 
-        {/* Contacto */}
-        <div className="mt-14 md:mt-20">
-          <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-            Contacto
+        {/* Contacto + Redes en grid horizontal en desktop */}
+        <div className="mt-10 grid gap-8 md:grid-cols-2 md:gap-12">
+          {/* Contacto */}
+          <div>
+            <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
+              Contacto
+            </div>
+            <a
+              href={`mailto:${EMAIL}`}
+              className={cn(
+                'mt-2 inline-block font-serif text-[clamp(16px,1.6vw,20px)] leading-tight tracking-display text-ink',
+                'transition-base',
+                'hover:bg-brand-gradient hover:bg-clip-text hover:text-transparent'
+              )}
+            >
+              {EMAIL}
+            </a>
           </div>
-          <a
-            href={`mailto:${EMAIL}`}
-            className={cn(
-              'mt-3 inline-block font-serif text-[clamp(22px,2.6vw,32px)] leading-tight tracking-display text-ink',
-              'transition-base',
-              'hover:bg-brand-gradient hover:bg-clip-text hover:text-transparent'
-            )}
-          >
-            {EMAIL}
-          </a>
-        </div>
 
-        {/* En la web — iconos sociales */}
-        <div className="mt-12 md:mt-16">
-          <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-            En la web
+          {/* En la web — iconos sociales */}
+          <div>
+            <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
+              En la web
+            </div>
+            <ul className="mt-2 flex items-center gap-2.5">
+              {SOCIAL_LINKS.map(({ label, href, hoverColor, Icon }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target={href.startsWith('mailto:') ? undefined : '_blank'}
+                    rel={
+                      href.startsWith('mailto:') ? undefined : 'noreferrer noopener'
+                    }
+                    aria-label={label}
+                    className={cn(
+                      'flex h-9 w-9 items-center justify-center rounded-full',
+                      'border border-line text-ink-soft',
+                      'transition-base hover:border-current',
+                      hoverColor
+                    )}
+                  >
+                    <Icon />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="mt-4 flex items-center gap-3">
-            {SOCIAL_LINKS.map(({ label, href, hoverColor, Icon }) => (
-              <li key={label}>
-                <a
-                  href={href}
-                  target={href.startsWith('mailto:') ? undefined : '_blank'}
-                  rel={
-                    href.startsWith('mailto:') ? undefined : 'noreferrer noopener'
-                  }
-                  aria-label={label}
-                  className={cn(
-                    'flex h-11 w-11 items-center justify-center rounded-full',
-                    'border border-line text-ink-soft',
-                    'transition-base hover:border-current',
-                    hoverColor
-                  )}
-                >
-                  <Icon />
-                </a>
-              </li>
-            ))}
-          </ul>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-20 flex flex-col items-start justify-between gap-3 border-t border-line pt-6 text-body-sm text-ink-mute md:flex-row md:items-center">
+        <div className="mt-10 flex flex-col items-start justify-between gap-2 border-t border-line pt-5 text-body-sm text-ink-mute md:flex-row md:items-center">
           <div>© {YEAR} Santiago Mejía L. · Bogotá, Colombia</div>
           <div>
             <Link href="/" className="transition-base hover:text-ink">
@@ -123,8 +126,8 @@ export function Footer({ className }: FooterProps) {
 function LinkedInIcon() {
   return (
     <svg
-      width="18"
-      height="18"
+      width="15"
+      height="15"
       viewBox="0 0 24 24"
       fill="currentColor"
       aria-hidden
@@ -137,8 +140,8 @@ function LinkedInIcon() {
 function BehanceIcon() {
   return (
     <svg
-      width="20"
-      height="20"
+      width="17"
+      height="17"
       viewBox="0 0 24 24"
       fill="currentColor"
       aria-hidden
@@ -151,8 +154,8 @@ function BehanceIcon() {
 function MailIcon() {
   return (
     <svg
-      width="18"
-      height="18"
+      width="15"
+      height="15"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

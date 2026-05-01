@@ -60,7 +60,7 @@ export default function HomePage() {
         className="container-portfolio border-t border-line py-20 md:py-28"
       >
         <Eyebrow className="mb-10">{HOME.snapshot.label}</Eyebrow>
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+        <div className="grid grid-cols-3 gap-6 md:gap-8">
           {HOME.snapshot.metrics.map((m) => (
             <MetricCard
               key={m.label}

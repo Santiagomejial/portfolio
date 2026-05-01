@@ -97,20 +97,19 @@ export const HOME = {
 
   // ─── 02 · SNAPSHOT ────────────────────────────────────
   snapshot: {
-    label: '02 · Snapshot',
+    label: 'Vistazo general',
     metrics: [
-      { label: 'Años en retail digital', value: '4+' },
-      { label: 'Personas lideradas', value: '11', unit: 'ppl' },
-      { label: 'Cases documentados', value: '6' },
-      { label: 'Roles en el ciclo', value: '3', unit: 'UX → Lead → PO' },
+      { label: 'Asesor en Innovación', value: '2', unit: 'años' },
+      { label: 'UX/UI', value: '+5', unit: 'años' },
+      { label: 'BA/PO', value: '2', unit: 'años' },
     ] satisfies MetricContent[],
   },
 
   // ─── PULL QUOTE ───────────────────────────────────────
   quote: {
-    body: 'Diseñar algo y después ser el dueño de su evolución cambia tu forma de pensar producto para siempre.',
-    highlight: 'cambia tu forma de pensar',
-    attribution: '— Tesis personal · case study App Homecenter',
+    body: 'Desde la estrategia, conceptualización, investigación hasta el diseño, investigación y puesta en marcha de productos digitales.',
+    highlight: 'puesta en marcha de productos digitales',
+    attribution: '— Pensamiento de diseño aplicado en todas las fases de un proyecto.',
   },
 
   // ─── 03 · TIMELINE ────────────────────────────────────

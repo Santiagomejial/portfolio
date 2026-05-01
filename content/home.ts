@@ -114,45 +114,55 @@ export const HOME = {
 
   // ─── 03 · TIMELINE ────────────────────────────────────
   timeline: {
-    label: '03 · Trayectoria',
-    title: 'Un arco lineal: del diseño al producto.',
+    label: '03 · Trayectoria Profesional',
+    title: {
+      pre: 'Mi ',
+      highlight: 'experiencia profesional',
+      post: ', desde mis primeros pasos hasta la actualidad.',
+    } satisfies HighlightTitle,
     items: [
       {
-        year: '2021',
-        title: 'Proyectos fundacionales',
+        year: 'Ene 2019 → 2022',
+        title: 'Diseñador UX/UI Freelance',
         description:
-          'DartStation y LeClop. Primera inmersión en UX/UI aplicado — del background de Diseño Industrial al producto digital.',
+          'Diseño web end-to-end, desde la conceptualización hasta la entrega final. Clientes: DartStation, Valssa Shop, TNR Life, Frosch, entre otros.',
       },
       {
-        year: '2022',
-        title: 'UX Lead retail · Sodimac',
+        year: 'Ene 2019 → Feb 2020',
+        title: 'Co-founder & Jefe de Diseño · LeClop SAS',
         description:
-          'Kioscos Digitales y Asistentes de Compra. Diseño de experiencias híbridas tienda–digital para el retail de mejoramiento del hogar más grande del país.',
+          'Diseño gráfico y UX/UI para la marca de eventos con presencia en Bogotá D.C. y Manizales. Construcción de identidad y experiencia digital desde cero.',
       },
       {
-        year: '2024',
-        title: 'Store in Store',
+        year: 'Jul 2021 → Sep 2022',
+        title: 'Asesor en Innovación · Fisheye SA',
         description:
-          'Petcenter, Carcenter y Constructor. Sistema multi-marca que convive dentro de un mismo ecosistema digital.',
+          'Acompañamiento a empresas de múltiples sectores en procesos de innovación. Participación en Innovalab de la Cámara de Comercio de Bogotá.',
       },
       {
-        year: 'Sep 2024',
-        title: 'UX Lead · App Homecenter',
+        year: 'Sep 2022 → Nov 2023',
+        title: 'Diseñador UX/UI Senior · Homecenter Sodimac',
         description:
-          'A cargo de un equipo de 5 diseñadores. Rediseño integral de la experiencia end-to-end de la app.',
+          'Responsable del diseño y evolución de Pantallas Digitales en Tienda, Asistentes de Compra y Store in Store. Primer contacto con productos digitales a escala retail.',
       },
       {
-        year: 'Abr 2025',
-        title: 'Release Flutter',
+        year: 'Nov 2023 → Jul 2024',
+        title: 'Líder de Diseño UX/UI · App Homecenter y Constructor',
         description:
-          'Migración completa a Flutter con la experiencia rediseñada. Hito técnico y de producto para el equipo.',
+          'A cargo de un equipo de 5 diseñadores. Investigación, conceptualización y rediseño integral de la experiencia end-to-end de la app.',
+      },
+      {
+        year: 'Jul 2024 → Jun 2025',
+        title: 'BA / Product Owner · App Homecenter y Constructor',
+        description:
+          'Transición al rol de PO del producto que venía liderando como diseñador. Foco en cerrar el rediseño, definir el backlog y preparar el lanzamiento de la nueva app.',
+      },
+      {
+        year: 'Jun 2025 → actual',
+        title: 'BA / Product Owner · App Homecenter y Constructor',
+        description:
+          'Lanzamiento de la nueva App, completamente rediseñada y sobre una nueva base técnica. Hoy encargado de su backlog, evolución y mantenimiento.',
         milestone: true,
-      },
-      {
-        year: 'Jul 2025',
-        title: 'BA / Product Owner',
-        description:
-          'Transición a PO del producto que diseñé. Lidero un equipo de 6 y la evolución del backlog con foco en KPIs de retail.',
       },
     ] satisfies TimelineItemContent[],
   },

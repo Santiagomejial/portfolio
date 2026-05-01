@@ -89,7 +89,7 @@ export default function HomePage() {
       >
         <SectionHead
           label={HOME.timeline.label}
-          title={HOME.timeline.title}
+          title={<HighlightTitle {...HOME.timeline.title} />}
           className="mb-12"
         />
         <Timeline items={HOME.timeline.items as TimelineItem[]} />

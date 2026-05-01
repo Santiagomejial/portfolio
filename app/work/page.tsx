@@ -3,7 +3,6 @@ import {
   ChipRow,
   PageHero,
   WorkCard,
-  CTABlock,
   Footer,
 } from '@/components';
 
@@ -128,17 +127,6 @@ export default function WorkPage() {
           />
         </div>
       </section>
-
-      {/* CTA */}
-      <CTABlock
-        title={
-          <>
-            ¿Te interesa un case{' '}
-            <span className="text-gradient">en particular</span>?
-          </>
-        }
-        sub="Puedo profundizar en cualquiera de los seis — decisiones, trade-offs, aprendizajes — en una conversación 1:1."
-      />
 
       <Footer />
     </>

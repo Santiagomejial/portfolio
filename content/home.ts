@@ -168,12 +168,6 @@ export const HOME = {
   },
 
   // ─── CTA ──────────────────────────────────────────────
-  cta: {
-    title: {
-      pre: '¿Construimos algo ',
-      highlight: 'juntos',
-      post: '?',
-    } satisfies HighlightTitle,
-    sub: 'Abierto a conversar sobre roles senior híbridos Product Owner + Product Designer. Remoto o en Colombia.',
-  },
+  // Eliminado: el cierre de la página ahora vive en <Footer />, que absorbió
+  // el rol de llamada a contacto en estilo manifiesto.
 } as const;

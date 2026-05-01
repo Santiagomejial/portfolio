@@ -4,7 +4,6 @@ import {
   ChipRow,
   PageHero,
   CaseSection,
-  CTABlock,
   Footer,
   Timeline,
   type TimelineItem,
@@ -230,16 +229,6 @@ export default function AboutPage() {
           el motor de todo lo demás.
         </p>
       </CaseSection>
-
-      {/* CTA */}
-      <CTABlock
-        title={
-          <>
-            ¿Conversamos <span className="text-gradient">sobre producto</span>?
-          </>
-        }
-        sub="Abierto a roles senior híbridos PO + Product Designer, mentorías o charlas sobre el arco designer → PO."
-      />
 
       <Footer />
     </>

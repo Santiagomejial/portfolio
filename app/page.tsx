@@ -6,7 +6,6 @@ import {
   PageHero,
   WorkCard,
   MetricCard,
-  CTABlock,
   Footer,
   Timeline,
   HighlightTitle,
@@ -95,13 +94,7 @@ export default function HomePage() {
         <Timeline items={HOME.timeline.items as TimelineItem[]} />
       </section>
 
-      {/* CTA */}
-      <CTABlock
-        title={<HighlightTitle {...HOME.cta.title} />}
-        sub={HOME.cta.sub}
-      />
-
-      {/* Footer */}
+      {/* Footer (zona de cierre única — absorbió el rol del antiguo CTA) */}
       <Footer />
     </>
   );

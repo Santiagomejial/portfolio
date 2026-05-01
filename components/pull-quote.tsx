@@ -4,8 +4,8 @@ interface PullQuoteProps {
   children: React.ReactNode;
   attribution?: string;
   className?: string;
-  /** Si se provee, esa palabra/frase dentro del quote se resalta con gradiente */
-  highlight?: string;
+  /** Si se provee, esa(s) palabra(s)/frase(s) dentro del quote se resalta(n) con gradiente */
+  highlight?: string | readonly string[];
 }
 
 /**
@@ -15,7 +15,7 @@ interface PullQuoteProps {
 export function PullQuote({ children, attribution, className, highlight }: PullQuoteProps) {
   const content =
     highlight && typeof children === 'string' ? (
-      renderHighlight(children, highlight)
+      renderHighlight(children, Array.isArray(highlight) ? highlight : [highlight])
     ) : (
       children
     );
@@ -34,10 +34,14 @@ export function PullQuote({ children, attribution, className, highlight }: PullQ
   );
 }
 
-function renderHighlight(text: string, highlight: string) {
-  const parts = text.split(new RegExp(`(${escapeRegex(highlight)})`, 'i'));
+function renderHighlight(text: string, highlights: readonly string[]) {
+  const cleaned = highlights.filter((h) => h.length > 0);
+  if (cleaned.length === 0) return text;
+  const pattern = new RegExp(`(${cleaned.map(escapeRegex).join('|')})`, 'gi');
+  const parts = text.split(pattern);
+  const lowerSet = new Set(cleaned.map((h) => h.toLowerCase()));
   return parts.map((part, i) =>
-    part.toLowerCase() === highlight.toLowerCase() ? (
+    lowerSet.has(part.toLowerCase()) ? (
       <span key={i} className="bg-brand-gradient bg-clip-text text-transparent">
         {part}
       </span>

@@ -107,9 +107,9 @@ export const HOME = {
 
   // ─── PULL QUOTE ───────────────────────────────────────
   quote: {
-    body: 'Desde la estrategia, conceptualización, investigación hasta el diseño, investigación y puesta en marcha de productos digitales.',
-    highlight: 'puesta en marcha de productos digitales',
-    attribution: '— Pensamiento de diseño aplicado en todas las fases de un proyecto.',
+    body: 'Desde la estrategia y conceptualización hasta la investigación, el diseño y la puesta en marcha de productos digitales.',
+    highlight: ['investigación, el diseño', 'productos digitales'],
+    attribution: 'Pensamiento de diseño aplicado en todas las fases de un proyecto.',
   },
 
   // ─── 03 · TIMELINE ────────────────────────────────────

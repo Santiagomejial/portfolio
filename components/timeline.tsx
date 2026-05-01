@@ -35,19 +35,26 @@ export function Timeline({ items, className }: TimelineProps) {
           <div className="flex items-center gap-3">
             <span
               className={cn(
-                'relative z-10 h-2.5 w-2.5 shrink-0 rounded-full border-2',
-                item.milestone
-                  ? 'border-transparent bg-brand-gradient'
-                  : 'border-blue bg-bg'
+                'relative z-10 shrink-0 rounded-full bg-brand-gradient',
+                item.milestone ? 'h-3 w-3 ring-2 ring-blue/15' : 'h-2.5 w-2.5'
               )}
               aria-hidden
             />
-            <span className="font-serif text-[20px] leading-none text-blue">
+            <span className="font-serif text-[17px] leading-none text-ink">
               {item.year}
             </span>
           </div>
           <div className="space-y-1.5">
-            <p className="text-body font-semibold text-ink">{item.title}</p>
+            <p
+              className={cn(
+                'text-body font-semibold',
+                item.milestone
+                  ? 'bg-brand-gradient bg-clip-text text-transparent'
+                  : 'text-ink'
+              )}
+            >
+              {item.title}
+            </p>
             <p className="text-body-sm text-ink-soft">{item.description}</p>
           </div>
         </li>

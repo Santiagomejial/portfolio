@@ -24,6 +24,10 @@ export interface WorkCardContent {
   featured?: boolean;
   /** Ancho en columnas del grid de 12 */
   span?: 6 | 12;
+  /** Ruta de la imagen en /public (ej. "/work/homecenter.jpg") */
+  image?: string;
+  /** Alt text de la imagen (descripción para accesibilidad y SEO) */
+  imageAlt?: string;
 }
 
 /** Métrica del snapshot */

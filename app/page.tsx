@@ -48,6 +48,8 @@ export default function HomePage() {
               meta={card.meta}
               title={card.title}
               description={card.description}
+              image={card.image}
+              imageAlt={card.imageAlt}
             />
           ))}
         </div>

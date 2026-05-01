@@ -51,6 +51,9 @@ export const HOME = {
         title: 'App Homecenter y Constructor',
         description:
           'Del diseño al manejo del producto. Rediseño completo y estructurado, nueva construcción front y su evolución e iteración como PO.',
+        image: '/work/homecenter.jpg',
+        imageAlt:
+          'App Homecenter y Constructor — pantallas rediseñadas en Flutter.',
       },
       {
         href: '/work/kioscos-digitales',
@@ -59,6 +62,9 @@ export const HOME = {
         title: 'Pantallas digitales en tienda',
         description:
           'Evolución UX del canal de venta digital en las tiendas Homecenter y Constructor.',
+        image: '/work/pantallas-tienda.jpg',
+        imageAlt:
+          'Pantallas digitales de venta dentro de las tiendas Homecenter y Constructor.',
       },
       {
         href: '/work/store-in-store',
@@ -67,6 +73,9 @@ export const HOME = {
         title: 'Store in Store Web',
         description:
           'Conceptualización, ideación y construcción multimarca bajo experiencia Web de Homecenter y Constructor.',
+        image: '/work/store-in-store.jpg',
+        imageAlt:
+          'Store in Store — sistema multimarca dentro del ecosistema digital de Homecenter.',
       },
       {
         href: '/work/asistentes-compra',
@@ -75,6 +84,9 @@ export const HOME = {
         title: 'Asistentes de compra digital',
         description:
           'Creación de flujos de asistencia a compras de productos complejos o proyectos de hogar y construcción.',
+        image: '/work/asistentes-compra.jpg',
+        imageAlt:
+          'Asistentes de compra digital — flujos de acompañamiento para proyectos complejos.',
       },
       {
         href: '/work/dartstation',
@@ -83,6 +95,9 @@ export const HOME = {
         title: 'Asesor en innovación',
         description:
           'Desarrollo para empresas y gestores en Bogotá D.C.',
+        image: '/work/asesor-innovacion.jpg',
+        imageAlt:
+          'Asesoría en innovación para empresas — Fisheye SA, Bogotá.',
       },
       {
         href: '/work/leclop',
@@ -91,6 +106,9 @@ export const HOME = {
         title: 'Empresa de eventos en Bogotá y Manizales, Col.',
         description:
           'Jefe de diseño y co fundador de empresa de eventos.',
+        image: '/work/leclop.jpg',
+        imageAlt:
+          'LeClop — identidad y experiencia digital de la marca de eventos.',
       },
     ] satisfies WorkCardContent[],
   },

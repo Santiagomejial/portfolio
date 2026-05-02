@@ -52,7 +52,31 @@ export default function HomecenterCase() {
         />
       )}
 
-      {sections.map((section) => (
+      {/* 01 + 02 lado a lado en grid de 2 columnas */}
+      <section className="border-t border-line py-12 md:py-16">
+        <div className="container-portfolio grid gap-10 md:grid-cols-2 md:gap-12">
+          {sections.slice(0, 2).map((section) => (
+            <CompactSection key={section.number} section={section} />
+          ))}
+        </div>
+      </section>
+
+      {/* Trio de imágenes (movido desde el mediaAfter de la sección 03) */}
+      {sections[2].mediaAfter && (
+        <CaseMedia
+          layout={sections[2].mediaAfter.layout}
+          items={sections[2].mediaAfter.items}
+          caption={sections[2].mediaAfter.caption}
+        />
+      )}
+
+      {/* 03 Proceso (full width, sin su mediaAfter porque ya lo renderizamos arriba) */}
+      <SectionWithExtras
+        section={{ ...sections[2], mediaAfter: undefined }}
+      />
+
+      {/* 04 → 07 con extras normales */}
+      {sections.slice(3).map((section) => (
         <SectionWithExtras key={section.number} section={section} />
       ))}
 
@@ -98,6 +122,24 @@ function SectionWithExtras({ section }: { section: CaseSectionContent }) {
         </section>
       )}
     </>
+  );
+}
+
+/**
+ * Versión compacta de CaseSection — sin la grid interna 3+9.
+ * Se usa cuando hay 2 secciones lado a lado en un grid externo de 2 columnas.
+ */
+function CompactSection({ section }: { section: CaseSectionContent }) {
+  return (
+    <div>
+      <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
+        {section.number} · {section.label}
+      </div>
+      <h2 className="display-md mb-5 mt-3 text-ink">
+        {renderTitle(section.title)}
+      </h2>
+      <div className="space-y-4 text-body text-ink-soft">{section.body}</div>
+    </div>
   );
 }
 

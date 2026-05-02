@@ -91,8 +91,8 @@ export const CASE_HOMECENTER: CaseContent = {
         <p key="3">
           <strong>Deuda de plataforma.</strong> El stack native antiguo
           limitaba velocidad de entrega y paridad iOS/Android. La migración a
-          Flutter era la oportunidad para corregir experiencia al mismo tiempo
-          que plataforma.
+          una nueva tecnología era la oportunidad para corregir experiencia al
+          mismo tiempo que plataforma.
         </p>,
       ],
     },
@@ -114,11 +114,11 @@ export const CASE_HOMECENTER: CaseContent = {
           conectarse a una hipótesis de negocio.
         </p>,
         <p key="3">
-          Trabajamos en paralelo con el equipo de Flutter: el diseño se
-          construía sobre los componentes que ingeniería podía entregar sin
-          comprometer timelines, y cada decisión se validaba contra
-          performance real en dispositivos de gama media-baja — el segmento
-          mayoritario en Colombia.
+          Trabajamos en paralelo con el equipo técnico: el diseño se construía
+          sobre los componentes que ingeniería podía entregar sin comprometer
+          timelines, y cada decisión se validaba contra performance real en
+          dispositivos de gama media-baja — el segmento mayoritario en
+          Colombia.
         </p>,
       ],
       mediaAfter: {
@@ -168,13 +168,13 @@ export const CASE_HOMECENTER: CaseContent = {
     {
       number: '05',
       label: 'Solución',
-      title: 'Una app rediseñada end-to-end sobre Flutter.',
+      title: 'Una app rediseñada end-to-end sobre una nueva tecnología.',
       body: [
         <p key="1">
-          El release de Abril de 2025 entregó la app completa migrada a
-          Flutter con la experiencia rediseñada. Paridad total iOS/Android, un
-          solo design system, checkout consolidado, PDP y carrito nuevos,
-          búsqueda y navegación reorganizadas.
+          El release de Abril de 2025 entregó la app completa migrada a una
+          nueva tecnología con la experiencia rediseñada. Paridad total
+          iOS/Android, un solo design system, checkout consolidado, PDP y
+          carrito nuevos, búsqueda y navegación reorganizadas.
         </p>,
         <p key="2">
           Más allá del output visual, el proyecto dejó un sistema: tokens,

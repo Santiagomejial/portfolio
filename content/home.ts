@@ -53,7 +53,7 @@ export const HOME = {
           'Del diseño al manejo del producto. Rediseño completo y estructurado, nueva construcción front y su evolución e iteración como PO.',
         image: '/work/homecenter.jpg',
         imageAlt:
-          'App Homecenter y Constructor — pantallas rediseñadas en Flutter.',
+          'App Homecenter y Constructor — pantallas rediseñadas con nueva tecnología.',
       },
       {
         href: '/work/kioscos-digitales',

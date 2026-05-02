@@ -103,12 +103,11 @@ export default function WorkPage() {
         className="container-portfolio border-t border-line py-20 md:py-28"
       >
         <SectionHead
-          label="Capítulo 02 · Fundacionales 2019"
+          label="Capítulo 02 · Fundacionales"
           title={
             <>
-              Los proyectos donde aterricé el{' '}
-              <span className="text-gradient">método industrial</span> al
-              producto digital.
+              <span className="text-gradient">Primeros pasos</span> y
+              recopilación de otros proyectos…
             </>
           }
           className="mb-12"

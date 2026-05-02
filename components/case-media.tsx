@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 export interface CaseMediaItem {
@@ -5,13 +6,15 @@ export interface CaseMediaItem {
   alt: string;
   /** Aspect ratio opcional (ej. '16/9', '4/3', '1/1'). */
   aspect?: string;
+  /** Ruta de la imagen (ej. '/work/homecenter/hero.jpg'). Si se omite, se pinta placeholder. */
+  src?: string;
 }
 
 interface CaseMediaProps {
   /** Layout del bloque de recursos gráficos. */
   layout?: 'full' | 'wide' | 'duo' | 'trio';
   /** Items (máx 1 para full/wide, 2 para duo, 3 para trio). */
-  items: CaseMediaItem[];
+  items: readonly CaseMediaItem[];
   /** Caption editorial opcional debajo del bloque. */
   caption?: string;
   className?: string;
@@ -21,8 +24,8 @@ interface CaseMediaProps {
  * CaseMedia — slot para recursos gráficos dentro de un case study.
  * Se intercala entre CaseSection blocks para enriquecer la narrativa.
  *
- * Los placeholders se reemplazan en Claude Design con <img>, <video>,
- * Figma embeds, gif frames, o cualquier otro asset visual.
+ * Si el item tiene `src`, se renderiza como <Image> de Next.
+ * Si no, se renderiza un placeholder con el alt como texto guía.
  */
 export function CaseMedia({
   layout = 'full',
@@ -44,6 +47,14 @@ export function CaseMedia({
     trio: '4/3',
   }[layout];
 
+  // Heurística de sizes para cada layout (ayuda a Next/Image a elegir tamaño correcto)
+  const sizesFor = (lyt: typeof layout) =>
+    lyt === 'duo'
+      ? '(min-width: 768px) 50vw, 100vw'
+      : lyt === 'trio'
+        ? '(min-width: 768px) 33vw, 100vw'
+        : '100vw';
+
   return (
     <section
       className={cn(
@@ -56,14 +67,24 @@ export function CaseMedia({
         {items.map((item, i) => (
           <div
             key={i}
-            className="overflow-hidden rounded-lg border border-line bg-bg-block"
+            className="relative overflow-hidden rounded-lg border border-line bg-bg-block"
             style={{ aspectRatio: item.aspect ?? defaultAspect }}
             role="img"
             aria-label={item.alt}
           >
-            <div className="flex h-full items-center justify-center px-4 text-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
-              [ {item.alt} ]
-            </div>
+            {item.src ? (
+              <Image
+                src={item.src}
+                alt={item.alt}
+                fill
+                className="object-cover"
+                sizes={sizesFor(layout)}
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center px-4 text-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
+                [ {item.alt} ]
+              </div>
+            )}
           </div>
         ))}
       </div>

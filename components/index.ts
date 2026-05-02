@@ -26,3 +26,4 @@ export { DownloadAppButtons } from './download-app-buttons';
 export { ScrollProgressBar } from './scroll-progress-bar';
 export { BackToTopButton } from './back-to-top-button';
 export { FloatingBackButton } from './floating-back-button';
+export { ProcessHighlightCard } from './process-highlight-card';

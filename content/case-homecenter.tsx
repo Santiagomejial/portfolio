@@ -16,7 +16,10 @@ export const CASE_HOMECENTER: CaseContent = {
   hero: {
     breadcrumb: { label: 'Volver', fallbackHref: '/work' },
     caseCounter: 'Caso 01',
-    title: 'App Homecenter',
+    title: {
+      pre: 'App ',
+      highlight: 'Homecenter',
+    },
     sub: 'Lideré el rediseño integral de la app del retail de mejoramiento del hogar más grande de Colombia, pasé a ser Product Owner y su lanzamiento, y ahora su evolución.',
     meta: [
       { label: 'Rol', value: 'UX Lead → Product Owner' },

@@ -23,3 +23,6 @@ export { FoundationalCardsWithCarousel } from './foundational-with-carousel';
 export { ViewAllLink } from './view-all-link';
 export { BackButton } from './back-button';
 export { DownloadAppButtons } from './download-app-buttons';
+export { ScrollProgressBar } from './scroll-progress-bar';
+export { BackToTopButton } from './back-to-top-button';
+export { FloatingBackButton } from './floating-back-button';

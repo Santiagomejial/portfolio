@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import { Eyebrow } from './eyebrow';
 import { BackButton } from './back-button';
+import { FloatingBackButton } from './floating-back-button';
 
 export interface CaseMeta {
   label: string;
@@ -36,6 +37,12 @@ export function CaseHero({
 
   return (
     <section className={cn('pt-28 md:pt-32', className)}>
+      {breadcrumb && (
+        <FloatingBackButton
+          fallbackHref={breadcrumb.fallbackHref}
+          label={breadcrumb.label}
+        />
+      )}
       <div className="container-portfolio">
         {breadcrumb && (
           <nav className="py-5 text-body-sm text-ink-mute">

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter, Young_Serif } from 'next/font/google';
 import { FloatingNav } from '@/components/floating-nav';
+import { ScrollProgressBar } from '@/components/scroll-progress-bar';
+import { BackToTopButton } from '@/components/back-to-top-button';
 import './globals.css';
 
 const inter = Inter({
@@ -62,8 +64,10 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
+        <ScrollProgressBar />
         <FloatingNav />
         <main>{children}</main>
+        <BackToTopButton />
       </body>
     </html>
   );

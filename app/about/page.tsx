@@ -7,8 +7,10 @@ import {
   CaseSection,
   Footer,
   Timeline,
+  HighlightTitle,
   type TimelineItem,
 } from '@/components';
+import { HOME } from '@/content/home';
 
 /**
  * ABOUT — /about
@@ -16,45 +18,8 @@ import {
  * Copy final y foto portrait los reemplaza Santiago en la fase Claude Design.
  */
 
-const TIMELINE: TimelineItem[] = [
-  {
-    year: '2016 — 2020',
-    title: 'Diseño Industrial · Pontificia Universidad Javeriana',
-    description:
-      'Formación en producto físico, ergonomía, materiales y procesos. La base para pensar el producto digital desde objeto, uso y contexto.',
-  },
-  {
-    year: '2021',
-    title: 'Transición al producto digital',
-    description:
-      'DartStation y LeClop. Primeros proyectos UX/UI aplicando el método de producto industrial a interfaces.',
-  },
-  {
-    year: '2022 — 2024',
-    title: 'UX Lead retail · Sodimac',
-    description:
-      'Kioscos Digitales, Asistentes de Compra y Store in Store. Diseño de experiencias híbridas tienda–digital.',
-  },
-  {
-    year: 'Sep 2024',
-    title: 'UX Lead App Homecenter',
-    description:
-      'A cargo de un equipo de 5 diseñadores. Rediseño integral de la app de retail más grande de Colombia.',
-  },
-  {
-    year: 'Abr 2025',
-    title: 'Release Flutter',
-    description:
-      'Migración completa a Flutter con la experiencia rediseñada. Cierre del ciclo de diseño.',
-    milestone: true,
-  },
-  {
-    year: 'Jul 2025 — hoy',
-    title: 'BA / Product Owner',
-    description:
-      'Paso al rol de dueño del producto que diseñé. Lidero un equipo de 6 y la evolución del backlog.',
-  },
-];
+const RESUMEN_TEXT =
+  'Product Owner y diseñador UX / UI con más de cuatro años impulsando transformación digital en retail y servicios. Diseñé y lideré el lanzamiento de la App Homecenter — canal móvil de la empresa líder en mejoramiento del hogar en Colombia. Esta doble perspectiva diseñador → PO me permite materializar productos que responden al usuario y al negocio simultáneamente, traduciendo necesidades complejas en soluciones rentables. Mi rol actual lidera la estrategia del canal digital con impacto directo en ventas y conversión.';
 
 export default function AboutPage() {
   return (
@@ -106,68 +71,28 @@ export default function AboutPage() {
         />
       </PageHero>
 
-      {/* 01 — ORIGEN */}
-      <CaseSection
-        number="01"
-        label="Origen"
-        title="Del objeto físico al producto digital."
+      {/* 01 — RESUMEN */}
+      <section
+        id="resumen"
+        className="border-t border-line py-12 md:py-16"
       >
-        <p>
-          Estudié Diseño Industrial en la Pontificia Universidad Javeriana. Ahí
-          aprendí a pensar el producto desde el objeto, el uso y el contexto —
-          no solo desde la pantalla. Entendí que un buen diseño empieza mucho
-          antes del pixel: en cómo la gente se relaciona con lo que usa.
-        </p>
-        <p>
-          Esa manera de pensar me acompañó cuando hice la transición al
-          producto digital. Trato cada feature como si fuera un objeto físico:
-          con un propósito claro, materiales, tolerancias y una forma que debe
-          resolver un problema real antes que verse bien.
-        </p>
-      </CaseSection>
-
-      {/* 02 — FORMA DE TRABAJAR */}
-      <CaseSection
-        number="02"
-        label="Forma de trabajar"
-        title="Cómo abordo un problema de producto."
-        chapterBreak
-      >
-        <p>
-          Prefiero empezar por el problema antes que por la solución. Entiendo
-          el negocio, hablo con el usuario, mapeo el flujo, y solo entonces
-          abro Figma. En retail esto importa especialmente: un cambio en la PDP
-          o en el checkout se traduce directamente en pesos.
-        </p>
-        <p>
-          Como PO priorizo por impacto real sobre KPIs, no por volumen de
-          requerimientos. Como designer defiendo el porqué de cada decisión
-          hasta que pueda defenderlo solo con el diseño. Ambas disciplinas se
-          alimentan: diseñar me hace mejor PO, y ser PO me vuelve más
-          disciplinado como designer.
-        </p>
-      </CaseSection>
-
-      {/* 03 — POR QUÉ ESTE ARCO */}
-      <CaseSection
-        number="03"
-        label="Hipótesis"
-        title="Por qué este arco diseño → PO es un diferencial."
-      >
-        <p>
-          La mayoría de POs llegan desde negocio o desde ingeniería. Yo llegué
-          desde el lado en que se define cómo se ve, cómo se siente y cómo se
-          usa el producto. Eso cambia las conversaciones de refinamiento: no
-          discuto solo alcance y esfuerzo, también hablo de coherencia,
-          deudas de experiencia y oportunidades que no están en el backlog.
-        </p>
-        <p>
-          Al mismo tiempo, haber diseñado el producto que hoy manejo me da un
-          punto de vista muy específico: conozco las decisiones que tomamos y
-          por qué. Eso me permite evolucionarlo sin romper lo que sí
-          funcionaba.
-        </p>
-      </CaseSection>
+        <div className="container-portfolio">
+          <div className="grid gap-8 md:grid-cols-12">
+            <div className="md:col-span-3">
+              <div className="sticky top-28">
+                <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
+                  01 · Resumen
+                </div>
+              </div>
+            </div>
+            <div className="md:col-span-9">
+              <p className="text-body-lg leading-relaxed text-ink-soft">
+                {RESUMEN_TEXT}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* SKILLS */}
       <section
@@ -175,7 +100,7 @@ export default function AboutPage() {
         className="container-portfolio border-t border-line py-20 md:py-28"
       >
         <SectionHead
-          label="04 · Skills"
+          label="02 · Skills"
           title="Herramientas y ámbitos donde me muevo bien."
           className="mb-12"
         />
@@ -201,7 +126,7 @@ export default function AboutPage() {
             </ul>
           </div>
           <div>
-            <Eyebrow className="mb-4">Herramientas</Eyebrow>
+            <Eyebrow className="mb-4">Habilidades</Eyebrow>
             <ul className="space-y-2 text-body-lg text-ink-soft">
               <li>Figma · FigJam</li>
               <li>Jira · Confluence</li>
@@ -213,22 +138,22 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* TIMELINE extendido con educación */}
+      {/* TRAYECTORIA — sincronizada con Home (single source of truth) */}
       <section
         id="trajectory"
         className="container-portfolio border-t border-line py-20 md:py-28"
       >
         <SectionHead
-          label="05 · Trayectoria"
-          title="De Javeriana a Product Owner."
+          label="03 · Trayectoria Profesional"
+          title={<HighlightTitle {...HOME.timeline.title} />}
           className="mb-12"
         />
-        <Timeline items={TIMELINE} />
+        <Timeline items={HOME.timeline.items as TimelineItem[]} />
       </section>
 
       {/* FUERA DEL PRODUCTO — toque personal */}
       <CaseSection
-        number="06"
+        number="04"
         label="Fuera del producto"
         title="Lo que me mantiene curioso."
       >

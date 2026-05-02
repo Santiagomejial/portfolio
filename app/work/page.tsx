@@ -36,13 +36,13 @@ export default function WorkPage() {
         />
       </PageHero>
 
-      {/* CAPÍTULO 1 — RETAIL SODIMAC */}
+      {/* CAPÍTULO 1 — HOMECENTER SODIMAC */}
       <section
         id="retail"
         className="container-portfolio border-t border-line py-20 md:py-28"
       >
         <SectionHead
-          label="Capítulo 01 · Retail Sodimac"
+          label="Capítulo 01 · Homecenter Sodimac"
           title={
             <>
               Cuatro productos dentro del retail de{' '}
@@ -58,37 +58,40 @@ export default function WorkPage() {
             href="/work/homecenter"
             featured
             className="md:col-span-12"
-            meta={[
-              '2024 → hoy',
-              'UX Lead → Product Owner',
-              'Sodimac',
-              'Featured',
-            ]}
-            title="App Homecenter & Constructor"
-            description="Case principal del portafolio. Rediseño integral de la app, migración a Flutter y evolución del backlog como Product Owner del mismo producto que diseñé."
+            meta={['2024 → Hoy', 'UX Lead → BA/Product Owner', 'Sodimac']}
+            title="App Homecenter y Constructor"
+            description="Del diseño al manejo del producto. Rediseño completo y estructurado, nueva construcción front y su evolución e iteración como PO."
+            image="/work/homecenter.jpg"
+            imageAlt="App Homecenter y Constructor — pantallas rediseñadas en Flutter."
           />
           {/* Store in Store full */}
           <WorkCard
             href="/work/store-in-store"
             className="md:col-span-12"
-            meta={['2024', 'UX Lead', 'Sodimac']}
-            title="Store in Store"
-            description="Sistema multi-marca dentro de un mismo ecosistema digital. Petcenter, Carcenter y Constructor coexistiendo sin romper la coherencia del producto principal."
+            meta={['2022 → 2024', 'UX/UI Designer', 'Sodimac']}
+            title="Store in Store Web"
+            description="Conceptualización, ideación y construcción multimarca bajo experiencia Web de Homecenter y Constructor."
+            image="/work/store-in-store.jpg"
+            imageAlt="Store in Store — sistema multimarca dentro del ecosistema digital de Homecenter."
           />
-          {/* Kioscos + Asistentes en pareja */}
+          {/* Pantallas + Asistentes en pareja */}
           <WorkCard
             href="/work/kioscos-digitales"
             className="md:col-span-6"
-            meta={['2022 → 2024', 'UX Lead', 'Sodimac']}
-            title="Kioscos Digitales"
-            description="Autogestión en tienda física. Conecta el mundo digital con el piso de venta para descongestionar puntos de atención."
+            meta={['2022 → 2024', 'UX/UI Designer', 'Sodimac']}
+            title="Pantallas digitales en tienda"
+            description="Evolución UX del canal de venta digital en las tiendas Homecenter y Constructor."
+            image="/work/pantallas-tienda.jpg"
+            imageAlt="Pantallas digitales de venta dentro de las tiendas Homecenter y Constructor."
           />
           <WorkCard
             href="/work/asistentes-compra"
             className="md:col-span-6"
-            meta={['2022 → 2024', 'UX Lead', 'Sodimac']}
-            title="Asistentes de Compra"
-            description="Herramienta interna para asesores en tienda. Acelera búsqueda de producto, cotización y cierre de venta asistida."
+            meta={['2022 → 2024', 'UX/UI Designer', 'Sodimac']}
+            title="Asistentes de compra digital"
+            description="Creación de flujos de asistencia a compras de productos complejos o proyectos de hogar y construcción."
+            image="/work/asistentes-compra.jpg"
+            imageAlt="Asistentes de compra digital — flujos de acompañamiento para proyectos complejos."
           />
         </div>
       </section>
@@ -99,10 +102,10 @@ export default function WorkPage() {
         className="container-portfolio border-t border-line py-20 md:py-28"
       >
         <SectionHead
-          label="Capítulo 02 · Fundacionales · 2021"
+          label="Capítulo 02 · Fundacionales 2019"
           title={
             <>
-              Los dos primeros proyectos donde aterricé el{' '}
+              Los proyectos donde aterricé el{' '}
               <span className="text-gradient">método industrial</span> al
               producto digital.
             </>

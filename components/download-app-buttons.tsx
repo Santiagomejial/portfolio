@@ -20,7 +20,8 @@ export function DownloadAppButtons({
   return (
     <div
       className={cn(
-        'container-portfolio flex flex-col items-center justify-center gap-3 pt-8 sm:flex-row md:pt-10',
+        'container-portfolio flex flex-col items-center justify-center gap-3',
+        'pt-10 pb-16 sm:flex-row md:pt-12 md:pb-24',
         className
       )}
     >

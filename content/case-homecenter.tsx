@@ -42,16 +42,9 @@ export const CASE_HOMECENTER: CaseContent = {
   },
 
   // ─── ESTABLISHING (media antes de section 01) ─────────
-  establishing: {
-    layout: 'full',
-    items: [
-      {
-        alt: 'app showcase · home + PDP + checkout en contexto',
-        aspect: '16/9',
-      },
-    ],
-    caption: 'Establishing shot · app en dispositivos reales.',
-  },
+  // Removido: el flujo va directo del hero + botones de descarga a la
+  // sección 01. Si en el futuro se quiere reactivar, restaurar el
+  // bloque `establishing: { layout, items, caption }` aquí.
 
   // ─── SECTIONS ─────────────────────────────────────────
   sections: [

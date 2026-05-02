@@ -58,7 +58,7 @@ export function CaseHero({
         </header>
 
         {/* Meta grid */}
-        <dl className={cn('grid grid-cols-2 gap-6 border-y border-line py-6', metaCols)}>
+        <dl className={cn('grid grid-cols-2 gap-6 border-t border-line pt-6', metaCols)}>
           {meta.map((m) => (
             <div key={m.label}>
               <dt className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">

@@ -4,6 +4,7 @@ import {
   PageHero,
   WorkCard,
   Footer,
+  FoundationalCardsWithCarousel,
 } from '@/components';
 
 /**
@@ -113,6 +114,7 @@ export default function WorkPage() {
           className="mb-12"
         />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-12">
+          {/* 2 cards principales (con página interna) */}
           <WorkCard
             href="/work/dartstation"
             className="md:col-span-6"
@@ -127,6 +129,8 @@ export default function WorkPage() {
             title="LeClop"
             description="Ejercicio temprano de diseño de experiencias digitales. Research, arquitectura y UI en un mismo proyecto contenido."
           />
+          {/* 3 cards de recopilación que abren un carrusel modal */}
+          <FoundationalCardsWithCarousel />
         </div>
       </section>
 

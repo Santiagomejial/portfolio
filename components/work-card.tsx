@@ -3,7 +3,10 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 interface WorkCardProps {
-  href: string;
+  /** URL del case interno. Si se omite y hay onClick, el card se renderiza como <button>. */
+  href?: string;
+  /** Handler para apertura de modal/carrusel. Si está presente, ignora href y renderiza como <button>. */
+  onClick?: () => void;
   title: string;
   description: string;
   /** Chips arriba del título: año, rol, cliente, etc. */
@@ -20,9 +23,14 @@ interface WorkCardProps {
 /**
  * Card de proyecto. Usada en Home featured y en /work listing.
  * Clickeable en toda el área. Hover state: borde azul + lift.
+ *
+ * Comportamiento:
+ *   - href + sin onClick → renderiza como <Link> (navega al case interno)
+ *   - onClick → renderiza como <button> (típicamente abre modal/carrusel)
  */
 export function WorkCard({
   href,
+  onClick,
   title,
   description,
   meta,
@@ -31,17 +39,16 @@ export function WorkCard({
   imageAlt,
   className,
 }: WorkCardProps) {
-  return (
-    <Link
-      href={href}
-      className={cn(
-        'group block overflow-hidden rounded-xl',
-        'border border-line bg-bg-elev',
-        'transition-base',
-        'hover:-translate-y-0.5 hover:border-blue hover:shadow-lg',
-        className
-      )}
-    >
+  const sharedClasses = cn(
+    'group block w-full overflow-hidden rounded-xl text-left',
+    'border border-line bg-bg-elev',
+    'transition-base',
+    'hover:-translate-y-0.5 hover:border-blue hover:shadow-lg',
+    className
+  );
+
+  const innerContent = (
+    <>
       {/* Media */}
       <div
         className={cn(
@@ -81,11 +88,36 @@ export function WorkCard({
             </li>
           ))}
         </ul>
-        <h3 className={cn('font-serif font-normal tracking-display text-ink', featured ? 'text-[clamp(24px,3vw,32px)]' : 'text-[22px]')}>
+        <h3
+          className={cn(
+            'font-serif font-normal tracking-display text-ink',
+            featured ? 'text-[clamp(24px,3vw,32px)]' : 'text-[22px]'
+          )}
+        >
           {title}
         </h3>
         <p className="mt-2 text-body-sm text-ink-soft">{description}</p>
       </div>
+    </>
+  );
+
+  // Si hay onClick → button (abre modal). Si hay href → Link (navega).
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className={cn(sharedClasses, 'cursor-pointer')}
+        aria-label={`Abrir ${title}`}
+      >
+        {innerContent}
+      </button>
+    );
+  }
+
+  return (
+    <Link href={href ?? '#'} className={sharedClasses}>
+      {innerContent}
     </Link>
   );
 }

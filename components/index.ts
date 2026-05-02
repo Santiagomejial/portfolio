@@ -18,3 +18,5 @@ export { HighlightTitle } from './highlight-title';
 export { CaseSection } from './case-section';
 export { CaseNav } from './case-nav';
 export { CaseMedia, type CaseMediaItem } from './case-media';
+export { CarouselModal, type CarouselImage } from './carousel-modal';
+export { FoundationalCardsWithCarousel } from './foundational-with-carousel';

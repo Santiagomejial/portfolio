@@ -60,15 +60,16 @@ export default function AboutPage() {
     <>
       {/* HERO con media slot para portrait */}
       <PageHero
-        eyebrow="About · Hola, soy Santiago"
+        eyebrow="Sobre mí"
+        titleClassName="display-lg"
         title={
           <>
-            Diseñador industrial de origen,{' '}
-            <span className="text-gradient">product designer</span> de oficio y{' '}
-            <span className="text-gradient">product owner</span> por convicción.
+            Soy Santiago,{' '}
+            <span className="text-gradient">Diseñador industrial</span>,{' '}
+            <span className="text-gradient">UX/UI</span> y{' '}
+            <span className="text-gradient">BA/Product Owner</span>.
           </>
         }
-        sub="Empecé diseñando objetos físicos en Javeriana y terminé liderando el producto digital más grande del retail de mejoramiento del hogar en Colombia. Este es el arco que define cómo pienso producto."
         media={
           <div
             className="aspect-[4/5] w-full overflow-hidden rounded-lg border border-line bg-bg-block"
@@ -83,10 +84,12 @@ export default function AboutPage() {
       >
         <ChipRow
           items={[
-            'Bogotá, CO',
-            'Bilingüe ES · EN',
-            'Diseño Industrial · Javeriana',
-            'Product Owner · Sodimac',
+            'Colombiano',
+            'Diseñador UX/UI',
+            'Digital Product Owner',
+            'Investigación UX',
+            'Design systems',
+            'Gestión de proyectos',
           ]}
         />
       </PageHero>

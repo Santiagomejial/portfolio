@@ -6,6 +6,8 @@ interface PageHeroProps {
   eyebrow?: string;
   /** Título principal — string o ReactNode para poder incluir <span> con gradiente */
   title: React.ReactNode;
+  /** Override del tamaño del título. Default: 'display-xl'. Útil para heroes más sobrios. */
+  titleClassName?: string;
   /** Párrafo descriptivo debajo del título */
   sub?: React.ReactNode;
   /** CTAs, meta strip u otro contenido custom debajo del sub */
@@ -22,6 +24,7 @@ interface PageHeroProps {
 export function PageHero({
   eyebrow,
   title,
+  titleClassName,
   sub,
   children,
   media,
@@ -39,7 +42,9 @@ export function PageHero({
       >
         <div className={hasMedia ? 'md:col-span-8' : ''}>
           {eyebrow && <Eyebrow className="mb-5">{eyebrow}</Eyebrow>}
-          <h1 className="display-xl text-ink">{title}</h1>
+          <h1 className={cn(titleClassName ?? 'display-xl', 'text-ink')}>
+            {title}
+          </h1>
           {sub && (
             <p className="text-body-lg mt-6 max-w-2xl text-ink-soft">
               {sub}

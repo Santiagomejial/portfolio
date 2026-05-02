@@ -118,7 +118,7 @@ export default function WorkPage() {
           <WorkCard
             href="/work/leclop"
             className="md:col-span-6"
-            meta={['2021', 'UX/UI Designer', 'Co founder']}
+            meta={['2021', 'Diseño gráfico', 'UX/UI Designer', 'Co founder']}
             title="LeClop"
             description="Ejercicio temprano de diseño de experiencias digitales. Research, arquitectura y UI en un mismo proyecto contenido."
             image="/work/leclop.jpg"
@@ -129,7 +129,9 @@ export default function WorkPage() {
             className="md:col-span-6"
             meta={['2021', 'UX/UI Designer']}
             title="DartStation"
-            description="Primer proyecto digital end-to-end después de Diseño Industrial. La transición del objeto físico al pixel, con el mismo rigor de método."
+            description="Construcción de página web para marquetería y cuadros en la ciudad de Barranquilla, Colombia."
+            image="/work/dartstation.jpg"
+            imageAlt="DartStation — primer proyecto UX/UI end-to-end después de Diseño Industrial."
           />
           {/* 3 cards de recopilación que abren un carrusel modal */}
           <FoundationalCardsWithCarousel />

@@ -26,7 +26,7 @@ export default function WorkPage() {
             <span className="text-gradient">del diseño al producto</span>.
           </>
         }
-        sub="En 3 capítulos que cuentan mi historia laboral."
+        sub="En 2 capítulos que cuentan mi historia laboral."
       >
         <ChipRow
           items={[

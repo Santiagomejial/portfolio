@@ -111,7 +111,7 @@ function renderTitle(title: string | HighlightTitleType): React.ReactNode {
 function renderHeroImage(hero: CaseHeroContent): React.ReactNode {
   if (hero.heroImage) {
     return (
-      <div className="relative aspect-[21/9] w-full overflow-hidden rounded-lg border border-line">
+      <div className="relative aspect-[21/9] w-full overflow-hidden rounded-lg">
         <Image
           src={hero.heroImage.src}
           alt={hero.heroImage.alt}

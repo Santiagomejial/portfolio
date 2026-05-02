@@ -100,7 +100,7 @@ export default function AboutPage() {
         className="container-portfolio border-t border-line py-20 md:py-28"
       >
         <SectionHead
-          label="02 · Skills"
+          label="02 · Habilidades"
           title="Herramientas y ámbitos donde me muevo bien."
           className="mb-12"
         />
@@ -126,13 +126,13 @@ export default function AboutPage() {
             </ul>
           </div>
           <div>
-            <Eyebrow className="mb-4">Habilidades</Eyebrow>
+            <Eyebrow className="mb-4">Otras</Eyebrow>
             <ul className="space-y-2 text-body-lg text-ink-soft">
               <li>Figma · FigJam</li>
-              <li>Jira · Confluence</li>
+              <li>Azure · OneClick</li>
               <li>Adobe Creative Suite</li>
-              <li>Notion · Miro</li>
-              <li>Basics de Flutter / Git</li>
+              <li>Claude · Claude Design</li>
+              <li>Gemini Suite</li>
             </ul>
           </div>
         </div>
@@ -158,15 +158,13 @@ export default function AboutPage() {
         title="Lo que me mantiene curioso."
       >
         <p>
-          Diseño industrial no se me quitó: sigo prototipando cosas físicas en
-          mis ratos libres. Me interesa la tipografía editorial, el diseño de
-          herramientas análogas, y la relación entre objeto y ritual.
+          Me interesa profundamente el diseño UX/UI, las nuevas tecnologías y
+          estar al tanto de nuevas herramientas que permitan más en pensar que
+          en hacer.
         </p>
         <p>
-          También soy un usuario obsesivo de apps — probablemente conozca más
-          de un patrón de interacción de algún app que uso de seguido. Esa
-          curiosidad sobre cómo la gente construye producto es, probablemente,
-          el motor de todo lo demás.
+          Me encanta conocer culturas, su música, sus sabores y su forma de ver
+          el mundo, así como el fútbol y el arte plástico.
         </p>
       </CaseSection>
 

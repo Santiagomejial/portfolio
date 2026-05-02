@@ -17,22 +17,21 @@ export default function WorkPage() {
     <>
       {/* HERO simple, sin media — foco en el mensaje */}
       <PageHero
-        eyebrow="Work · 6 cases · 2021 → hoy"
+        eyebrow="6 casos, de 2019 a hoy."
+        titleClassName="display-lg"
         title={
           <>
-            Seis proyectos que cuentan un{' '}
-            <span className="text-gradient">mismo arco</span>: del diseño al
-            producto.
+            Proyectos que cuentan un mismo caso:{' '}
+            <span className="text-gradient">del diseño al producto</span>.
           </>
         }
-        sub="Organizo los cases por capítulo, no por orden cronológico, para que se lea el recorrido: primero los años fundacionales, después el bloque retail en Sodimac, y en el centro el case principal — la App Homecenter, donde el arco se completa."
+        sub="En 3 capítulos que cuentan mi historia laboral."
       >
         <ChipRow
           items={[
-            'Todos los cases',
-            'Retail Sodimac (4)',
-            'Fundacionales 2021 (2)',
-            'Featured: Homecenter',
+            'Fundacionales 2019',
+            'UX/UI Homecenter',
+            'App Homecenter',
           ]}
         />
       </PageHero>

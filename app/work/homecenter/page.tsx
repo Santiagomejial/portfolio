@@ -89,10 +89,8 @@ export default function HomecenterCase() {
         </div>
       </section>
 
-      {/* 03 Proceso (full width, sin su mediaAfter porque ya lo renderizamos arriba) */}
-      <SectionWithExtras
-        section={{ ...sections[2], mediaAfter: undefined }}
-      />
+      {/* 03 Proceso — texto e ilustración lado a lado dentro del col-span-9 */}
+      <ProcessSectionWithIllustration section={sections[2]} />
 
       {/* 04 → 07 con extras normales */}
       {sections.slice(3).map((section) => (
@@ -168,7 +166,113 @@ function renderTitle(title: string | HighlightTitleType): React.ReactNode {
   return <HighlightTitle {...title} />;
 }
 
+/**
+ * Sección Proceso con layout split: texto a la izquierda, ilustración a la derecha.
+ * Mantiene el patrón de label sticky + grid 3+9 del CaseSection, pero divide
+ * el col-span-9 en 2 columnas iguales para que la ilustración acompañe el texto.
+ */
+function ProcessSectionWithIllustration({
+  section,
+}: {
+  section: CaseSectionContent;
+}) {
+  return (
+    <section className="border-t border-line py-12 md:py-16">
+      <div className="container-portfolio">
+        <div className="grid gap-8 md:grid-cols-12">
+          <div className="md:col-span-3">
+            <div className="sticky top-28">
+              <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
+                {section.number} · {section.label}
+              </div>
+            </div>
+          </div>
+          <div className="md:col-span-9">
+            <h2 className="display-md mb-6 text-ink">
+              {renderTitle(section.title)}
+            </h2>
+            <div className="grid gap-8 md:grid-cols-2 md:gap-10">
+              <div className="space-y-5 text-body-lg text-ink-soft">
+                {section.body}
+              </div>
+              <div className="h-[400px]">
+                <ProcessIllustration />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─── Visuales decorativos del proceso (adaptables a light/dark) ─── */
+
+/**
+ * Ilustración del proceso de diseño — timeline vertical de 4 etapas.
+ * Cada etapa tiene un dot con gradient brand, label y descripción corta.
+ * Ocupa toda la altura del contenedor (~400px) y se adapta al tema.
+ */
+function ProcessIllustration() {
+  const steps = [
+    {
+      label: 'Research',
+      desc: 'Session replays · entrevistas · embudo analítico',
+    },
+    {
+      label: 'Mapeo',
+      desc: 'Flujos críticos · síntesis · documentación',
+    },
+    {
+      label: 'Wireframes',
+      desc: 'Componentes base · arquitectura · validación',
+    },
+    {
+      label: 'High-Fi',
+      desc: 'Producción · paridad iOS/Android · handoff',
+    },
+  ];
+
+  return (
+    <div
+      className="relative h-full w-full overflow-hidden rounded-xl border border-line"
+      style={{
+        background:
+          'linear-gradient(135deg, color-mix(in oklab, var(--blue) 6%, transparent), color-mix(in oklab, var(--cyan) 5%, transparent))',
+      }}
+      aria-hidden
+    >
+      <div className="flex h-full flex-col justify-between p-6 md:p-7">
+        {steps.map((step, i) => (
+          <div key={step.label} className="flex items-start gap-4">
+            {/* Dot + connector */}
+            <div className="flex flex-col items-center pt-1">
+              <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-brand-gradient" />
+              {i < steps.length - 1 && (
+                <span
+                  className="mt-1 w-px flex-1"
+                  style={{
+                    minHeight: '32px',
+                    background: 'var(--line)',
+                  }}
+                />
+              )}
+            </div>
+            {/* Label + descripción */}
+            <div className="pb-1">
+              <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink">
+                {step.label}
+              </div>
+              <div className="mt-1 text-body-sm leading-snug text-ink-soft">
+                {step.desc}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 /**
  * Visual 01 — Discovery.

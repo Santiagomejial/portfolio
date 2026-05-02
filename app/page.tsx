@@ -7,6 +7,7 @@ import {
   Footer,
   Timeline,
   HighlightTitle,
+  ViewAllLink,
   type TimelineItem,
 } from '@/components';
 // Nota: si se reactiva la sección Snapshot, reimportar Eyebrow y MetricCard.
@@ -32,11 +33,15 @@ export default function HomePage() {
 
       {/* 01 · SELECTED WORK */}
       <section id="work" className="container-portfolio py-20 md:py-28">
-        <SectionHead
-          label={HOME.work.label}
-          title={<HighlightTitle {...HOME.work.title} />}
-          className="mb-12"
-        />
+        <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <SectionHead
+            label={HOME.work.label}
+            title={<HighlightTitle {...HOME.work.title} />}
+          />
+          <ViewAllLink href="/work" className="shrink-0">
+            Ver todos los proyectos
+          </ViewAllLink>
+        </div>
         <div className="grid grid-cols-1 gap-5 md:grid-cols-12">
           {HOME.work.cards.map((card) => (
             <WorkCard
@@ -51,6 +56,9 @@ export default function HomePage() {
               imageAlt={card.imageAlt}
             />
           ))}
+        </div>
+        <div className="mt-10 flex justify-center md:mt-12">
+          <ViewAllLink href="/work">Ver todos los proyectos</ViewAllLink>
         </div>
       </section>
 

@@ -23,7 +23,7 @@ export default function AsistentesCase() {
   return (
     <>
       <CaseHero
-        breadcrumb={{ href: '/work', label: '← Volver a Work' }}
+        breadcrumb={{ label: 'Volver', fallbackHref: '/work' }}
         caseCounter="Case 04 · Retail Sodimac"
         title={
           <>

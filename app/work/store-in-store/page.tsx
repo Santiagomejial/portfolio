@@ -23,7 +23,7 @@ export default function StoreInStoreCase() {
   return (
     <>
       <CaseHero
-        breadcrumb={{ href: '/work', label: '← Volver a Work' }}
+        breadcrumb={{ label: 'Volver', fallbackHref: '/work' }}
         caseCounter="Case 02 · Retail Sodimac"
         title={
           <>

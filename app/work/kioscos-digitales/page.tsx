@@ -23,7 +23,7 @@ export default function KioscosCase() {
   return (
     <>
       <CaseHero
-        breadcrumb={{ href: '/work', label: '← Volver a Work' }}
+        breadcrumb={{ label: 'Volver', fallbackHref: '/work' }}
         caseCounter="Case 03 · Retail Sodimac"
         title={
           <>

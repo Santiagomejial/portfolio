@@ -23,7 +23,7 @@ export default function LeClopCase() {
   return (
     <>
       <CaseHero
-        breadcrumb={{ href: '/work', label: '← Volver a Work' }}
+        breadcrumb={{ label: 'Volver', fallbackHref: '/work' }}
         caseCounter="Case 06 · Fundacional · 2021"
         title={
           <>

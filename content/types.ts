@@ -50,9 +50,9 @@ export interface TimelineItemContent {
 import type { ReactNode } from 'react';
 
 export interface CaseHeroContent {
-  /** Breadcrumb back link, ej. { href: '/work', label: 'Volver a Work' } */
-  breadcrumb: { href: string; label: string };
-  /** "Case 01 · Featured" */
+  /** Botón "Volver" con history-back. fallbackHref se usa si no hay history. */
+  breadcrumb: { label: string; fallbackHref: string };
+  /** "Caso 01" */
   caseCounter: string;
   /** String simple o HighlightTitle para gradient en parte del título */
   title: string | HighlightTitle;

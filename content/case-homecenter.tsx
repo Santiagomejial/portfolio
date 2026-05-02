@@ -14,19 +14,18 @@ import type { CaseContent } from './types';
 export const CASE_HOMECENTER: CaseContent = {
   // ─── HERO ─────────────────────────────────────────────
   hero: {
-    breadcrumb: { href: '/work', label: 'Volver a Work' },
-    caseCounter: 'Case 01 · Featured',
-    title: {
-      pre: 'App Homecenter & Constructor. ',
-      highlight: 'Del diseño al manejo',
-      post: ' del producto.',
-    },
-    sub: 'Lideré el rediseño integral de la app del retail de mejoramiento del hogar más grande de Colombia, su migración a Flutter y — después del release — pasé a ser Product Owner del mismo producto que había diseñado.',
+    breadcrumb: { label: 'Volver', fallbackHref: '/work' },
+    caseCounter: 'Caso 01',
+    title: 'App Homecenter',
+    sub: 'Lideré el rediseño integral de la app del retail de mejoramiento del hogar más grande de Colombia, pasé a ser Product Owner y su lanzamiento, y ahora su evolución.',
     meta: [
       { label: 'Rol', value: 'UX Lead → Product Owner' },
       { label: 'Periodo', value: '2024 → hoy' },
-      { label: 'Equipo', value: '5 diseñadores → 6 producto' },
-      { label: 'Alcance', value: 'Rediseño integral + Flutter' },
+      {
+        label: 'Equipo',
+        value:
+          'UX Lead: 1 UI · 1 Research · 2 Design System · 1 Illustrations\nDev: 20 · QA: 6\nPracticantes: 4 (diseño, dev, QA)',
+      },
     ],
     // heroImage: pendiente
   },

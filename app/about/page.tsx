@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import {
   Eyebrow,
   SectionHead,
@@ -71,14 +72,25 @@ export default function AboutPage() {
           </>
         }
         media={
-          <div
-            className="aspect-[4/5] w-full overflow-hidden rounded-lg border border-line bg-bg-block"
-            role="img"
-            aria-label="Portrait placeholder — reemplazar en Claude Design"
-          >
-            <div className="flex h-full items-center justify-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
-              [ portrait ]
-            </div>
+          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg border border-line">
+            <Image
+              src="/portrait.jpg"
+              alt="Santiago Mejía L. — retrato"
+              fill
+              className="object-cover"
+              sizes="(min-width: 768px) 33vw, 100vw"
+              priority
+            />
+            {/* Overlay sutil con gradient brand (azul → rosa) */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-brand-gradient opacity-25 mix-blend-overlay"
+            />
+            {/* Viñeta inferior tenue para integrar con el bg de la página */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-bg/40 to-transparent"
+            />
           </div>
         }
       >

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Eyebrow } from './eyebrow';
 import { BackButton } from './back-button';
@@ -14,6 +15,8 @@ interface CaseHeroProps {
   breadcrumb?: { label: string; fallbackHref: string };
   /** "Caso 01 · Featured" */
   caseCounter?: string;
+  /** Icono cuadrado del producto (1:1, app icon). Se muestra arriba del título. */
+  appIcon?: { src: string; alt: string };
   title: React.ReactNode;
   sub?: React.ReactNode;
   /** 3-4 campos: Rol / Periodo / Equipo / Alcance */
@@ -26,6 +29,7 @@ interface CaseHeroProps {
 export function CaseHero({
   breadcrumb,
   caseCounter,
+  appIcon,
   title,
   sub,
   meta,
@@ -57,6 +61,18 @@ export function CaseHero({
             <Eyebrow accent className="mb-5">
               {caseCounter}
             </Eyebrow>
+          )}
+          {appIcon && (
+            <div className="relative mb-5 h-16 w-16 overflow-hidden rounded-2xl border border-line shadow-sm md:h-20 md:w-20">
+              <Image
+                src={appIcon.src}
+                alt={appIcon.alt}
+                fill
+                className="object-cover"
+                sizes="80px"
+                priority
+              />
+            </div>
           )}
           <h1 className="display-xl text-ink">{title}</h1>
           {sub && (

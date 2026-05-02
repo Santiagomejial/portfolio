@@ -62,6 +62,8 @@ export interface CaseHeroContent {
   meta: readonly { label: string; value: string }[];
   /** Imagen del hero (21:9 recomendado). Si se omite, placeholder. */
   heroImage?: { src: string; alt: string };
+  /** Icono cuadrado del producto (1:1, app icon). Se muestra arriba del título. */
+  appIcon?: { src: string; alt: string };
   /** Botones de descarga del producto (si aplica — apps móviles). */
   appLinks?: { android?: string; ios?: string };
 }

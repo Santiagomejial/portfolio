@@ -30,6 +30,7 @@ export default function HomecenterCase() {
       <CaseHero
         breadcrumb={hero.breadcrumb}
         caseCounter={hero.caseCounter}
+        appIcon={hero.appIcon}
         title={renderTitle(hero.title)}
         sub={hero.sub}
         meta={[...hero.meta]}

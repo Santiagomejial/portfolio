@@ -16,6 +16,10 @@ export const CASE_HOMECENTER: CaseContent = {
   hero: {
     breadcrumb: { label: 'Volver', fallbackHref: '/work' },
     caseCounter: 'Caso 01',
+    appIcon: {
+      src: '/work/homecenter/appIcon.jpg',
+      alt: 'App icon — Homecenter & Constructor.',
+    },
     title: {
       pre: 'App ',
       highlight: 'Homecenter',

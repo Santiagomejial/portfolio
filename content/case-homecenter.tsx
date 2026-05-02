@@ -30,7 +30,14 @@ export const CASE_HOMECENTER: CaseContent = {
           'UX Lead: 1 UI · 1 Research · 2 Design System · 1 Illustrations\nDev: 20 · QA: 6\nPracticantes: 4 (diseño, dev, QA)',
       },
     ],
-    // heroImage: pendiente
+    heroImage: {
+      src: '/work/homecenter/hero.png',
+      alt: 'App Homecenter — hero visual del case principal.',
+    },
+    appLinks: {
+      android: 'https://lnkd.in/eVcqvDjq',
+      ios: 'https://lnkd.in/ekTwNU5U',
+    },
   },
 
   // ─── ESTABLISHING (media antes de section 01) ─────────

@@ -22,3 +22,4 @@ export { CarouselModal, type CarouselImage } from './carousel-modal';
 export { FoundationalCardsWithCarousel } from './foundational-with-carousel';
 export { ViewAllLink } from './view-all-link';
 export { BackButton } from './back-button';
+export { DownloadAppButtons } from './download-app-buttons';

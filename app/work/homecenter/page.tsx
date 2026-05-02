@@ -7,6 +7,7 @@ import {
   CaseNav,
   Footer,
   HighlightTitle,
+  DownloadAppButtons,
 } from '@/components';
 import { CASE_HOMECENTER } from '@/content/case-homecenter';
 import type {
@@ -34,6 +35,13 @@ export default function HomecenterCase() {
         meta={[...hero.meta]}
         heroVisual={renderHeroImage(hero)}
       />
+
+      {hero.appLinks && (
+        <DownloadAppButtons
+          android={hero.appLinks.android}
+          ios={hero.appLinks.ios}
+        />
+      )}
 
       {establishing && (
         <CaseMedia

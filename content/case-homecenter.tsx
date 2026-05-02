@@ -35,8 +35,9 @@ export const CASE_HOMECENTER: CaseContent = {
       alt: 'App Homecenter — hero visual del case principal.',
     },
     appLinks: {
-      android: 'https://lnkd.in/eVcqvDjq',
-      ios: 'https://lnkd.in/ekTwNU5U',
+      android:
+        'https://play.google.com/store/apps/details?id=com.jfr.homecenter.app',
+      ios: 'https://apps.apple.com/co/app/homecenter-hogar-construcci%C3%B3n/id893804497?l=en-GB',
     },
   },
 

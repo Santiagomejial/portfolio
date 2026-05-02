@@ -22,6 +22,10 @@ const PROJECTS: readonly FoundationalProject[] = [
     description:
       'Recopilación de proyectos de diseño, asesoría e implementación de páginas web para Frosch, TNR Life, Valssa Shop, entre otros.',
     meta: ['2021 → 2022', 'Freelance'],
+    cover: {
+      src: '/work/portafolio-web.jpg',
+      alt: 'Portafolio de diseño web — recopilación de páginas web freelance.',
+    },
     images: [], // TODO: agregar imágenes del portafolio web
   },
   {
@@ -30,6 +34,10 @@ const PROJECTS: readonly FoundationalProject[] = [
     description:
       'Recorrido por proyectos académicos, mis inicios como profesional y la asesoría en innovación.',
     meta: ['2022', 'Freelance · Asesor · Co-founder'],
+    cover: {
+      src: '/work/portafolio-diseno.jpg',
+      alt: 'Portafolio de diseño — proyectos académicos y profesionales.',
+    },
     images: [], // TODO: agregar imágenes del portafolio de diseño
   },
   {
@@ -38,6 +46,10 @@ const PROJECTS: readonly FoundationalProject[] = [
     description:
       'Recopilación de diseño gráfico y creación de marca para diversas industrias.',
     meta: ['2018 → 2022', 'Freelance'],
+    cover: {
+      src: '/work/logofolio.jpg',
+      alt: 'Logofolio — diseño gráfico y creación de marca.',
+    },
     images: [], // TODO: agregar imágenes del logofolio
   },
 ];

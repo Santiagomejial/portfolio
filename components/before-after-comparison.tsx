@@ -15,6 +15,10 @@ interface BeforeAfterComparisonProps {
   caption?: string;
   /** Aspect ratio de cada imagen (ej. '16/9', '4/3'). Default: '16/9' */
   aspect?: string;
+  /** Línea divisoria arriba del bloque. Default: true. */
+  dividerTop?: boolean;
+  /** Borde alrededor de cada imagen. Default: true. */
+  imageBorder?: boolean;
   className?: string;
 }
 
@@ -30,20 +34,33 @@ export function BeforeAfterComparison({
   after,
   caption,
   aspect = '16/9',
+  dividerTop = true,
+  imageBorder = true,
   className,
 }: BeforeAfterComparisonProps) {
   return (
     <section
       className={cn(
-        'container-portfolio border-t border-line py-16 md:py-20',
+        'container-portfolio py-16 md:py-20',
+        dividerTop && 'border-t border-line',
         className
       )}
       aria-label="Comparativo antes y después"
     >
       <div className="flex flex-col items-center gap-4 md:flex-row md:gap-6">
-        <ImageHalf slot={before} fallbackLabel="Antes" aspect={aspect} />
+        <ImageHalf
+          slot={before}
+          fallbackLabel="Antes"
+          aspect={aspect}
+          bordered={imageBorder}
+        />
         <ArrowDivider />
-        <ImageHalf slot={after} fallbackLabel="Después" aspect={aspect} />
+        <ImageHalf
+          slot={after}
+          fallbackLabel="Después"
+          aspect={aspect}
+          bordered={imageBorder}
+        />
       </div>
       {caption && (
         <p className="mt-5 text-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
@@ -58,10 +75,12 @@ function ImageHalf({
   slot,
   fallbackLabel,
   aspect,
+  bordered,
 }: {
   slot: ImageSlot;
   fallbackLabel: string;
   aspect: string;
+  bordered: boolean;
 }) {
   const label = slot.label ?? fallbackLabel;
   return (
@@ -70,7 +89,10 @@ function ImageHalf({
         {label}
       </div>
       <div
-        className="relative w-full overflow-hidden rounded-lg border border-line bg-bg-block"
+        className={cn(
+          'relative w-full overflow-hidden rounded-lg bg-bg-block',
+          bordered && 'border border-line'
+        )}
         style={{ aspectRatio: aspect }}
         role="img"
         aria-label={slot.alt}

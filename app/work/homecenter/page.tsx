@@ -96,10 +96,19 @@ export default function HomecenterCase() {
       {/* 04 Decisiones (sin mediaAfter — abajo va el comparativo Antes/Después) */}
       <SectionWithExtras section={sections[3]} />
 
-      {/* Comparativo Antes / Después de la app */}
+      {/* Comparativo Antes / Después de la app — sin separador ni outlines
+          para que las imágenes se integren con el fondo del case */}
       <BeforeAfterComparison
-        before={{ alt: 'App Homecenter — versión anterior' }}
-        after={{ alt: 'App Homecenter — versión rediseñada' }}
+        dividerTop={false}
+        imageBorder={false}
+        before={{
+          src: '/work/homecenter/before.png',
+          alt: 'App Homecenter — versión anterior',
+        }}
+        after={{
+          src: '/work/homecenter/after.png',
+          alt: 'App Homecenter — versión rediseñada',
+        }}
         caption="Antes / después · resultado del rediseño integral"
       />
 

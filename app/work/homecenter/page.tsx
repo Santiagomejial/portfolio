@@ -245,38 +245,33 @@ function SolutionSectionWithVideo({
     <>
       <section className="border-t border-line py-12 md:py-16">
         <div className="container-portfolio">
-          <div className="grid gap-8 md:grid-cols-12">
-            <div className="md:col-span-3">
-              <div className="sticky top-28">
-                <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-                  {section.number} · {section.label}
-                </div>
+          <div className="grid items-start gap-10 md:grid-cols-[1fr_auto] md:gap-16">
+            {/* Columna izquierda: eyebrow + título + texto, todo alineado izq */}
+            <div>
+              <div className="mb-4 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
+                {section.number} · {section.label}
               </div>
-            </div>
-            <div className="md:col-span-9">
               <h2 className="display-md mb-6 text-ink">
                 {renderTitle(section.title)}
               </h2>
-              <div className="grid items-start gap-8 md:grid-cols-[1fr_auto] md:gap-12">
-                {/* Texto */}
-                <div className="space-y-6 text-body-lg text-ink-soft">
-                  {section.body}
-                </div>
-                {/* Video del recorrido */}
-                <div className="flex justify-center md:justify-end">
-                  <video
-                    src="/work/homecenter/recorrido-web.mp4"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="metadata"
-                    className="w-full max-w-[280px] rounded-2xl shadow-lg md:max-w-[320px]"
-                    style={{ aspectRatio: '1080 / 2340' }}
-                    aria-label="Recorrido completo de la App Homecenter"
-                  />
-                </div>
+              <div className="space-y-6 text-body-lg text-ink-soft">
+                {section.body}
               </div>
+            </div>
+
+            {/* Columna derecha: video del recorrido */}
+            <div className="flex justify-center md:justify-end">
+              <video
+                src="/work/homecenter/recorrido-web.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                className="w-full max-w-[280px] rounded-2xl shadow-lg md:max-w-[320px]"
+                style={{ aspectRatio: '1080 / 2340' }}
+                aria-label="Recorrido completo de la App Homecenter"
+              />
             </div>
           </div>
         </div>

@@ -211,7 +211,7 @@ function ProcessSectionWithIllustration({
         </div>
 
         {/* Ilustración debajo, full width del container */}
-        <div className="mt-12 h-[400px] w-full md:mt-16">
+        <div className="mt-8 w-full md:mt-10">
           <ProcessIllustration />
         </div>
       </div>
@@ -248,28 +248,28 @@ function ProcessIllustration() {
 
   return (
     <div
-      className="relative h-full w-full overflow-hidden rounded-xl border border-line"
+      className="relative w-full overflow-hidden rounded-xl border border-line"
       style={{
         background:
           'linear-gradient(135deg, color-mix(in oklab, var(--blue) 6%, transparent), color-mix(in oklab, var(--cyan) 5%, transparent))',
       }}
       aria-hidden
     >
-      <div className="grid h-full grid-cols-1 md:grid-cols-4 md:divide-x md:divide-line">
+      <div className="grid grid-cols-1 md:grid-cols-4 md:divide-x md:divide-line">
         {steps.map((step, i) => (
           <div
             key={step.label}
-            className="flex flex-col justify-center gap-3 p-6 md:gap-4 md:p-8"
+            className="flex flex-col gap-2 p-4 md:gap-2.5 md:p-5"
           >
             {/* Dot + número de etapa */}
-            <div className="flex items-center gap-3">
-              <span className="h-3 w-3 rounded-full bg-brand-gradient" />
+            <div className="flex items-center gap-2.5">
+              <span className="h-2.5 w-2.5 rounded-full bg-brand-gradient" />
               <span className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
                 {`0${i + 1}`}
               </span>
             </div>
             {/* Label */}
-            <div className="font-serif text-[clamp(20px,2vw,24px)] leading-tight text-ink">
+            <div className="font-serif text-[18px] leading-tight text-ink">
               {step.label}
             </div>
             {/* Desc */}

@@ -15,11 +15,10 @@ export const CASE_PANTALLAS_TIENDA: CaseContent = {
       pre: 'Pantallas digitales ',
       highlight: 'en tienda',
     },
-    sub: 'Sistema de pantallas interactivas dentro de las tiendas Homecenter para que los clientes puedan consultar stock, comparar productos y resolver dudas sin depender del asesor.',
+    sub: 'Sistema de pantallas interactivas dentro de las tiendas Homecenter para que los clientes puedan consultar stock, comprar productos con el catálogo digital y resolver dudas sin depender del asesor.',
     meta: [
       { label: 'Rol', value: 'UX/UI Designer' },
       { label: 'Periodo', value: '2022 → 2024' },
-      { label: 'Equipo', value: 'UX + Retail + Hardware' },
       { label: 'Alcance', value: 'Experiencia tienda–digital' },
     ],
     // heroImage: pendiente

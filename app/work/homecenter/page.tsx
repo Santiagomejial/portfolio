@@ -10,6 +10,7 @@ import {
   DownloadAppButtons,
   ProcessHighlightCard,
   BeforeAfterComparison,
+  MetricResultCard,
 } from '@/components';
 import { CASE_HOMECENTER } from '@/content/case-homecenter';
 import type {
@@ -115,8 +116,12 @@ export default function HomecenterCase() {
       {/* 05 Solución — texto + video del recorrido lado a lado */}
       <SolutionSectionWithVideo section={sections[4]} />
 
-      {/* 06 → 07 con extras normales */}
-      {sections.slice(5).map((section) => (
+      {/* 06 Impacto · como PO + 4 cards de resultados + disclaimer */}
+      <SectionWithExtras section={sections[5]} />
+      <ImpactResultsGrid />
+
+      {/* 07 Aprendizaje */}
+      {sections.slice(6).map((section) => (
         <SectionWithExtras key={section.number} section={section} />
       ))}
 
@@ -289,6 +294,215 @@ function SolutionSectionWithVideo({
         </section>
       )}
     </>
+  );
+}
+
+/**
+ * Grid de 4 cards con los resultados clave post-release.
+ * Se renderiza debajo del texto de la sección 06 · Impacto.
+ * Cifras aproximadas comparando jul-dic 2024 vs 2025, no oficiales.
+ */
+function ImpactResultsGrid() {
+  return (
+    <section className="container-portfolio py-12 md:py-16">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-4">
+        <MetricResultCard
+          value="+10%"
+          label="Visitas"
+          description="50M+ visitas totales en el periodo."
+          visual={<VisitsVisual />}
+        />
+        <MetricResultCard
+          value="+74%"
+          label="Add to Cart"
+          description="Más productos agregados al carrito en flujos de compra."
+          visual={<AddToCartVisual />}
+        />
+        <MetricResultCard
+          value="+25%"
+          label="Conversión"
+          description="Con +25% de incremento en venta."
+          visual={<ConversionVisual />}
+        />
+        <MetricResultCard
+          value="4.8 / 4.7"
+          label="Rating en stores"
+          description="App Store · Play Store — sin caída tras el rediseño."
+          visual={<RatingVisual />}
+        />
+      </div>
+      <p className="mt-6 text-center text-eyebrow uppercase tracking-eyebrow text-ink-mute md:text-left">
+        <em>
+          Comparación jul–dic 2024 vs 2025 · cifras aproximadas no oficiales.
+        </em>
+      </p>
+    </section>
+  );
+}
+
+/* ─── Visuales de las 4 cards de resultado (adaptables a light/dark) ─── */
+
+/** Visual visitas — barras ascendentes sugiriendo crecimiento. */
+function VisitsVisual() {
+  const heights = [30, 45, 55, 70, 85];
+  return (
+    <div
+      className="relative h-full w-full overflow-hidden"
+      style={{
+        background:
+          'linear-gradient(135deg, color-mix(in oklab, var(--blue) 6%, transparent), color-mix(in oklab, var(--cyan) 5%, transparent))',
+      }}
+      aria-hidden
+    >
+      <div className="flex h-full items-end justify-center gap-2 px-6 py-5 md:gap-3 md:px-8 md:py-6">
+        {heights.map((h, i) => (
+          <div
+            key={i}
+            className="w-3 rounded-t-md md:w-4"
+            style={{
+              height: `${h}%`,
+              background:
+                i === heights.length - 1
+                  ? 'var(--blue)'
+                  : 'color-mix(in oklab, var(--blue) 35%, transparent)',
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Visual add to cart — carrito SVG con badge de check. */
+function AddToCartVisual() {
+  return (
+    <div
+      className="relative flex h-full w-full items-center justify-center overflow-hidden"
+      style={{
+        background:
+          'linear-gradient(135deg, color-mix(in oklab, var(--rose) 6%, transparent), color-mix(in oklab, var(--blue) 4%, transparent))',
+      }}
+      aria-hidden
+    >
+      <svg
+        width="64"
+        height="64"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="text-ink"
+      >
+        <circle cx="9" cy="21" r="1" />
+        <circle cx="20" cy="21" r="1" />
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+      </svg>
+      {/* Badge "+74" en gradient brand sobre el carrito */}
+      <div
+        className="absolute right-[28%] top-[28%] flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-bold text-bg shadow-md"
+        style={{ background: 'var(--rose)' }}
+      >
+        +74
+      </div>
+    </div>
+  );
+}
+
+/** Visual conversión — donut chart sugiriendo proporción. */
+function ConversionVisual() {
+  // Donut a 25% del círculo (representa el incremento)
+  const radius = 36;
+  const circumference = 2 * Math.PI * radius;
+  const dashOffset = circumference * (1 - 0.25);
+
+  return (
+    <div
+      className="relative flex h-full w-full items-center justify-center overflow-hidden"
+      style={{
+        background:
+          'linear-gradient(135deg, color-mix(in oklab, var(--cyan) 6%, transparent), color-mix(in oklab, var(--rose) 4%, transparent))',
+      }}
+      aria-hidden
+    >
+      <svg width="100" height="100" viewBox="0 0 100 100">
+        {/* Círculo base */}
+        <circle
+          cx="50"
+          cy="50"
+          r={radius}
+          fill="none"
+          stroke="var(--line)"
+          strokeWidth="10"
+        />
+        {/* Arco del 25% */}
+        <circle
+          cx="50"
+          cy="50"
+          r={radius}
+          fill="none"
+          stroke="var(--cyan)"
+          strokeWidth="10"
+          strokeDasharray={circumference}
+          strokeDashoffset={dashOffset}
+          strokeLinecap="round"
+          transform="rotate(-90 50 50)"
+        />
+      </svg>
+    </div>
+  );
+}
+
+/** Visual rating — 5 estrellas con la última semi-llena (4.8/5). */
+function RatingVisual() {
+  return (
+    <div
+      className="relative flex h-full w-full items-center justify-center overflow-hidden"
+      style={{
+        background:
+          'linear-gradient(135deg, color-mix(in oklab, var(--rose) 5%, transparent), color-mix(in oklab, var(--cyan) 5%, transparent))',
+      }}
+      aria-hidden
+    >
+      <div className="flex items-center gap-1.5">
+        {[0, 1, 2, 3, 4].map((i) => (
+          <StarIcon key={i} filled={i < 4} half={i === 4} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function StarIcon({ filled, half }: { filled: boolean; half?: boolean }) {
+  const path =
+    'M12 2 L14.5 8.5 L21.5 9 L16 13.5 L17.5 20.5 L12 17 L6.5 20.5 L8 13.5 L2.5 9 L9.5 8.5 Z';
+  if (half) {
+    return (
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden>
+        <defs>
+          <linearGradient id="halfStar">
+            <stop offset="60%" stopColor="var(--rose)" />
+            <stop offset="60%" stopColor="var(--line)" />
+          </linearGradient>
+        </defs>
+        <path d={path} fill="url(#halfStar)" />
+      </svg>
+    );
+  }
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill={filled ? 'var(--rose)' : 'none'}
+      stroke={filled ? 'var(--rose)' : 'var(--line)'}
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d={path} />
+    </svg>
   );
 }
 

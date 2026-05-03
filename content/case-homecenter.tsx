@@ -183,11 +183,8 @@ export const CASE_HOMECENTER: CaseContent = {
       // mediaAfter wide eliminado: el showcase final del producto se reemplaza
       // por un video del recorrido completo de la app, renderizado lado a lado
       // del texto en SolutionSectionWithVideo (en el page).
-      quoteAfter: {
-        body: 'El día del release dejé de ser quien había diseñado la app y empecé a ser quien la manejaría.',
-        highlight: 'empecé a ser quien la manejaría',
-        attribution: 'Sobre el día del release, Abril 2025',
-      },
+      // quoteAfter eliminado: la transición a capítulo PO se hace ahora con
+      // el chapterBreak visual de la sección 06.
     },
     {
       number: '06',
@@ -197,33 +194,19 @@ export const CASE_HOMECENTER: CaseContent = {
       body: [
         <p key="1">
           En Julio de 2025 tomé el rol de Business Analyst / Product Owner del
-          mismo producto. Heredé un equipo de 6 personas y un backlog con
+          mismo producto. Heredé un equipo de 30 personas y un backlog con
           decenas de oportunidades que, como diseñador, ya conocía.
         </p>,
         <p key="2">
-          <em>
-            Las métricas específicas de post-release (conversión, NPS, rating
-            de stores, retención) están disponibles en conversación 1:1 — están
-            sujetas a confidencialidad de Sodimac.
-          </em>
-        </p>,
-        <p key="3">
-          Lo que sí puedo compartir abiertamente es el cambio de perspectiva:
-          ver el producto desde el backlog, no desde Figma, me obligó a hacer
-          trade-offs que antes evadía como designer. La priorización dejó de
-          ser un ejercicio de gusto y pasó a ser una disciplina de impacto.
+          Mi mayor reto fue pasar a un conocimiento de negocio numérico, con
+          KPIs estrictos que empiezan a marcar las decisiones de evolución,
+          ajuste y seguimiento del producto — junto con un entendimiento
+          técnico más amplio y requerido para esta nueva posición.
         </p>,
       ],
-      mediaAfter: {
-        layout: 'full',
-        items: [
-          {
-            alt: 'backlog / board / Jira view · perspectiva PO',
-            aspect: '16/9',
-          },
-        ],
-        caption: 'Vista PO · backlog, priorización, roadmap (redactado).',
-      },
+      // mediaAfter eliminado: el bloque de "vista PO / backlog redactado" se
+      // reemplaza por 4 cards con resultados clave, renderizadas en el page
+      // (ImpactResultsGrid) directamente debajo del texto.
     },
     {
       number: '07',

@@ -304,7 +304,7 @@ function SolutionSectionWithVideo({
  */
 function CaseClosingImage() {
   // Cambiar a true cuando se conecte la imagen real
-  const HAS_IMAGE = false;
+  const HAS_IMAGE = true;
 
   return (
     <section className="container-portfolio pt-12 pb-8 md:pt-16 md:pb-12">

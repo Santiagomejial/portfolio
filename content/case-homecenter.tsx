@@ -208,33 +208,8 @@ export const CASE_HOMECENTER: CaseContent = {
       // reemplaza por 4 cards con resultados clave, renderizadas en el page
       // (ImpactResultsGrid) directamente debajo del texto.
     },
-    {
-      number: '07',
-      label: 'Aprendizaje',
-      title: 'Lo que me llevo del arco designer → PO.',
-      body: [
-        <p key="1">
-          <strong>Diseñar algo es solo la mitad.</strong> La otra mitad es
-          cuidar su evolución. Cada feature que diseñas tiene vida propia
-          después del release, y las decisiones que parecían obvias en Figma
-          tienen costos reales de mantenimiento, consistencia y roadmap.
-        </p>,
-        <p key="2">
-          <strong>El backlog es un objeto de diseño.</strong> Priorizar,
-          ordenar y redactar bien las historias de usuario es una forma de
-          diseño tanto como definir una pantalla. Y mal hecho, genera el
-          mismo tipo de fricción que un mal checkout.
-        </p>,
-        <p key="3">
-          <strong>
-            El rol híbrido no es doble trabajo, es un lente adicional.
-          </strong>{' '}
-          Ver el producto como designer y como PO a la vez me permite detectar
-          decisiones que uno solo de los dos roles dejaría pasar. Esa es la
-          hipótesis central detrás de este portafolio.
-        </p>,
-      ],
-    },
+    // Sección 07 (Aprendizaje) eliminada — el cierre del case ahora es una
+    // imagen grande tipo hero, renderizada en el page (CaseClosingImage).
   ],
 
   // ─── NAV ──────────────────────────────────────────────

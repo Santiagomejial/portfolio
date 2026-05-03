@@ -120,10 +120,8 @@ export default function HomecenterCase() {
       <SectionWithExtras section={sections[5]} />
       <ImpactResultsGrid />
 
-      {/* 07 Aprendizaje */}
-      {sections.slice(6).map((section) => (
-        <SectionWithExtras key={section.number} section={section} />
-      ))}
+      {/* Imagen grande de cierre del case (reemplaza la antigua sec 07) */}
+      <CaseClosingImage />
 
       <CaseNav prev={nav.prev} next={nav.next} />
 
@@ -294,6 +292,44 @@ function SolutionSectionWithVideo({
         </section>
       )}
     </>
+  );
+}
+
+/**
+ * Imagen grande de cierre del case (reemplaza la antigua sección 07).
+ * Mismo aspect ratio del hero (21:9) y sin border para que se integre con
+ * el fondo, igual que el hero visual y el comparativo Antes/Después.
+ *
+ * Cuando exista la imagen real, conectarla en el src del <Image> aquí.
+ */
+function CaseClosingImage() {
+  // Cambiar a true cuando se conecte la imagen real
+  const HAS_IMAGE = false;
+
+  return (
+    <section className="container-portfolio pt-12 pb-8 md:pt-16 md:pb-12">
+      {HAS_IMAGE ? (
+        <div className="relative aspect-[21/9] w-full overflow-hidden rounded-lg">
+          <Image
+            src="/work/homecenter/closing.jpg"
+            alt="Cierre del case App Homecenter — vista final del producto."
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
+        </div>
+      ) : (
+        <div
+          className="aspect-[21/9] w-full overflow-hidden rounded-lg border border-dashed border-line bg-bg-block"
+          role="img"
+          aria-label="Imagen de cierre del case — pendiente"
+        >
+          <div className="flex h-full items-center justify-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
+            [ imagen de cierre · App Homecenter ]
+          </div>
+        </div>
+      )}
+    </section>
   );
 }
 

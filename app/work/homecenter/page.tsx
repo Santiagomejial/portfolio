@@ -167,9 +167,10 @@ function renderTitle(title: string | HighlightTitleType): React.ReactNode {
 }
 
 /**
- * Sección Proceso con layout split: texto a la izquierda, ilustración a la derecha.
- * Mantiene el patrón de label sticky + grid 3+9 del CaseSection, pero divide
- * el col-span-9 en 2 columnas iguales para que la ilustración acompañe el texto.
+ * Sección Proceso con ilustración debajo, full width del container.
+ * Mantiene el patrón clásico (label sticky + texto col-span-9) y agrega
+ * un bloque visual debajo que ocupa todo el ancho desde la columna del label
+ * hasta el margen derecho del container.
  */
 function ProcessSectionWithIllustration({
   section,
@@ -179,6 +180,7 @@ function ProcessSectionWithIllustration({
   return (
     <section className="border-t border-line py-12 md:py-16">
       <div className="container-portfolio">
+        {/* Texto del proceso (estructura clásica: label sticky + body) */}
         <div className="grid gap-8 md:grid-cols-12">
           <div className="md:col-span-3">
             <div className="sticky top-28">
@@ -191,15 +193,15 @@ function ProcessSectionWithIllustration({
             <h2 className="display-md mb-6 text-ink">
               {renderTitle(section.title)}
             </h2>
-            <div className="grid gap-8 md:grid-cols-2 md:gap-10">
-              <div className="space-y-5 text-body-lg text-ink-soft">
-                {section.body}
-              </div>
-              <div className="h-[400px]">
-                <ProcessIllustration />
-              </div>
+            <div className="space-y-6 text-body-lg text-ink-soft">
+              {section.body}
             </div>
           </div>
+        </div>
+
+        {/* Ilustración debajo, full width del container */}
+        <div className="mt-12 h-[400px] w-full md:mt-16">
+          <ProcessIllustration />
         </div>
       </div>
     </section>
@@ -209,27 +211,27 @@ function ProcessSectionWithIllustration({
 /* ─── Visuales decorativos del proceso (adaptables a light/dark) ─── */
 
 /**
- * Ilustración del proceso de diseño — timeline vertical de 4 etapas.
- * Cada etapa tiene un dot con gradient brand, label y descripción corta.
- * Ocupa toda la altura del contenedor (~400px) y se adapta al tema.
+ * Ilustración del proceso de diseño — stepper horizontal de 4 etapas.
+ * Mobile: stack vertical (1 columna). Desktop: 4 columnas con divisores.
+ * Cada etapa: dot gradient + número + label + desc corta.
  */
 function ProcessIllustration() {
   const steps = [
     {
       label: 'Research',
-      desc: 'Session replays · entrevistas · embudo analítico',
+      desc: 'Session replays, entrevistas y embudo analítico.',
     },
     {
       label: 'Mapeo',
-      desc: 'Flujos críticos · síntesis · documentación',
+      desc: 'Flujos críticos, síntesis y documentación.',
     },
     {
       label: 'Wireframes',
-      desc: 'Componentes base · arquitectura · validación',
+      desc: 'Componentes base, arquitectura y validación.',
     },
     {
       label: 'High-Fi',
-      desc: 'Producción · paridad iOS/Android · handoff',
+      desc: 'Producción, paridad iOS/Android y handoff.',
     },
   ];
 
@@ -242,30 +244,26 @@ function ProcessIllustration() {
       }}
       aria-hidden
     >
-      <div className="flex h-full flex-col justify-between p-6 md:p-7">
+      <div className="grid h-full grid-cols-1 md:grid-cols-4 md:divide-x md:divide-line">
         {steps.map((step, i) => (
-          <div key={step.label} className="flex items-start gap-4">
-            {/* Dot + connector */}
-            <div className="flex flex-col items-center pt-1">
-              <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-brand-gradient" />
-              {i < steps.length - 1 && (
-                <span
-                  className="mt-1 w-px flex-1"
-                  style={{
-                    minHeight: '32px',
-                    background: 'var(--line)',
-                  }}
-                />
-              )}
+          <div
+            key={step.label}
+            className="flex flex-col justify-center gap-3 p-6 md:gap-4 md:p-8"
+          >
+            {/* Dot + número de etapa */}
+            <div className="flex items-center gap-3">
+              <span className="h-3 w-3 rounded-full bg-brand-gradient" />
+              <span className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
+                {`0${i + 1}`}
+              </span>
             </div>
-            {/* Label + descripción */}
-            <div className="pb-1">
-              <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink">
-                {step.label}
-              </div>
-              <div className="mt-1 text-body-sm leading-snug text-ink-soft">
-                {step.desc}
-              </div>
+            {/* Label */}
+            <div className="font-serif text-[clamp(20px,2vw,24px)] leading-tight text-ink">
+              {step.label}
+            </div>
+            {/* Desc */}
+            <div className="text-body-sm leading-snug text-ink-soft">
+              {step.desc}
             </div>
           </div>
         ))}

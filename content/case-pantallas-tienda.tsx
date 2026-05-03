@@ -21,7 +21,10 @@ export const CASE_PANTALLAS_TIENDA: CaseContent = {
       { label: 'Periodo', value: '2022 → 2024' },
       { label: 'Alcance', value: 'Experiencia tienda–digital' },
     ],
-    // heroImage: pendiente
+    heroImage: {
+      src: '/work/pantallas-tienda/hero.jpg',
+      alt: 'Pantallas digitales en tienda — hero del case.',
+    },
   },
 
   // ─── SECTIONS ─────────────────────────────────────────

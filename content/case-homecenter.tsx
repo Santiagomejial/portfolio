@@ -214,6 +214,6 @@ export const CASE_HOMECENTER: CaseContent = {
 
   // ─── NAV ──────────────────────────────────────────────
   nav: {
-    next: { href: '/work/store-in-store', title: 'Store in Store' },
+    next: { href: '/work/pantallas-tienda', title: 'Pantallas digitales en tienda' },
   },
 };

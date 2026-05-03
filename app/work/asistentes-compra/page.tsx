@@ -152,7 +152,7 @@ export default function AsistentesCase() {
       </CaseSection>
 
       <CaseNav
-        prev={{ href: '/work/kioscos-digitales', title: 'Kioscos Digitales' }}
+        prev={{ href: '/work/store-in-store', title: 'Store in Store Web' }}
         next={{ href: '/work/dartstation', title: 'DartStation' }}
       />
 

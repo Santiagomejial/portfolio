@@ -158,8 +158,8 @@ export default function StoreInStoreCase() {
       </CaseSection>
 
       <CaseNav
-        prev={{ href: '/work/homecenter', title: 'App Homecenter' }}
-        next={{ href: '/work/kioscos-digitales', title: 'Kioscos Digitales' }}
+        prev={{ href: '/work/pantallas-tienda', title: 'Pantallas digitales en tienda' }}
+        next={{ href: '/work/asistentes-compra', title: 'Asistentes de compra digital' }}
       />
 
       <Footer />

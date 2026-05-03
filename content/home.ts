@@ -56,7 +56,7 @@ export const HOME = {
           'App Homecenter y Constructor — pantallas rediseñadas con nueva tecnología.',
       },
       {
-        href: '/work/kioscos-digitales',
+        href: '/work/pantallas-tienda',
         span: 6,
         meta: ['2022 → 2024', 'UX/UI Designer', 'Sodimac'],
         title: 'Pantallas digitales en tienda',

@@ -77,7 +77,7 @@ export default function WorkPage() {
           />
           {/* Pantallas + Asistentes en pareja */}
           <WorkCard
-            href="/work/kioscos-digitales"
+            href="/work/pantallas-tienda"
             className="md:col-span-6"
             meta={['2022 → 2024', 'UX/UI Designer', 'Sodimac']}
             title="Pantallas digitales en tienda"

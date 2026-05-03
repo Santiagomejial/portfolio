@@ -180,11 +180,9 @@ export const CASE_HOMECENTER: CaseContent = {
           hoy, como PO, me permite iterar más rápido sin perder coherencia.
         </p>,
       ],
-      mediaAfter: {
-        layout: 'wide',
-        items: [{ alt: 'producto final · app rediseñada · showcase 21:9' }],
-        caption: 'Showcase · release Abril 2025 · app rediseñada end-to-end.',
-      },
+      // mediaAfter wide eliminado: el showcase final del producto se reemplaza
+      // por un video del recorrido completo de la app, renderizado lado a lado
+      // del texto en SolutionSectionWithVideo (en el page).
       quoteAfter: {
         body: 'El día del release dejé de ser quien había diseñado la app y empecé a ser quien la manejaría.',
         highlight: 'empecé a ser quien la manejaría',

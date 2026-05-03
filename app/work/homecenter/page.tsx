@@ -112,8 +112,11 @@ export default function HomecenterCase() {
         caption="Antes / después · resultado del rediseño integral"
       />
 
-      {/* 05 → 07 con extras normales */}
-      {sections.slice(4).map((section) => (
+      {/* 05 Solución — texto + video del recorrido lado a lado */}
+      <SolutionSectionWithVideo section={sections[4]} />
+
+      {/* 06 → 07 con extras normales */}
+      {sections.slice(5).map((section) => (
         <SectionWithExtras key={section.number} section={section} />
       ))}
 
@@ -225,6 +228,72 @@ function ProcessSectionWithIllustration({
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * Sección Solución con video del recorrido completo de la app al lado.
+ * Layout split: texto a la izquierda, video vertical (formato mobile) a la derecha.
+ * Mobile se apila. Después del bloque, se renderiza el quoteAfter como transición.
+ */
+function SolutionSectionWithVideo({
+  section,
+}: {
+  section: CaseSectionContent;
+}) {
+  return (
+    <>
+      <section className="border-t border-line py-12 md:py-16">
+        <div className="container-portfolio">
+          <div className="grid gap-8 md:grid-cols-12">
+            <div className="md:col-span-3">
+              <div className="sticky top-28">
+                <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
+                  {section.number} · {section.label}
+                </div>
+              </div>
+            </div>
+            <div className="md:col-span-9">
+              <h2 className="display-md mb-6 text-ink">
+                {renderTitle(section.title)}
+              </h2>
+              <div className="grid items-start gap-8 md:grid-cols-[1fr_auto] md:gap-12">
+                {/* Texto */}
+                <div className="space-y-6 text-body-lg text-ink-soft">
+                  {section.body}
+                </div>
+                {/* Video del recorrido */}
+                <div className="flex justify-center md:justify-end">
+                  <video
+                    src="/work/homecenter/recorrido-web.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                    className="w-full max-w-[280px] rounded-2xl shadow-lg md:max-w-[320px]"
+                    style={{ aspectRatio: '1080 / 2340' }}
+                    aria-label="Recorrido completo de la App Homecenter"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pull quote de transición al capítulo PO (quoteAfter de la sección) */}
+      {section.quoteAfter && (
+        <section className="container-portfolio border-t border-line py-20 md:py-28">
+          <PullQuote
+            highlight={section.quoteAfter.highlight}
+            attribution={section.quoteAfter.attribution}
+          >
+            {section.quoteAfter.body}
+          </PullQuote>
+        </section>
+      )}
+    </>
   );
 }
 

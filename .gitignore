@@ -31,3 +31,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# videos originales sin comprimir (mantener fuera del repo).
+# Las versiones optimizadas para web llevan sufijo "-web" y SÍ se trackean.
+public/work/homecenter/recorrido.mp4

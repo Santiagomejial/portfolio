@@ -27,3 +27,4 @@ export { ScrollProgressBar } from './scroll-progress-bar';
 export { BackToTopButton } from './back-to-top-button';
 export { FloatingBackButton } from './floating-back-button';
 export { ProcessHighlightCard } from './process-highlight-card';
+export { BeforeAfterComparison } from './before-after-comparison';

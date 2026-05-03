@@ -9,6 +9,7 @@ import {
   HighlightTitle,
   DownloadAppButtons,
   ProcessHighlightCard,
+  BeforeAfterComparison,
 } from '@/components';
 import { CASE_HOMECENTER } from '@/content/case-homecenter';
 import type {
@@ -92,8 +93,18 @@ export default function HomecenterCase() {
       {/* 03 Proceso — texto e ilustración lado a lado dentro del col-span-9 */}
       <ProcessSectionWithIllustration section={sections[2]} />
 
-      {/* 04 → 07 con extras normales */}
-      {sections.slice(3).map((section) => (
+      {/* 04 Decisiones (sin mediaAfter — abajo va el comparativo Antes/Después) */}
+      <SectionWithExtras section={sections[3]} />
+
+      {/* Comparativo Antes / Después de la app */}
+      <BeforeAfterComparison
+        before={{ alt: 'App Homecenter — versión anterior' }}
+        after={{ alt: 'App Homecenter — versión rediseñada' }}
+        caption="Antes / después · resultado del rediseño integral"
+      />
+
+      {/* 05 → 07 con extras normales */}
+      {sections.slice(4).map((section) => (
         <SectionWithExtras key={section.number} section={section} />
       ))}
 

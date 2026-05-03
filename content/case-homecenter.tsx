@@ -137,33 +137,30 @@ export const CASE_HOMECENTER: CaseContent = {
       title: 'Tres apuestas que definieron el producto.',
       body: [
         <p key="1">
-          <strong>Un solo design system, dos marcas.</strong> Homecenter y
-          Constructor conviven en la misma app con audiencias distintas.
-          Construimos un sistema de componentes que acepta ambas identidades
-          sin duplicar pantallas ni lógica.
+          <strong>Un solo Design System.</strong> Construimos un sistema
+          unificado que soporta las dos marcas — Homecenter y Constructor —
+          bajo una sola arquitectura: tokens, componentes y patrones
+          reutilizables en cada superficie del producto.
         </p>,
         <p key="2">
-          <strong>Checkout en un flujo continuo.</strong> Consolidamos pasos,
-          movimos decisiones no críticas a post-compra y redujimos la fricción
-          sobre los métodos de pago (CMR, PSE, Efecty, tarjeta favorita,
-          Saldo Homecenter).
+          <strong>Actualización de contenido con CMS.</strong> Migración a un
+          CMS que responde inmediatamente a los cambios de oferta y da
+          dinamismo al catálogo. Especialmente crítico en eventos comerciales
+          (Black Friday, Cyber, días MD), donde la velocidad de actualización
+          es la diferencia entre vender o no.
         </p>,
         <p key="3">
-          <strong>PDP rediseñada alrededor de la decisión.</strong> Jerarquía
-          nueva: precio, disponibilidad por tienda, variantes, añadir al
-          carrito — por encima del fold. El resto (descripción técnica,
-          opiniones, relacionados) se ordena según cómo los usuarios realmente
-          navegan, no según cómo los catálogos internos se estructuran.
+          <strong>One page checkout, PLP y PDP rediseñadas.</strong>{' '}
+          Consolidamos el checkout en un solo flujo continuo y movimos las
+          decisiones no críticas a post-compra. PLP y PDP se reorganizaron
+          alrededor de la decisión: precio, disponibilidad por tienda,
+          variantes y &quot;añadir al carrito&quot; por encima del fold. El
+          resto se ordena según cómo los usuarios realmente navegan, no según
+          cómo los catálogos internos se estructuran.
         </p>,
       ],
-      mediaAfter: {
-        layout: 'duo',
-        items: [
-          { alt: 'PDP · antes / PDP · después' },
-          { alt: 'checkout · antes / checkout · después' },
-        ],
-        caption: 'Comparativos · decisiones de jerarquía y consolidación.',
-      },
+      // mediaAfter eliminado: aquí va el comparativo Antes / Después que se
+      // renderiza directamente en el page (BeforeAfterComparison).
     },
     {
       number: '05',

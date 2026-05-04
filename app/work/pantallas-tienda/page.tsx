@@ -50,16 +50,20 @@ export default function PantallasTiendaCase() {
         <SectionWithExtras key={section.number} section={section} />
       ))}
 
-      {/* 4 FeatureCards de funcionalidades omnicanal (reemplazan al Proceso) */}
+      {/* 4 FeatureCards en fila — funcionalidades que escalaron a omnicanal */}
       <FeaturesGrid />
 
-      {/* 03 Decisiones → 06 Aprendizaje */}
-      {sections.slice(2).map((section) => (
-        <SectionWithExtras key={section.number} section={section} />
-      ))}
+      {/* 03 Decisiones + 04 Solución en grid 2 cols (CompactSection) */}
+      <DecisionesSolucionGrid sections={[sections[2], sections[3]]} />
 
-      {/* 4 espacios de imagen del cierre del case (placeholders) */}
-      <FinalGalleryPlaceholders />
+      {/* 4 imágenes del despliegue en tienda */}
+      <FinalGallery />
+
+      {/* 05 Impacto */}
+      <SectionWithExtras section={sections[4]} />
+
+      {/* 3 ilustraciones de cierre — resumen de la intervención de diseño */}
+      <DesignSummaryStrip />
 
       <CaseNav prev={nav.prev} next={nav.next} />
 
@@ -107,45 +111,75 @@ function SectionWithExtras({ section }: { section: CaseSectionContent }) {
 }
 
 /**
- * 4 cards de funcionalidades clave que diseñé para las pantallas y que
- * escalaron a omnicanal. Reemplazan a la antigua sección "Proceso".
+ * 4 cards compactas en fila — funcionalidades que diseñé y escalaron a
+ * omnicanal. Versión más pequeña que ProcessHighlightCard del Homecenter.
  */
 function FeaturesGrid() {
+  const features = [
+    {
+      number: '01',
+      label: 'Inspiración',
+      title: 'Catálogo editorial de productos destacados.',
+      description:
+        'Nuevo espacio tipo revista con productos curados y selecciones de expertos.',
+      visual: <InspirationVisual />,
+    },
+    {
+      number: '02',
+      label: 'Cotizaciones omnicanal',
+      title: 'La primera funcionalidad realmente omnicanal.',
+      description:
+        'Cotizaciones que se inician en tienda y se cierran en digital (o viceversa).',
+      visual: <QuotationsVisual />,
+    },
+    {
+      number: '03',
+      label: 'Pago autoasistido',
+      title: 'Checkout con datáfono explicado paso a paso.',
+      description:
+        'Ilustraciones guían el pago autoasistido en datáfonos físicos.',
+      visual: <PaymentVisual />,
+    },
+    {
+      number: '04',
+      label: 'Pantalla vertical',
+      title: 'Rediseño e instalación de un nuevo formato.',
+      description:
+        'Reformulación de UI bajo formato vertical y nueva ubicación en tienda.',
+      visual: <VerticalScreenVisual />,
+    },
+  ];
+
   return (
     <section className="border-t border-line py-12 md:py-16">
       <div className="container-portfolio">
-        <div className="mb-10 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
+        <div className="mb-8 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
           Funcionalidades · escala omnicanal
         </div>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <ProcessHighlightCard
-            number="01"
-            label="Inspiración"
-            title="Catálogo editorial de productos destacados."
-            description="Nuevo espacio dentro de las pantallas tipo revista, donde se listan productos de tienda en imágenes editoriales y selecciones de expertos. Inspira la decisión antes de la búsqueda."
-            visual={<InspirationVisual />}
-          />
-          <ProcessHighlightCard
-            number="02"
-            label="Cotizaciones omnicanal"
-            title="La primera funcionalidad realmente omnicanal."
-            description="Una cotización iniciada en tienda se puede recuperar en digital (y viceversa) para cerrar la compra desde cualquier canal. Resuelve un dolor histórico de los asesores y abre una nueva forma de comprar."
-            visual={<QuotationsVisual />}
-          />
-          <ProcessHighlightCard
-            number="03"
-            label="Pago autoasistido"
-            title="Checkout con datáfono explicado paso a paso."
-            description="Ilustraciones de explicación dentro del checkout para guiar el pago autoasistido en datáfonos físicos. El cliente cierra la compra solo, sin bloquearse en el último paso."
-            visual={<PaymentVisual />}
-          />
-          <ProcessHighlightCard
-            number="04"
-            label="Pantalla vertical"
-            title="Rediseño e instalación de un nuevo formato."
-            description="Reformulación completa de la UI bajo formato vertical y una nueva ubicación dentro de la tienda. Una nueva forma de comprar que aprovecha mejor el recorrido del cliente."
-            visual={<VerticalScreenVisual />}
-          />
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
+          {features.map((f) => (
+            <article
+              key={f.number}
+              className="group flex flex-col overflow-hidden rounded-xl border border-line bg-bg-elev transition-base hover:border-blue/40 hover:shadow-md"
+            >
+              {/* Visual compacto */}
+              <div className="relative aspect-[4/3] w-full overflow-hidden border-b border-line">
+                {f.visual}
+              </div>
+              {/* Body compacto */}
+              <div className="flex flex-1 flex-col gap-2 p-4">
+                <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
+                  {f.number} · {f.label}
+                </div>
+                <h3 className="font-serif text-[15px] leading-tight tracking-display text-ink">
+                  {f.title}
+                </h3>
+                <p className="text-body-sm leading-snug text-ink-soft">
+                  {f.description}
+                </p>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -153,36 +187,129 @@ function FeaturesGrid() {
 }
 
 /**
- * 4 espacios de imagen al final del case (pendientes de subir).
- * Showcase visual del producto en tienda y de las funcionalidades implementadas.
+ * 03 Decisiones + 04 Solución en grid 2 columnas (CompactSection — sin
+ * label sticky, todo apilado en cada columna).
  */
-function FinalGalleryPlaceholders() {
-  const slots = [
-    { alt: 'Pantalla en tienda · contexto físico real' },
-    { alt: 'Detalle de UI · sección de inspiración' },
-    { alt: 'Flujo de cotización omnicanal · pantalla + app' },
-    { alt: 'Pantalla vertical · nuevo formato instalado en tienda' },
+function DecisionesSolucionGrid({
+  sections,
+}: {
+  sections: [CaseSectionContent, CaseSectionContent];
+}) {
+  return (
+    <section className="border-t border-line py-12 md:py-16">
+      <div className="container-portfolio grid gap-10 md:grid-cols-2 md:gap-12">
+        {sections.map((section) => (
+          <div key={section.number}>
+            <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
+              {section.number} · {section.label}
+            </div>
+            <h2 className="display-md mb-5 mt-3 text-ink">
+              {renderTitle(section.title)}
+            </h2>
+            <div className="space-y-4 text-body text-ink-soft">
+              {section.body}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Galería final con 4 imágenes del despliegue en tienda.
+ * Grid 2x2 sin border en las imágenes (integradas con el fondo).
+ */
+function FinalGallery() {
+  const items = [
+    {
+      src: '/work/pantallas-tienda/gallery-01.jpg',
+      alt: 'Pantalla digital en contexto físico real de tienda Homecenter.',
+    },
+    {
+      src: '/work/pantallas-tienda/gallery-02.jpg',
+      alt: 'Detalle de UI — sección de inspiración con catálogo editorial.',
+    },
+    {
+      src: '/work/pantallas-tienda/gallery-03.jpg',
+      alt: 'Flujo de cotización omnicanal — pantalla + app en sincronía.',
+    },
+    {
+      src: '/work/pantallas-tienda/gallery-04.jpg',
+      alt: 'Pantalla vertical — nuevo formato instalado en tienda.',
+    },
   ];
 
   return (
     <section className="container-portfolio border-t border-line py-16 md:py-20">
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        {slots.map((s, i) => (
+        {items.map((item) => (
           <div
-            key={i}
-            className="aspect-[4/3] w-full overflow-hidden rounded-lg border border-dashed border-line bg-bg-block"
-            role="img"
-            aria-label={s.alt}
+            key={item.src}
+            className="relative aspect-[4/3] w-full overflow-hidden rounded-lg"
           >
-            <div className="flex h-full items-center justify-center px-4 text-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
-              [ {s.alt} ]
-            </div>
+            <Image
+              src={item.src}
+              alt={item.alt}
+              fill
+              className="object-cover"
+              sizes="(min-width: 768px) 50vw, 100vw"
+            />
           </div>
         ))}
       </div>
-      <p className="mt-5 text-center text-eyebrow uppercase tracking-eyebrow text-ink-mute md:text-left">
-        Cierre · 4 imágenes pendientes de subir.
-      </p>
+    </section>
+  );
+}
+
+/**
+ * 3 ilustraciones pequeñas de cierre — resumen de la intervención de diseño.
+ * Cards muy compactas, en fila de 3, con visual + label + frase corta.
+ */
+function DesignSummaryStrip() {
+  const items = [
+    {
+      label: 'UX semi-pública',
+      caption: 'Touch targets grandes, jerarquía marcada, flujos cortos.',
+      visual: <PublicUxVisual />,
+    },
+    {
+      label: 'Sistema multi-marca',
+      caption: 'Una UI que se adapta a Constructor, Carcenter y Proyectos.',
+      visual: <MultiBrandVisual />,
+    },
+    {
+      label: 'Escala omnicanal',
+      caption: 'Pantallas como nodo conectado con app, web y tienda.',
+      visual: <OmnichannelVisual />,
+    },
+  ];
+
+  return (
+    <section className="container-portfolio border-t border-line py-16 md:py-20">
+      <div className="mb-8 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
+        Resumen · intervención de diseño
+      </div>
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        {items.map((item) => (
+          <article
+            key={item.label}
+            className="flex flex-col overflow-hidden rounded-xl border border-line bg-bg-elev"
+          >
+            <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-line">
+              {item.visual}
+            </div>
+            <div className="p-4">
+              <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink">
+                {item.label}
+              </div>
+              <p className="mt-2 text-body-sm leading-snug text-ink-soft">
+                {item.caption}
+              </p>
+            </div>
+          </article>
+        ))}
+      </div>
     </section>
   );
 }
@@ -422,6 +549,122 @@ function VerticalScreenVisual() {
             />
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Visuales del resumen de intervención de diseño ─── */
+
+/** UX semi-pública: dedo grande sobre touch target enorme. */
+function PublicUxVisual() {
+  return (
+    <div
+      className="relative h-full w-full overflow-hidden"
+      style={{
+        background:
+          'linear-gradient(135deg, color-mix(in oklab, var(--blue) 6%, transparent), color-mix(in oklab, var(--cyan) 4%, transparent))',
+      }}
+      aria-hidden
+    >
+      <div className="flex h-full items-center justify-center p-5">
+        {/* Touch target grande */}
+        <div
+          className="relative flex h-16 w-16 items-center justify-center rounded-2xl"
+          style={{
+            background:
+              'linear-gradient(135deg, var(--blue), var(--cyan))',
+          }}
+        >
+          {/* Ondas de tap */}
+          <div
+            className="absolute inset-0 rounded-2xl border-2"
+            style={{ borderColor: 'color-mix(in oklab, var(--blue) 30%, transparent)' }}
+          />
+          <div
+            className="absolute -inset-2 rounded-2xl border-2"
+            style={{ borderColor: 'color-mix(in oklab, var(--blue) 15%, transparent)' }}
+          />
+          {/* Dedo (círculo blanco) */}
+          <span className="h-5 w-5 rounded-full bg-bg" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Sistema multi-marca: 3 cuadrados de colores conectados a un nodo central. */
+function MultiBrandVisual() {
+  return (
+    <div
+      className="relative h-full w-full overflow-hidden"
+      style={{
+        background:
+          'linear-gradient(135deg, color-mix(in oklab, var(--rose) 6%, transparent), color-mix(in oklab, var(--blue) 4%, transparent))',
+      }}
+      aria-hidden
+    >
+      <div className="flex h-full items-center justify-center p-5">
+        <div className="flex items-center gap-2.5">
+          <div
+            className="h-8 w-8 rounded-md"
+            style={{ background: 'var(--blue)' }}
+          />
+          <div
+            className="h-10 w-10 rounded-lg bg-brand-gradient"
+            aria-hidden
+          />
+          <div
+            className="h-8 w-8 rounded-md"
+            style={{ background: 'var(--cyan)' }}
+          />
+          <div
+            className="h-8 w-8 rounded-md"
+            style={{ background: 'var(--rose)' }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Escala omnicanal: 3 dispositivos (pantalla, móvil, web) con líneas conectoras. */
+function OmnichannelVisual() {
+  return (
+    <div
+      className="relative h-full w-full overflow-hidden"
+      style={{
+        background:
+          'linear-gradient(135deg, color-mix(in oklab, var(--cyan) 6%, transparent), color-mix(in oklab, var(--rose) 4%, transparent))',
+      }}
+      aria-hidden
+    >
+      <div className="flex h-full items-center justify-center gap-3 p-5">
+        {/* Pantalla horizontal */}
+        <div
+          className="h-9 w-12 rounded-md border border-line"
+          style={{ background: 'var(--bg)' }}
+        />
+        {/* Conector */}
+        <span
+          className="h-px w-3"
+          style={{ background: 'var(--ink-mute)' }}
+        />
+        {/* Móvil vertical (más alto) */}
+        <div
+          className="h-12 w-6 rounded-md border border-line"
+          style={{ background: 'var(--bg)' }}
+        />
+        {/* Conector */}
+        <span
+          className="h-px w-3"
+          style={{ background: 'var(--ink-mute)' }}
+        />
+        {/* Laptop/web */}
+        <div
+          className="h-7 w-12 rounded-md border border-line"
+          style={{ background: 'var(--bg)' }}
+        />
       </div>
     </div>
   );

@@ -116,19 +116,9 @@ export const CASE_PANTALLAS_TIENDA: CaseContent = {
         </p>,
       ],
     },
-    {
-      number: '06',
-      label: 'Aprendizaje',
-      title: 'Diseñar para contextos semi-públicos cambia las reglas.',
-      body: [
-        <p key="1">
-          El usuario no te conoce, no te vuelve a ver, usa el producto una sola
-          vez. No hay curva de aprendizaje: cada interacción tiene que ser
-          obvia al primer segundo. Es otro deporte comparado con diseñar apps
-          que se usan a diario.
-        </p>,
-      ],
-    },
+    // Sección 06 (Aprendizaje) eliminada — el cierre del case son 3
+    // ilustraciones pequeñas que resumen la intervención de diseño,
+    // renderizadas en el page (DesignSummaryStrip).
   ],
 
   // ─── NAV ──────────────────────────────────────────────

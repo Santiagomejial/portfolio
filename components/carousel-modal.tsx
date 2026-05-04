@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
@@ -24,10 +24,15 @@ interface CarouselModalProps {
   onIndexChange: (i: number) => void;
 }
 
+// Distancia mínima en px para reconocer swipe horizontal (mobile).
+const SWIPE_THRESHOLD = 50;
+
 /**
  * Modal con carrusel de imágenes.
- * Backdrop oscuro con blur, navegación lateral con flechas, ESC para cerrar.
- * Cuando images está vacío muestra un placeholder ("Próximamente").
+ * - Backdrop oscuro con blur (click fuera cierra).
+ * - Navegación con flechas en pantalla y teclado (← →).
+ * - Swipe lateral en mobile (← derecha = anterior, ← izquierda = siguiente).
+ * - ESC cierra. Bloquea scroll del body mientras está abierto.
  */
 export function CarouselModal({
   open,
@@ -38,6 +43,8 @@ export function CarouselModal({
   onIndexChange,
 }: CarouselModalProps) {
   const total = images.length;
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchEndX, setTouchEndX] = useState<number | null>(null);
 
   const goNext = useCallback(() => {
     if (total === 0) return;
@@ -69,27 +76,53 @@ export function CarouselModal({
     };
   }, [open, onClose, goNext, goPrev]);
 
+  // Touch swipe handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEndX(null);
+    setTouchStartX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX === null || touchEndX === null) return;
+    const distance = touchStartX - touchEndX;
+    if (distance > SWIPE_THRESHOLD) {
+      goNext(); // swipe izquierda → siguiente
+    } else if (distance < -SWIPE_THRESHOLD) {
+      goPrev(); // swipe derecha → anterior
+    }
+    setTouchStartX(null);
+    setTouchEndX(null);
+  };
+
   if (!open) return null;
 
   const current = total > 0 ? images[index] : null;
+
+  // Solo cerrar si el click es directamente sobre el backdrop (no en hijos).
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) onClose();
+  };
 
   return (
     <div
       role="dialog"
       aria-modal="true"
       aria-label={title ?? 'Carrusel de imágenes'}
-      className="fixed inset-0 z-modal flex items-center justify-center"
+      onClick={handleBackdropClick}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      className="fixed inset-0 z-modal flex items-center justify-center bg-black/85 backdrop-blur-md"
     >
-      {/* Backdrop clickeable para cerrar */}
-      <button
-        type="button"
-        aria-label="Cerrar"
-        onClick={onClose}
-        className="absolute inset-0 bg-black/85 backdrop-blur-md"
-      />
-
-      {/* Header */}
-      <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between p-4 md:p-6">
+      {/* Header: título + counter + botón cerrar */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between p-4 md:p-6"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-white/60">
           {title}
           {total > 0 && (
@@ -103,13 +136,14 @@ export function CarouselModal({
           onClick={onClose}
           aria-label="Cerrar"
           className={cn(
-            'flex h-10 w-10 items-center justify-center rounded-full',
-            'text-white/70 transition-base hover:bg-white/10 hover:text-white'
+            'pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full',
+            'text-white/80 transition-base hover:bg-white/10 hover:text-white',
+            'active:bg-white/15'
           )}
         >
           <svg
-            width="18"
-            height="18"
+            width="20"
+            height="20"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -122,9 +156,12 @@ export function CarouselModal({
         </button>
       </div>
 
-      {/* Contenido */}
+      {/* Contenido (imagen) */}
       {current ? (
-        <div className="relative z-10 flex h-full w-full max-w-6xl flex-col items-center justify-center px-6 py-20 md:px-16 md:py-24">
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="flex h-full w-full max-w-6xl flex-col items-center justify-center px-6 py-20 md:px-16 md:py-24"
+        >
           <div className="relative h-full max-h-[75vh] w-full">
             <Image
               src={current.src}
@@ -143,7 +180,10 @@ export function CarouselModal({
         </div>
       ) : (
         // Placeholder cuando no hay imágenes aún
-        <div className="relative z-10 flex flex-col items-center gap-3 text-center">
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="flex flex-col items-center gap-3 text-center"
+        >
           <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-white/40">
             Próximamente
           </div>
@@ -153,16 +193,20 @@ export function CarouselModal({
         </div>
       )}
 
-      {/* Nav lateral */}
+      {/* Nav lateral (botones) */}
       {total > 1 && (
         <>
           <button
             type="button"
-            onClick={goPrev}
+            onClick={(e) => {
+              e.stopPropagation();
+              goPrev();
+            }}
             aria-label="Imagen anterior"
             className={cn(
-              'absolute left-3 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full md:left-6',
-              'bg-white/5 text-white transition-base hover:bg-white/15'
+              'absolute left-3 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full md:left-6',
+              'bg-white/5 text-white transition-base hover:bg-white/15',
+              'active:bg-white/25'
             )}
           >
             <svg
@@ -181,11 +225,15 @@ export function CarouselModal({
           </button>
           <button
             type="button"
-            onClick={goNext}
+            onClick={(e) => {
+              e.stopPropagation();
+              goNext();
+            }}
             aria-label="Imagen siguiente"
             className={cn(
-              'absolute right-3 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full md:right-6',
-              'bg-white/5 text-white transition-base hover:bg-white/15'
+              'absolute right-3 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full md:right-6',
+              'bg-white/5 text-white transition-base hover:bg-white/15',
+              'active:bg-white/25'
             )}
           >
             <svg

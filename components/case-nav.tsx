@@ -34,7 +34,7 @@ export function CaseNav({ prev, next, className }: CaseNavProps) {
               className="group block text-left transition-base hover:opacity-80"
             >
               <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-                ← Case anterior
+                ← Caso anterior
               </div>
               <div className="mt-2 font-serif text-[clamp(20px,2.5vw,28px)] text-ink transition-base group-hover:text-blue">
                 {prev.title}
@@ -49,7 +49,7 @@ export function CaseNav({ prev, next, className }: CaseNavProps) {
               className="group block text-right transition-base hover:opacity-80 md:text-right"
             >
               <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-                Siguiente case →
+                Siguiente caso →
               </div>
               <div className="mt-2 font-serif text-[clamp(20px,2.5vw,28px)] text-ink transition-base group-hover:text-blue">
                 {next.title}

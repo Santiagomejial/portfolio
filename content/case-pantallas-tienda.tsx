@@ -32,54 +32,54 @@ export const CASE_PANTALLAS_TIENDA: CaseContent = {
     {
       number: '01',
       label: 'Contexto',
-      title: 'La tienda física como canal saturado.',
+      title: 'La tienda física + la experiencia digital.',
       body: [
         <p key="1">
-          Homecenter tiene tiendas de gran superficie con miles de SKUs. En los
-          picos de demanda, los asesores no dan abasto: clientes esperan, venta
-          se cae, experiencia se deteriora. La pregunta era cómo liberar al
-          asesor para que se enfoque en lo que aporta valor real.
+          Las tiendas físicas y la experiencia digital tienen un punto de
+          quiebre: el catálogo. En tiendas de gran superficie como Homecenter
+          es imposible exhibir cada SKU disponible — el inventario digital es
+          mucho mayor que el espacio físico de exhibición.
+        </p>,
+        <p key="2">
+          Las pantallas digitales nacen para cerrar esa brecha. Se ubican en
+          cada sección de cada tienda del país, donde los clientes se pueden
+          autoasistir: consultar stock, generar órdenes, hacer cotizaciones o
+          inspirarse con productos curados — imágenes editoriales y
+          selecciones de expertos que no siempre están en el piso de venta.
         </p>,
       ],
     },
     {
       number: '02',
       label: 'Problema',
-      title: 'El cliente llega sabiendo poco — y necesita respuestas rápidas.',
+      title: 'Tres frentes que el proyecto tenía que resolver al mismo tiempo.',
       body: [
         <p key="1">
-          Consultas tipo: ¿este producto está disponible en esta tienda?, ¿cuál
-          es la diferencia entre estos dos?, ¿dónde lo encuentro en el piso?
-          Son preguntas que no requieren experto, pero que hoy consumen tiempo
-          de asesor.
+          <strong>Reducir los tiempos de atención del asesor.</strong> En picos
+          de demanda los asesores no dan abasto: el cliente espera, la venta
+          se enfría y la experiencia se deteriora. La pantalla tenía que
+          absorber las consultas que no requieren juicio experto.
+        </p>,
+        <p key="2">
+          <strong>Vender todo el catálogo.</strong> No solo los productos del
+          piso. La pantalla habilita comprar el catálogo completo de Homecenter
+          y Constructor, incluyendo SKUs que no están físicamente en la tienda
+          que se visita.
+        </p>,
+        <p key="3">
+          <strong>Personalización por sub-marca y sección.</strong> Constructor,
+          Carcenter y Proyectos tienen audiencias y necesidades distintas. La
+          pantalla se adapta a la sección donde está instalada — no es un
+          producto único, es un sistema con personalidades.
         </p>,
       ],
     },
+    // Sección 03 (Proceso) eliminada — el bloque entre Problema y Decisiones
+    // se reemplaza por las 4 FeatureCards renderizadas en el page
+    // (FeaturesGrid), que cuentan las funcionalidades que diseñé y escalaron a
+    // omnicanal.
     {
       number: '03',
-      label: 'Proceso',
-      title: 'Observación en tienda, no solo research en oficina.',
-      body: [
-        <p key="1">
-          Pasamos horas en tienda observando cómo la gente pregunta, se mueve y
-          decide. Mapeamos los puntos donde el cliente se detiene, los flujos
-          más comunes y las rutas que hacen antes de contactar a un asesor. La
-          pantalla tenía que insertarse en ese recorrido natural, no forzar uno
-          nuevo.
-        </p>,
-      ],
-      mediaAfter: {
-        layout: 'trio',
-        items: [
-          { alt: 'observación en tienda · mapping del recorrido' },
-          { alt: 'flujos críticos · stock / comparación / ubicación' },
-          { alt: 'prototipado hardware + software' },
-        ],
-        caption: 'Proceso · del piso de venta al prototipo funcional.',
-      },
-    },
-    {
-      number: '04',
       label: 'Decisiones',
       title: 'UI pensada para uso semi-público y eventual.',
       body: [
@@ -93,7 +93,7 @@ export const CASE_PANTALLAS_TIENDA: CaseContent = {
       ],
     },
     {
-      number: '05',
+      number: '04',
       label: 'Solución',
       title: 'Pantallas como puente entre el asesor y el autoservicio.',
       body: [
@@ -103,17 +103,9 @@ export const CASE_PANTALLAS_TIENDA: CaseContent = {
           información, el asesor aporta juicio experto. Ambos salen ganando.
         </p>,
       ],
-      mediaAfter: {
-        layout: 'duo',
-        items: [
-          { alt: 'pantalla en tienda · uso real' },
-          { alt: 'flujo de consulta · interacción' },
-        ],
-        caption: 'Solución · pantalla en contexto y flujos principales.',
-      },
     },
     {
-      number: '06',
+      number: '05',
       label: 'Impacto',
       title: 'Liberación del asesor y mejor experiencia en piso.',
       body: [
@@ -125,7 +117,7 @@ export const CASE_PANTALLAS_TIENDA: CaseContent = {
       ],
     },
     {
-      number: '07',
+      number: '06',
       label: 'Aprendizaje',
       title: 'Diseñar para contextos semi-públicos cambia las reglas.',
       body: [

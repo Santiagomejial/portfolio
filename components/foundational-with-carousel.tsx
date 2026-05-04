@@ -15,6 +15,24 @@ interface FoundationalProject {
   images: readonly CarouselImage[];
 }
 
+/**
+ * Helper: genera el array de imágenes del carrusel desde una carpeta.
+ * Asume naming `01.jpg`, `02.jpg`, etc. dentro de `/work/<folder>/`.
+ */
+function carouselFromFolder(
+  folder: string,
+  count: number,
+  label: string
+): readonly CarouselImage[] {
+  return Array.from({ length: count }, (_, i) => {
+    const num = String(i + 1).padStart(2, '0');
+    return {
+      src: `/work/${folder}/${num}.jpg`,
+      alt: `${label} · imagen ${num}`,
+    };
+  });
+}
+
 const PROJECTS: readonly FoundationalProject[] = [
   {
     key: 'portafolio-web',
@@ -26,16 +44,7 @@ const PROJECTS: readonly FoundationalProject[] = [
       src: '/work/portafolio-web.jpg',
       alt: 'Portafolio de diseño web — recopilación de páginas web freelance.',
     },
-    images: [
-      { src: '/work/portafolio-web/01.jpg', alt: 'Portafolio web · imagen 01' },
-      { src: '/work/portafolio-web/02.jpg', alt: 'Portafolio web · imagen 02' },
-      { src: '/work/portafolio-web/03.jpg', alt: 'Portafolio web · imagen 03' },
-      { src: '/work/portafolio-web/04.jpg', alt: 'Portafolio web · imagen 04' },
-      { src: '/work/portafolio-web/05.jpg', alt: 'Portafolio web · imagen 05' },
-      { src: '/work/portafolio-web/06.jpg', alt: 'Portafolio web · imagen 06' },
-      { src: '/work/portafolio-web/07.jpg', alt: 'Portafolio web · imagen 07' },
-      { src: '/work/portafolio-web/08.jpg', alt: 'Portafolio web · imagen 08' },
-    ],
+    images: carouselFromFolder('portafolio-web', 8, 'Portafolio web'),
   },
   {
     key: 'portafolio-diseno',
@@ -47,7 +56,7 @@ const PROJECTS: readonly FoundationalProject[] = [
       src: '/work/portafolio-diseno.jpg',
       alt: 'Portafolio de diseño — proyectos académicos y profesionales.',
     },
-    images: [], // TODO: agregar imágenes del portafolio de diseño
+    images: carouselFromFolder('portafolio-diseno', 24, 'Portafolio de diseño'),
   },
   {
     key: 'logofolio',
@@ -59,7 +68,7 @@ const PROJECTS: readonly FoundationalProject[] = [
       src: '/work/logofolio.jpg',
       alt: 'Logofolio — diseño gráfico y creación de marca.',
     },
-    images: [], // TODO: agregar imágenes del logofolio
+    images: [], // TODO: cambiar por carouselFromFolder('logofolio', N, 'Logofolio') cuando estén las imágenes
   },
 ];
 

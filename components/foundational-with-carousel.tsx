@@ -68,7 +68,7 @@ const PROJECTS: readonly FoundationalProject[] = [
       src: '/work/logofolio.jpg',
       alt: 'Logofolio — diseño gráfico y creación de marca.',
     },
-    images: [], // TODO: cambiar por carouselFromFolder('logofolio', N, 'Logofolio') cuando estén las imágenes
+    images: carouselFromFolder('logofolio', 14, 'Logofolio'),
   },
 ];
 

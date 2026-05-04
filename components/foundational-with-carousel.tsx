@@ -26,7 +26,16 @@ const PROJECTS: readonly FoundationalProject[] = [
       src: '/work/portafolio-web.jpg',
       alt: 'Portafolio de diseño web — recopilación de páginas web freelance.',
     },
-    images: [], // TODO: agregar imágenes del portafolio web
+    images: [
+      { src: '/work/portafolio-web/01.jpg', alt: 'Portafolio web · imagen 01' },
+      { src: '/work/portafolio-web/02.jpg', alt: 'Portafolio web · imagen 02' },
+      { src: '/work/portafolio-web/03.jpg', alt: 'Portafolio web · imagen 03' },
+      { src: '/work/portafolio-web/04.jpg', alt: 'Portafolio web · imagen 04' },
+      { src: '/work/portafolio-web/05.jpg', alt: 'Portafolio web · imagen 05' },
+      { src: '/work/portafolio-web/06.jpg', alt: 'Portafolio web · imagen 06' },
+      { src: '/work/portafolio-web/07.jpg', alt: 'Portafolio web · imagen 07' },
+      { src: '/work/portafolio-web/08.jpg', alt: 'Portafolio web · imagen 08' },
+    ],
   },
   {
     key: 'portafolio-diseno',

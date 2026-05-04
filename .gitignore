@@ -35,3 +35,10 @@ next-env.d.ts
 # videos originales sin comprimir (mantener fuera del repo).
 # Las versiones optimizadas para web llevan sufijo "-web" y SÍ se trackean.
 public/work/homecenter/recorrido.mp4
+
+# PNGs originales de carruseles convertidos a JPG comprimido.
+# Las versiones .jpg SÍ se trackean — los PNG originales se pueden borrar
+# manualmente desde Finder.
+public/work/portafolio-web/*.png
+public/work/portafolio-diseno/*.png
+public/work/logofolio/*.png

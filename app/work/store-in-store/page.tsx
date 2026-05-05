@@ -221,7 +221,7 @@ function DecisionesSolucionGrid({
  */
 function FinalGallery() {
   // Cambiar a true cuando estén las 4 imágenes en /public/work/store-in-store/
-  const HAS_IMAGES = false;
+  const HAS_IMAGES = true;
 
   const items = [
     {
@@ -512,7 +512,10 @@ function CrossSellVisual() {
 
 /* ─── Visuales del DesignSummaryStrip ─── */
 
-/** Sistema escalable: bloques apilados con un "+" de extensión. */
+/**
+ * "Replicado en la nueva app" — pantalla horizontal (web) clonando hacia un
+ * móvil vertical (app), conectados con flecha que comparte gradient.
+ */
 function ScalableSystemVisual() {
   return (
     <div
@@ -523,31 +526,66 @@ function ScalableSystemVisual() {
       }}
       aria-hidden
     >
-      <div className="flex h-full items-center justify-center gap-1.5 p-5">
+      <div className="flex h-full items-center justify-center gap-3 p-5">
+        {/* Web (origen) */}
         <div
-          className="h-8 w-8 rounded-md"
-          style={{ background: 'var(--blue)' }}
-        />
-        <div
-          className="h-8 w-8 rounded-md"
-          style={{ background: 'var(--rose)' }}
-        />
-        <div
-          className="h-8 w-8 rounded-md"
-          style={{ background: 'var(--cyan)' }}
-        />
-        <div
-          className="flex h-8 w-8 items-center justify-center rounded-md border-2 border-dashed text-base font-semibold"
-          style={{ borderColor: 'var(--ink-mute)', color: 'var(--ink-mute)' }}
+          className="flex h-12 w-16 flex-col items-center justify-center gap-1 rounded-md border border-line"
+          style={{ background: 'var(--bg)' }}
         >
-          +
+          <div
+            className="h-0.5 w-8 rounded-full"
+            style={{ background: 'var(--line)' }}
+          />
+          <div
+            className="h-0.5 w-6 rounded-full"
+            style={{ background: 'var(--line)' }}
+          />
+          <div
+            className="mt-0.5 h-3 w-10 rounded-sm bg-brand-gradient opacity-60"
+          />
+        </div>
+        {/* Flecha de replicación */}
+        <svg width="24" height="14" viewBox="0 0 24 14" fill="none" aria-hidden>
+          <defs>
+            <linearGradient id="repGrad" x1="0" y1="0" x2="24" y2="0">
+              <stop offset="0%" stopColor="var(--blue)" />
+              <stop offset="100%" stopColor="var(--rose)" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M2 7 H18 M14 2 L20 7 L14 12"
+            stroke="url(#repGrad)"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        {/* App móvil (destino) */}
+        <div
+          className="flex h-12 w-7 flex-col items-center justify-center gap-1 rounded-md border border-line"
+          style={{ background: 'var(--bg)' }}
+        >
+          <div
+            className="h-0.5 w-4 rounded-full"
+            style={{ background: 'var(--line)' }}
+          />
+          <div
+            className="h-0.5 w-3 rounded-full"
+            style={{ background: 'var(--line)' }}
+          />
+          <div
+            className="mt-0.5 h-3 w-5 rounded-sm bg-brand-gradient opacity-60"
+          />
         </div>
       </div>
     </div>
   );
 }
 
-/** Identidad por marca: 3 swatches de color con tipografía Aa. */
+/**
+ * "Del digital al físico" — móvil/pantalla con flecha hacia un edificio de
+ * tienda física (representado como bloques apilados tipo storefront).
+ */
 function BrandIdentityVisual() {
   return (
     <div
@@ -559,24 +597,93 @@ function BrandIdentityVisual() {
       aria-hidden
     >
       <div className="flex h-full items-center justify-center gap-3 p-5">
+        {/* Móvil (digital, origen) */}
         <div
-          className="flex h-10 w-10 items-center justify-center rounded-md font-serif text-base text-bg"
-          style={{ background: 'var(--blue)' }}
+          className="flex h-14 w-8 flex-col items-center justify-center gap-1 rounded-md border border-line"
+          style={{ background: 'var(--bg)' }}
         >
-          Aa
+          <div
+            className="h-0.5 w-4 rounded-full"
+            style={{ background: 'var(--rose)' }}
+          />
+          <div
+            className="h-0.5 w-3 rounded-full"
+            style={{ background: 'var(--line)' }}
+          />
+          <div
+            className="mt-1 h-4 w-6 rounded-sm"
+            style={{ background: 'var(--rose)', opacity: 0.5 }}
+          />
         </div>
-        <div
-          className="flex h-10 w-10 items-center justify-center rounded-md font-serif text-base text-bg"
-          style={{ background: 'var(--rose)' }}
+        {/* Flecha digital → físico */}
+        <svg width="24" height="14" viewBox="0 0 24 14" fill="none" aria-hidden>
+          <defs>
+            <linearGradient id="d2pGrad" x1="0" y1="0" x2="24" y2="0">
+              <stop offset="0%" stopColor="var(--rose)" />
+              <stop offset="100%" stopColor="var(--blue)" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M2 7 H18 M14 2 L20 7 L14 12"
+            stroke="url(#d2pGrad)"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        {/* Tienda física (storefront SVG) */}
+        <svg
+          width="56"
+          height="48"
+          viewBox="0 0 56 48"
+          fill="none"
+          aria-hidden
         >
-          Aa
-        </div>
-        <div
-          className="flex h-10 w-10 items-center justify-center rounded-md font-serif text-base text-bg"
-          style={{ background: 'var(--cyan)' }}
-        >
-          Aa
-        </div>
+          {/* Toldo del storefront */}
+          <path
+            d="M4 14 L28 4 L52 14 L52 18 L4 18 Z"
+            fill="var(--rose)"
+            opacity="0.4"
+          />
+          {/* Cuerpo de la tienda */}
+          <rect
+            x="8"
+            y="18"
+            width="40"
+            height="28"
+            rx="1"
+            fill="none"
+            stroke="var(--ink)"
+            strokeWidth="1.5"
+          />
+          {/* Puerta */}
+          <rect
+            x="22"
+            y="28"
+            width="12"
+            height="18"
+            rx="0.5"
+            fill="var(--rose)"
+            opacity="0.5"
+          />
+          {/* Ventanas */}
+          <rect
+            x="12"
+            y="22"
+            width="6"
+            height="4"
+            fill="var(--blue)"
+            opacity="0.4"
+          />
+          <rect
+            x="38"
+            y="22"
+            width="6"
+            height="4"
+            fill="var(--blue)"
+            opacity="0.4"
+          />
+        </svg>
       </div>
     </div>
   );

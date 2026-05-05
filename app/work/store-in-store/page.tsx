@@ -1,168 +1,647 @@
+import Image from 'next/image';
 import {
+  PullQuote,
   CaseHero,
   CaseSection,
   CaseMedia,
   CaseNav,
   Footer,
-  type CaseMeta,
+  HighlightTitle,
 } from '@/components';
+import { CASE_STORE_IN_STORE } from '@/content/case-store-in-store';
+import type {
+  CaseHeroContent,
+  CaseSectionContent,
+  HighlightTitle as HighlightTitleType,
+} from '@/content/types';
 
 /**
- * CASE — Store in Store.
- * Retail Sodimac · 2024 · sistema multi-marca dentro del ecosistema digital.
+ * CASE — Store in Store, Constructor, Petcenter, Carcenter y al por mayor.
+ * Slug: /work/store-in-store. Todo el copy vive en
+ * /content/case-store-in-store.tsx. Esta página solo compone layout.
+ *
+ * Estructura espejo de Pantallas digitales en tienda:
+ * Hero · 01+02 normales · 4 FeatureCards · Decisiones+Solución 2 cols ·
+ * 4 imágenes galería · Impacto · 3 ilustraciones de cierre · CaseNav.
  */
 
-const META: CaseMeta[] = [
-  { label: 'Rol', value: 'UX Lead' },
-  { label: 'Periodo', value: '2024' },
-  { label: 'Equipo', value: 'UX + Ingeniería' },
-  { label: 'Alcance', value: 'Sistema multi-marca' },
-];
-
 export default function StoreInStoreCase() {
+  const { hero, establishing, sections, nav } = CASE_STORE_IN_STORE;
+
   return (
     <>
       <CaseHero
-        breadcrumb={{ label: 'Volver', fallbackHref: '/work' }}
-        caseCounter="Case 02 · Retail Sodimac"
-        title={
-          <>
-            Store in Store.{' '}
-            <span className="text-gradient">Tres marcas</span> coexistiendo
-            dentro del mismo ecosistema digital.
-          </>
-        }
-        sub="Diseño del sistema que permite a Petcenter, Carcenter y Constructor convivir dentro del mismo producto sin romper la coherencia del negocio principal."
-        meta={META}
-        heroVisual={
-          <div
-            className="aspect-[21/9] w-full overflow-hidden rounded-lg border border-line bg-bg-block"
-            role="img"
-            aria-label="Hero visual — reemplazar en Claude Design"
-          >
-            <div className="flex h-full items-center justify-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
-              [ hero visual · Store in Store ]
-            </div>
-          </div>
-        }
+        breadcrumb={hero.breadcrumb}
+        caseCounter={hero.caseCounter}
+        appIcon={hero.appIcon}
+        title={renderTitle(hero.title)}
+        sub={hero.sub}
+        meta={[...hero.meta]}
+        heroVisual={renderHeroImage(hero)}
       />
 
-      <CaseSection
-        number="01"
-        label="Contexto"
-        title="Sodimac no es una sola marca: es un conjunto."
-      >
-        <p>
-          Petcenter, Carcenter y Constructor operan bajo el paraguas de
-          Sodimac pero con identidades, audiencias y propuestas de valor
-          distintas. En físico cohabitan en la misma tienda. La pregunta
-          era cómo replicar esa coexistencia en digital sin que el usuario
-          se sienta rebotado entre marcas desconectadas.
-        </p>
-      </CaseSection>
+      {establishing && (
+        <CaseMedia
+          layout={establishing.layout}
+          items={establishing.items}
+          caption={establishing.caption}
+        />
+      )}
 
-      <CaseSection
-        number="02"
-        label="Problema"
-        title="Un usuario, múltiples marcas, un solo journey."
-      >
-        <p>
-          El riesgo era doble: si se unificaba todo bajo una sola identidad,
-          cada marca perdía diferenciación; si se separaba en apps
-          independientes, se fragmentaba el journey de compra y se perdía
-          oportunidad de cross-sell.
-        </p>
-      </CaseSection>
+      {/* 01 Contexto + 02 Problema */}
+      {sections.slice(0, 2).map((section) => (
+        <SectionWithExtras key={section.number} section={section} />
+      ))}
 
-      <CaseSection
-        number="03"
-        label="Proceso"
-        title="Benchmark de retail físico + arquitectura de información."
-      >
-        <p>
-          Estudiamos cómo el concepto "store within store" funciona en
-          retail físico (supermercados con cafeterías, grandes superficies
-          con brand shops) y lo trasladamos a principios de AI digital:
-          dónde empieza cada marca, cómo transita el usuario entre ellas,
-          qué elementos se comparten y cuáles son propios.
-        </p>
-      </CaseSection>
+      {/* 4 FeatureCards en fila — funcionalidades del sistema multi-marca */}
+      <FeaturesGrid />
 
-      <CaseMedia
-        layout="trio"
-        items={[
-          { alt: 'benchmark retail físico' },
-          { alt: 'arquitectura de información multi-marca' },
-          { alt: 'flujos de switching entre marcas' },
-        ]}
-        caption="Proceso · benchmarking, AI y flujos de switching."
-      />
+      {/* 03 Decisiones + 04 Solución en grid 2 cols */}
+      <DecisionesSolucionGrid sections={[sections[2], sections[3]]} />
 
-      <CaseSection
-        number="04"
-        label="Decisiones"
-        title="Una shell compartida, con theming por marca."
-      >
-        <p>
-          Definimos una shell de navegación compartida (búsqueda, carrito,
-          cuenta, checkout) con un sistema de theming que adapta color,
-          tipografía de marca y tono editorial por cada "store". Las
-          pantallas de catálogo, PDP y promos viven dentro de cada marca,
-          pero la capa transaccional es única.
-        </p>
-      </CaseSection>
+      {/* 4 imágenes del despliegue */}
+      <FinalGallery />
 
-      <CaseSection
-        number="05"
-        label="Solución"
-        title="Un producto, tres identidades, cero fragmentación."
-      >
-        <p>
-          El usuario navega entre Petcenter, Carcenter y Constructor como si
-          caminara entre departamentos de una misma tienda. Cada marca
-          conserva su personalidad; el sistema conserva su coherencia.
-          Checkout, cuenta y loyalty funcionan transversalmente.
-        </p>
-      </CaseSection>
+      {/* 05 Impacto */}
+      <SectionWithExtras section={sections[4]} />
 
-      <CaseMedia
-        layout="wide"
-        items={[{ alt: 'showcase · las tres marcas en contexto · 21:9' }]}
-        caption="Showcase · coexistencia visual de las tres marcas."
-      />
+      {/* 3 ilustraciones de cierre — resumen de intervención de diseño */}
+      <DesignSummaryStrip />
 
-      <CaseSection
-        number="06"
-        label="Impacto"
-        title="Base para escalar la estrategia multi-marca."
-      >
-        <p>
-          El sistema funcionó como base para integrar futuras extensiones de
-          marca dentro del ecosistema sin tener que reconstruir
-          infraestructura digital cada vez. Hoy sigue siendo el patrón de
-          referencia interno.
-        </p>
-      </CaseSection>
-
-      <CaseSection
-        number="07"
-        label="Aprendizaje"
-        title="Los sistemas multi-marca son más AI que branding."
-      >
-        <p>
-          La intuición inicial era un problema de identidad visual. Resultó
-          ser un problema de arquitectura de información: qué comparten, qué
-          separan, cómo transita el usuario. El branding vino después — y
-          fue fácil una vez el esqueleto estaba resuelto.
-        </p>
-      </CaseSection>
-
-      <CaseNav
-        prev={{ href: '/work/pantallas-tienda', title: 'Pantallas digitales en tienda' }}
-        next={{ href: '/work/asistentes-compra', title: 'Asistentes de compra digital' }}
-      />
+      <CaseNav prev={nav.prev} next={nav.next} />
 
       <Footer />
     </>
+  );
+}
+
+/* ─── Sub-componentes de layout ─── */
+
+function SectionWithExtras({ section }: { section: CaseSectionContent }) {
+  return (
+    <>
+      <CaseSection
+        number={section.number}
+        label={section.label}
+        title={renderTitle(section.title)}
+        chapterBreak={section.chapterBreak}
+      >
+        {section.body}
+      </CaseSection>
+
+      {section.mediaAfter && (
+        <CaseMedia
+          layout={section.mediaAfter.layout}
+          items={section.mediaAfter.items}
+          caption={section.mediaAfter.caption}
+        />
+      )}
+
+      {section.quoteAfter && (
+        <section className="container-portfolio border-t border-line py-20 md:py-28">
+          <PullQuote
+            highlight={section.quoteAfter.highlight}
+            attribution={section.quoteAfter.attribution}
+          >
+            {section.quoteAfter.body}
+          </PullQuote>
+        </section>
+      )}
+    </>
+  );
+}
+
+/**
+ * 4 cards compactas en fila — funcionalidades del sistema multi-marca.
+ * Copies y visuales temáticos: PENDIENTES — Santiago dictará el contenido.
+ */
+function FeaturesGrid() {
+  const features = [
+    {
+      number: '01',
+      label: 'Shell compartida',
+      title: 'Una sola capa transaccional para todas las marcas.',
+      description:
+        'Búsqueda, carrito, cuenta y checkout únicos — el usuario nunca cambia de "tienda" para finalizar la compra.',
+      visual: <SharedShellVisual />,
+    },
+    {
+      number: '02',
+      label: 'Theming por marca',
+      title: 'Color, tipografía y tono se adaptan automáticamente.',
+      description:
+        'Cada marca conserva su identidad visual sin romper la consistencia del producto base.',
+      visual: <ThemingVisual />,
+    },
+    {
+      number: '03',
+      label: 'Switching transparente',
+      title: 'Transición fluida entre Constructor, Petcenter, Carcenter…',
+      description:
+        'El usuario navega entre marcas como si caminara entre departamentos de una misma tienda.',
+      visual: <SwitchingVisual />,
+    },
+    {
+      number: '04',
+      label: 'Cross-sell habilitado',
+      title: 'Recomendaciones que cruzan las líneas de negocio.',
+      description:
+        'Productos de Petcenter aparecen en checkout de Constructor cuando hace sentido — sin duplicar inventario ni lógica.',
+      visual: <CrossSellVisual />,
+    },
+  ];
+
+  return (
+    <section className="border-t border-line py-12 md:py-16">
+      <div className="container-portfolio">
+        <div className="mb-8 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
+          Funcionalidades · sistema multi-marca
+        </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
+          {features.map((f) => (
+            <article
+              key={f.number}
+              className="group flex flex-col overflow-hidden rounded-xl border border-line bg-bg-elev transition-base hover:border-blue/40 hover:shadow-md"
+            >
+              <div className="relative aspect-[4/3] w-full overflow-hidden border-b border-line">
+                {f.visual}
+              </div>
+              <div className="flex flex-1 flex-col gap-2 p-4">
+                <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
+                  {f.number} · {f.label}
+                </div>
+                <h3 className="font-serif text-[15px] leading-tight tracking-display text-ink">
+                  {f.title}
+                </h3>
+                <p className="text-body-sm leading-snug text-ink-soft">
+                  {f.description}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Decisiones + Solución en grid 2 columnas (sin label sticky).
+ */
+function DecisionesSolucionGrid({
+  sections,
+}: {
+  sections: [CaseSectionContent, CaseSectionContent];
+}) {
+  return (
+    <section className="border-t border-line py-12 md:py-16">
+      <div className="container-portfolio grid gap-10 md:grid-cols-2 md:gap-12">
+        {sections.map((section) => (
+          <div key={section.number}>
+            <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
+              {section.number} · {section.label}
+            </div>
+            <h2 className="display-md mb-5 mt-3 text-ink">
+              {renderTitle(section.title)}
+            </h2>
+            <div className="space-y-4 text-body text-ink-soft">
+              {section.body}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Galería final con 4 imágenes (placeholders por ahora).
+ * Naming sugerido: gallery-01.jpg ... gallery-04.jpg en
+ * public/work/store-in-store/.
+ */
+function FinalGallery() {
+  // Cambiar a true cuando estén las 4 imágenes en /public/work/store-in-store/
+  const HAS_IMAGES = false;
+
+  const items = [
+    {
+      src: '/work/store-in-store/gallery-01.jpg',
+      alt: 'Constructor — landing y catálogo dentro del ecosistema.',
+    },
+    {
+      src: '/work/store-in-store/gallery-02.jpg',
+      alt: 'Petcenter — landing temática conviviendo con la shell común.',
+    },
+    {
+      src: '/work/store-in-store/gallery-03.jpg',
+      alt: 'Carcenter — adaptación visual para automotriz.',
+    },
+    {
+      src: '/work/store-in-store/gallery-04.jpg',
+      alt: 'Venta al por mayor — flujo y tono editorial diferenciado.',
+    },
+  ];
+
+  return (
+    <section className="container-portfolio border-t border-line py-16 md:py-20">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        {items.map((item, i) => (
+          <div
+            key={item.src}
+            className={
+              HAS_IMAGES
+                ? 'relative aspect-[4/3] w-full overflow-hidden rounded-lg'
+                : 'aspect-[4/3] w-full overflow-hidden rounded-lg border border-dashed border-line bg-bg-block'
+            }
+            role="img"
+            aria-label={item.alt}
+          >
+            {HAS_IMAGES ? (
+              <Image
+                src={item.src}
+                alt={item.alt}
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 50vw, 100vw"
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center px-4 text-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
+                [ {item.alt} ]
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      {!HAS_IMAGES && (
+        <p className="mt-5 text-center text-eyebrow uppercase tracking-eyebrow text-ink-mute md:text-left">
+          Cierre · 4 imágenes pendientes de subir.
+        </p>
+      )}
+    </section>
+  );
+}
+
+/**
+ * 3 ilustraciones de cierre — resumen de la intervención de diseño.
+ * Copies y visuales temáticos: PENDIENTES — Santiago dictará.
+ */
+function DesignSummaryStrip() {
+  const items = [
+    {
+      label: 'Sistema escalable',
+      caption: 'Una arquitectura que admite nuevas marcas sin reescribir base.',
+      visual: <ScalableSystemVisual />,
+    },
+    {
+      label: 'Identidad por marca',
+      caption: 'Theming dinámico que respeta la personalidad de cada negocio.',
+      visual: <BrandIdentityVisual />,
+    },
+    {
+      label: 'Journey unificado',
+      caption: 'Un solo flujo de compra para múltiples líneas de producto.',
+      visual: <UnifiedJourneyVisual />,
+    },
+  ];
+
+  return (
+    <section className="container-portfolio border-t border-line py-16 md:py-20">
+      <div className="mb-8 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
+        Resumen · intervención de diseño
+      </div>
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        {items.map((item) => (
+          <article
+            key={item.label}
+            className="flex flex-col overflow-hidden rounded-xl border border-line bg-bg-elev"
+          >
+            <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-line">
+              {item.visual}
+            </div>
+            <div className="p-4">
+              <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink">
+                {item.label}
+              </div>
+              <p className="mt-2 text-body-sm leading-snug text-ink-soft">
+                {item.caption}
+              </p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ─── Visuales SVG inline (todos adaptables a light/dark) ─── */
+
+/** 01 · Shell compartida: 4 cuadrados conectados a un nodo central. */
+function SharedShellVisual() {
+  return (
+    <div
+      className="relative h-full w-full overflow-hidden"
+      style={{
+        background:
+          'linear-gradient(135deg, color-mix(in oklab, var(--blue) 6%, transparent), color-mix(in oklab, var(--cyan) 4%, transparent))',
+      }}
+      aria-hidden
+    >
+      <div className="flex h-full items-center justify-center p-5">
+        <div className="relative grid grid-cols-3 grid-rows-3 gap-1.5">
+          {/* 4 marcas alrededor del nodo central */}
+          {[0, 2, 6, 8].map((pos) => (
+            <div
+              key={pos}
+              className="h-5 w-5 rounded-md border border-line"
+              style={{
+                background: 'var(--bg)',
+                gridArea: `${Math.floor(pos / 3) + 1} / ${(pos % 3) + 1}`,
+              }}
+            />
+          ))}
+          {/* Nodo central (shell) */}
+          <div
+            className="h-6 w-6 rounded-lg bg-brand-gradient"
+            style={{ gridArea: '2 / 2' }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** 02 · Theming: 3 cuadrados de mismo shape, distintos colores. */
+function ThemingVisual() {
+  return (
+    <div
+      className="relative h-full w-full overflow-hidden"
+      style={{
+        background:
+          'linear-gradient(135deg, color-mix(in oklab, var(--rose) 6%, transparent), color-mix(in oklab, var(--blue) 4%, transparent))',
+      }}
+      aria-hidden
+    >
+      <div className="flex h-full items-center justify-center gap-2 p-5">
+        <div
+          className="h-12 w-10 rounded-md"
+          style={{ background: 'var(--blue)' }}
+        />
+        <div
+          className="h-12 w-10 rounded-md"
+          style={{ background: 'var(--rose)' }}
+        />
+        <div
+          className="h-12 w-10 rounded-md"
+          style={{ background: 'var(--cyan)' }}
+        />
+        <div className="h-12 w-10 rounded-md bg-brand-gradient" />
+      </div>
+    </div>
+  );
+}
+
+/** 03 · Switching: flechas circulares conectando 3 íconos de marca. */
+function SwitchingVisual() {
+  return (
+    <div
+      className="relative h-full w-full overflow-hidden"
+      style={{
+        background:
+          'linear-gradient(135deg, color-mix(in oklab, var(--cyan) 6%, transparent), color-mix(in oklab, var(--rose) 4%, transparent))',
+      }}
+      aria-hidden
+    >
+      <div className="flex h-full items-center justify-center gap-2 p-5">
+        <div
+          className="h-8 w-8 rounded-full"
+          style={{ background: 'var(--blue)' }}
+        />
+        <svg
+          width="20"
+          height="14"
+          viewBox="0 0 20 14"
+          fill="none"
+          aria-hidden
+        >
+          <path
+            d="M2 7 H16 M12 2 L18 7 L12 12"
+            stroke="var(--ink-soft)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        <div
+          className="h-8 w-8 rounded-full"
+          style={{ background: 'var(--rose)' }}
+        />
+        <svg
+          width="20"
+          height="14"
+          viewBox="0 0 20 14"
+          fill="none"
+          aria-hidden
+        >
+          <path
+            d="M2 7 H16 M12 2 L18 7 L12 12"
+            stroke="var(--ink-soft)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        <div
+          className="h-8 w-8 rounded-full"
+          style={{ background: 'var(--cyan)' }}
+        />
+      </div>
+    </div>
+  );
+}
+
+/** 04 · Cross-sell: carrito con productos de varias marcas (puntos de color). */
+function CrossSellVisual() {
+  return (
+    <div
+      className="relative h-full w-full overflow-hidden"
+      style={{
+        background:
+          'linear-gradient(135deg, color-mix(in oklab, var(--blue) 5%, transparent), color-mix(in oklab, var(--rose) 5%, transparent))',
+      }}
+      aria-hidden
+    >
+      <div className="flex h-full items-center justify-center p-5">
+        <div className="relative">
+          {/* Carrito */}
+          <svg
+            width="56"
+            height="56"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-ink"
+            aria-hidden
+          >
+            <circle cx="9" cy="21" r="1" />
+            <circle cx="20" cy="21" r="1" />
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+          </svg>
+          {/* Mini badges de productos de distintas marcas */}
+          <span
+            className="absolute right-3 top-2 h-2.5 w-2.5 rounded-full"
+            style={{ background: 'var(--blue)' }}
+          />
+          <span
+            className="absolute right-7 top-4 h-2.5 w-2.5 rounded-full"
+            style={{ background: 'var(--rose)' }}
+          />
+          <span
+            className="absolute right-5 top-7 h-2.5 w-2.5 rounded-full"
+            style={{ background: 'var(--cyan)' }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Visuales del DesignSummaryStrip ─── */
+
+/** Sistema escalable: bloques apilados con un "+" de extensión. */
+function ScalableSystemVisual() {
+  return (
+    <div
+      className="relative h-full w-full overflow-hidden"
+      style={{
+        background:
+          'linear-gradient(135deg, color-mix(in oklab, var(--blue) 6%, transparent), color-mix(in oklab, var(--cyan) 4%, transparent))',
+      }}
+      aria-hidden
+    >
+      <div className="flex h-full items-center justify-center gap-1.5 p-5">
+        <div
+          className="h-8 w-8 rounded-md"
+          style={{ background: 'var(--blue)' }}
+        />
+        <div
+          className="h-8 w-8 rounded-md"
+          style={{ background: 'var(--rose)' }}
+        />
+        <div
+          className="h-8 w-8 rounded-md"
+          style={{ background: 'var(--cyan)' }}
+        />
+        <div
+          className="flex h-8 w-8 items-center justify-center rounded-md border-2 border-dashed text-base font-semibold"
+          style={{ borderColor: 'var(--ink-mute)', color: 'var(--ink-mute)' }}
+        >
+          +
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Identidad por marca: 3 swatches de color con tipografía Aa. */
+function BrandIdentityVisual() {
+  return (
+    <div
+      className="relative h-full w-full overflow-hidden"
+      style={{
+        background:
+          'linear-gradient(135deg, color-mix(in oklab, var(--rose) 6%, transparent), color-mix(in oklab, var(--blue) 4%, transparent))',
+      }}
+      aria-hidden
+    >
+      <div className="flex h-full items-center justify-center gap-3 p-5">
+        <div
+          className="flex h-10 w-10 items-center justify-center rounded-md font-serif text-base text-bg"
+          style={{ background: 'var(--blue)' }}
+        >
+          Aa
+        </div>
+        <div
+          className="flex h-10 w-10 items-center justify-center rounded-md font-serif text-base text-bg"
+          style={{ background: 'var(--rose)' }}
+        >
+          Aa
+        </div>
+        <div
+          className="flex h-10 w-10 items-center justify-center rounded-md font-serif text-base text-bg"
+          style={{ background: 'var(--cyan)' }}
+        >
+          Aa
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Journey unificado: línea horizontal con 4 dots conectados. */
+function UnifiedJourneyVisual() {
+  return (
+    <div
+      className="relative h-full w-full overflow-hidden"
+      style={{
+        background:
+          'linear-gradient(135deg, color-mix(in oklab, var(--cyan) 6%, transparent), color-mix(in oklab, var(--rose) 4%, transparent))',
+      }}
+      aria-hidden
+    >
+      <div className="flex h-full items-center justify-center px-6">
+        <div className="relative flex w-full items-center justify-between">
+          {/* Línea de fondo */}
+          <span
+            className="absolute inset-x-2 h-px"
+            style={{ background: 'var(--ink-mute)' }}
+          />
+          {/* 4 dots */}
+          {[0, 1, 2, 3].map((i) => (
+            <span
+              key={i}
+              className="relative h-3 w-3 rounded-full bg-brand-gradient"
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Renderiza title como string plano o con HighlightTitle según tipo. */
+function renderTitle(title: string | HighlightTitleType): React.ReactNode {
+  if (typeof title === 'string') return title;
+  return <HighlightTitle {...title} />;
+}
+
+/** Renderiza el hero visual: imagen real si hay heroImage, placeholder si no. */
+function renderHeroImage(hero: CaseHeroContent): React.ReactNode {
+  if (hero.heroImage) {
+    return (
+      <div className="relative aspect-[21/9] w-full overflow-hidden rounded-lg">
+        <Image
+          src={hero.heroImage.src}
+          alt={hero.heroImage.alt}
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
+        />
+      </div>
+    );
+  }
+  return (
+    <div
+      className="aspect-[21/9] w-full overflow-hidden rounded-lg border border-dashed border-line bg-bg-block"
+      role="img"
+      aria-label="Hero visual — pendiente"
+    >
+      <div className="flex h-full items-center justify-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
+        [ hero visual · Store in Store ]
+      </div>
+    </div>
   );
 }

@@ -431,10 +431,10 @@ function SwitchingVisual() {
       <div className="flex h-full items-center justify-center gap-1 px-4">
         {screens.map((label, i) => (
           <div key={label} className="flex items-center">
-            {/* Mini pantalla — fade-in escalonado */}
+            {/* Mini pantalla — float secuencial */}
             <div
-              className="anim-fade-in-up flex h-12 w-9 flex-col items-center justify-center gap-0.5 rounded-sm border border-line"
-              style={{ background: 'var(--bg)', animationDelay: `${i * 0.18}s` }}
+              className="anim-float-y-strong flex h-12 w-9 flex-col items-center justify-center gap-0.5 rounded-sm border border-line"
+              style={{ background: 'var(--bg)', animationDelay: `${i * 0.5}s` }}
             >
               <div
                 className="h-0.5 w-5 rounded-full"
@@ -445,7 +445,9 @@ function SwitchingVisual() {
                 style={{ background: 'var(--line)' }}
               />
               <div
-                className="mt-0.5 h-2.5 w-6 rounded-sm"
+                className={`mt-0.5 h-2.5 w-6 rounded-sm ${
+                  i === screens.length - 1 ? 'anim-pulse-strong' : ''
+                }`}
                 style={{
                   background:
                     i === screens.length - 1
@@ -454,13 +456,15 @@ function SwitchingVisual() {
                 }}
               />
             </div>
-            {/* Flecha entre pantallas (excepto la última) */}
+            {/* Flecha entre pantallas (excepto la última) — desliza */}
             {i < screens.length - 1 && (
               <svg
                 width="10"
                 height="8"
                 viewBox="0 0 10 8"
                 fill="none"
+                className="anim-arrow-slide-strong"
+                style={{ animationDelay: `${i * 0.5}s` }}
                 aria-hidden
               >
                 <path
@@ -496,31 +500,21 @@ function CrossSellVisual() {
     >
       <div className="flex h-full items-center justify-center p-5">
         <div className="relative h-16 w-20">
-          {/* 3 variantes apiladas en perspectiva (capas) */}
-          {/* Capa atrás (variante 1) */}
+          {/* 3 capas que rotan posición (atrás → frente → medio → atrás) */}
+          {/* Capa CYAN */}
           <div
-            className="anim-float-y absolute left-3 top-3 h-12 w-16 rounded-md"
-            style={{
-              background: 'var(--cyan)',
-              opacity: 0.6,
-              animationDelay: '0.4s',
-            }}
+            className="anim-card-shuffle-1 absolute left-0 top-0 h-12 w-16 rounded-md"
+            style={{ background: 'var(--cyan)' }}
           />
-          {/* Capa media (variante 2) */}
+          {/* Capa ROSE */}
           <div
-            className="anim-float-y absolute left-1.5 top-1.5 h-12 w-16 rounded-md"
-            style={{
-              background: 'var(--rose)',
-              opacity: 0.7,
-              animationDelay: '0.2s',
-            }}
+            className="anim-card-shuffle-2 absolute left-0 top-0 h-12 w-16 rounded-md"
+            style={{ background: 'var(--rose)' }}
           />
-          {/* Capa frente (variante 3) — la activa */}
+          {/* Capa BLUE — con contenido (UI lines) */}
           <div
-            className="absolute left-0 top-0 flex h-12 w-16 flex-col gap-1 rounded-md p-2"
-            style={{
-              background: 'var(--blue)',
-            }}
+            className="anim-card-shuffle-3 absolute left-0 top-0 flex h-12 w-16 flex-col gap-1 rounded-md p-2"
+            style={{ background: 'var(--blue)' }}
           >
             <div
               className="h-0.5 w-8 rounded-full"
@@ -558,9 +552,9 @@ function ScalableSystemVisual() {
       aria-hidden
     >
       <div className="flex h-full items-center justify-center gap-3 p-5">
-        {/* Web (origen) */}
+        {/* Web (origen) — float */}
         <div
-          className="flex h-12 w-16 flex-col items-center justify-center gap-1 rounded-md border border-line"
+          className="anim-float-y-strong flex h-12 w-16 flex-col items-center justify-center gap-1 rounded-md border border-line"
           style={{ background: 'var(--bg)' }}
         >
           <div
@@ -572,11 +566,11 @@ function ScalableSystemVisual() {
             style={{ background: 'var(--line)' }}
           />
           <div
-            className="mt-0.5 h-3 w-10 rounded-sm bg-brand-gradient opacity-60"
+            className="anim-pulse-strong mt-0.5 h-3 w-10 rounded-sm bg-brand-gradient opacity-60"
           />
         </div>
-        {/* Flecha de replicación — desliza */}
-        <svg width="24" height="14" viewBox="0 0 24 14" fill="none" className="anim-arrow-slide" aria-hidden>
+        {/* Flecha de replicación — desliza fuerte */}
+        <svg width="24" height="14" viewBox="0 0 24 14" fill="none" className="anim-arrow-slide-strong" aria-hidden>
           <defs>
             <linearGradient id="repGrad" x1="0" y1="0" x2="24" y2="0">
               <stop offset="0%" stopColor="var(--blue)" />
@@ -591,10 +585,10 @@ function ScalableSystemVisual() {
             strokeLinejoin="round"
           />
         </svg>
-        {/* App móvil (destino) */}
+        {/* App móvil (destino) — float con delay */}
         <div
-          className="flex h-12 w-7 flex-col items-center justify-center gap-1 rounded-md border border-line"
-          style={{ background: 'var(--bg)' }}
+          className="anim-float-y-strong flex h-12 w-7 flex-col items-center justify-center gap-1 rounded-md border border-line"
+          style={{ background: 'var(--bg)', animationDelay: '0.6s' }}
         >
           <div
             className="h-0.5 w-4 rounded-full"
@@ -605,7 +599,8 @@ function ScalableSystemVisual() {
             style={{ background: 'var(--line)' }}
           />
           <div
-            className="mt-0.5 h-3 w-5 rounded-sm bg-brand-gradient opacity-60"
+            className="anim-pulse-strong mt-0.5 h-3 w-5 rounded-sm bg-brand-gradient opacity-60"
+            style={{ animationDelay: '0.4s' }}
           />
         </div>
       </div>
@@ -628,9 +623,9 @@ function BrandIdentityVisual() {
       aria-hidden
     >
       <div className="flex h-full items-center justify-center gap-3 p-5">
-        {/* Móvil (digital, origen) */}
+        {/* Móvil (digital, origen) — float */}
         <div
-          className="flex h-14 w-8 flex-col items-center justify-center gap-1 rounded-md border border-line"
+          className="anim-float-y-strong flex h-14 w-8 flex-col items-center justify-center gap-1 rounded-md border border-line"
           style={{ background: 'var(--bg)' }}
         >
           <div
@@ -642,12 +637,12 @@ function BrandIdentityVisual() {
             style={{ background: 'var(--line)' }}
           />
           <div
-            className="mt-1 h-4 w-6 rounded-sm"
+            className="anim-pulse-strong mt-1 h-4 w-6 rounded-sm"
             style={{ background: 'var(--rose)', opacity: 0.5 }}
           />
         </div>
-        {/* Flecha digital → físico — desliza */}
-        <svg width="24" height="14" viewBox="0 0 24 14" fill="none" className="anim-arrow-slide" aria-hidden>
+        {/* Flecha digital → físico — desliza fuerte */}
+        <svg width="24" height="14" viewBox="0 0 24 14" fill="none" className="anim-arrow-slide-strong" aria-hidden>
           <defs>
             <linearGradient id="d2pGrad" x1="0" y1="0" x2="24" y2="0">
               <stop offset="0%" stopColor="var(--rose)" />
@@ -662,12 +657,14 @@ function BrandIdentityVisual() {
             strokeLinejoin="round"
           />
         </svg>
-        {/* Tienda física (storefront SVG) */}
+        {/* Tienda física (storefront SVG) — float opuesto al móvil */}
         <svg
           width="56"
           height="48"
           viewBox="0 0 56 48"
           fill="none"
+          className="anim-float-y-strong"
+          style={{ animationDelay: '1.2s' }}
           aria-hidden
         >
           {/* Toldo del storefront */}
@@ -697,7 +694,7 @@ function BrandIdentityVisual() {
             fill="var(--rose)"
             opacity="0.5"
           />
-          {/* Ventanas */}
+          {/* Ventanas — pulsan como luces de tienda */}
           <rect
             x="12"
             y="22"
@@ -705,6 +702,7 @@ function BrandIdentityVisual() {
             height="4"
             fill="var(--blue)"
             opacity="0.4"
+            className="anim-pulse-strong"
           />
           <rect
             x="38"
@@ -713,6 +711,8 @@ function BrandIdentityVisual() {
             height="4"
             fill="var(--blue)"
             opacity="0.4"
+            className="anim-pulse-strong"
+            style={{ animationDelay: '0.5s' }}
           />
         </svg>
       </div>
@@ -738,11 +738,11 @@ function UnifiedJourneyVisual() {
             className="absolute inset-x-2 h-px"
             style={{ background: 'var(--ink-mute)' }}
           />
-          {/* 4 dots — laten secuencialmente */}
+          {/* 4 dots — laten secuencialmente, más fuerte */}
           {[0, 1, 2, 3].map((i) => (
             <span
               key={i}
-              className="anim-pulse-soft relative h-3 w-3 rounded-full bg-brand-gradient"
+              className="anim-pulse-strong relative h-3 w-3 rounded-full bg-brand-gradient"
               style={{ animationDelay: `${i * 0.4}s` }}
             />
           ))}

@@ -175,25 +175,128 @@
   100% { stroke-dashoffset: var(--end, 0); }
 }
 
+/* ── Variantes "strong" — animaciones más evidentes ── */
+
+@keyframes anim-pulse-strong {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.35; transform: scale(0.78); }
+}
+
+@keyframes anim-float-y-strong {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-9px); }
+}
+
+@keyframes anim-arrow-slide-strong {
+  0%, 100% { transform: translateX(-3px); opacity: 0.7; }
+  50%      { transform: translateX(7px); opacity: 1; }
+}
+
+/* ── Loops con pausa (crece → mantiene → reinicia) ── */
+
+@keyframes anim-bar-grow-loop {
+  0%   { transform: scaleY(0.15); opacity: 0.35; }
+  30%  { transform: scaleY(1); opacity: 1; }
+  75%  { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(0.15); opacity: 0.35; }
+}
+
+@keyframes anim-arc-fill-loop {
+  0%   { stroke-dashoffset: var(--arc-start, 100); }
+  30%  { stroke-dashoffset: var(--arc-end, 0); }
+  80%  { stroke-dashoffset: var(--arc-end, 0); }
+  100% { stroke-dashoffset: var(--arc-start, 100); }
+}
+
+@keyframes anim-stars-reveal {
+  0%, 100% { transform: scale(0.2); opacity: 0; }
+  25%, 80% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes anim-text-fill {
+  0%   { clip-path: inset(0 100% 0 0); }
+  35%  { clip-path: inset(0 0% 0 0); }
+  85%  { clip-path: inset(0 0% 0 0); }
+  100% { clip-path: inset(0 100% 0 0); }
+}
+
+/* ── Movimiento orgánico (mouse-like) ── */
+
+@keyframes anim-organic-1 {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(3px, -2px); }
+  50%      { transform: translate(-1px, 3px); }
+  75%      { transform: translate(-3px, -1px); }
+}
+@keyframes anim-organic-2 {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(-2px, 2px); }
+  50%      { transform: translate(2px, -3px); }
+  75%      { transform: translate(3px, 1px); }
+}
+@keyframes anim-organic-3 {
+  0%, 100% { transform: translate(0, 0); }
+  30%      { transform: translate(2px, 2px); }
+  60%      { transform: translate(-3px, -2px); }
+}
+@keyframes anim-organic-4 {
+  0%, 100% { transform: translate(0, 0); }
+  40%      { transform: translate(-2px, -3px); }
+  70%      { transform: translate(3px, 2px); }
+}
+
+/* ── Card shuffle (3 capas que rotan posición) ── */
+
+@keyframes anim-card-shuffle-1 {
+  0%, 100% { transform: translate(0, 0); z-index: 3; }
+  33%      { transform: translate(8px, 4px) scale(0.94); z-index: 1; opacity: 0.6; }
+  66%      { transform: translate(4px, 2px) scale(0.97); z-index: 2; opacity: 0.85; }
+}
+@keyframes anim-card-shuffle-2 {
+  0%, 100% { transform: translate(4px, 2px) scale(0.97); z-index: 2; opacity: 0.85; }
+  33%      { transform: translate(0, 0) scale(1); z-index: 3; opacity: 1; }
+  66%      { transform: translate(8px, 4px) scale(0.94); z-index: 1; opacity: 0.6; }
+}
+@keyframes anim-card-shuffle-3 {
+  0%, 100% { transform: translate(8px, 4px) scale(0.94); z-index: 1; opacity: 0.6; }
+  33%      { transform: translate(4px, 2px) scale(0.97); z-index: 2; opacity: 0.85; }
+  66%      { transform: translate(0, 0) scale(1); z-index: 3; opacity: 1; }
+}
+
+/* ── Spin más evidente para piezas individuales (round/square/triangle) ── */
+
+@keyframes anim-spin-piece {
+  0%, 100% { transform: rotate(0deg); }
+  50%      { transform: rotate(180deg); }
+}
+
 /* Utility classes — usar con className */
-.anim-pulse-soft  { animation: anim-pulse-soft 2.4s ease-in-out infinite; }
-.anim-float-y     { animation: anim-float-y 3s ease-in-out infinite; }
-.anim-bar-grow    { animation: anim-bar-grow 1.4s ease-out forwards; transform-origin: bottom; }
-.anim-fade-in-up  { animation: anim-fade-in-up 0.7s ease-out forwards; }
-.anim-spin-slow   { animation: anim-spin-slow 12s linear infinite; transform-origin: center; }
-.anim-dash-flow   { stroke-dasharray: 4 4; animation: anim-dash-flow 1.2s linear infinite; }
-.anim-arrow-slide { animation: anim-arrow-slide 1.6s ease-in-out infinite; }
-.anim-rotate-yz   { animation: anim-rotate-yz 4s ease-in-out infinite; transform-origin: center; }
+.anim-pulse-soft        { animation: anim-pulse-soft 2.4s ease-in-out infinite; }
+.anim-pulse-strong      { animation: anim-pulse-strong 1.6s ease-in-out infinite; }
+.anim-float-y           { animation: anim-float-y 3s ease-in-out infinite; }
+.anim-float-y-strong    { animation: anim-float-y-strong 2.4s ease-in-out infinite; }
+.anim-bar-grow          { animation: anim-bar-grow 1.4s ease-out forwards; transform-origin: bottom; }
+.anim-bar-grow-loop     { animation: anim-bar-grow-loop 3.6s ease-in-out infinite; transform-origin: bottom; }
+.anim-arc-fill-loop     { animation: anim-arc-fill-loop 3.8s ease-in-out infinite; }
+.anim-stars-reveal      { animation: anim-stars-reveal 3.6s ease-in-out infinite; }
+.anim-text-fill         { animation: anim-text-fill 3.6s ease-in-out infinite; }
+.anim-fade-in-up        { animation: anim-fade-in-up 0.7s ease-out forwards; }
+.anim-spin-slow         { animation: anim-spin-slow 12s linear infinite; transform-origin: center; }
+.anim-spin-piece        { animation: anim-spin-piece 5s ease-in-out infinite; transform-origin: center; }
+.anim-dash-flow         { stroke-dasharray: 4 4; animation: anim-dash-flow 1.2s linear infinite; }
+.anim-arrow-slide       { animation: anim-arrow-slide 1.6s ease-in-out infinite; }
+.anim-arrow-slide-strong { animation: anim-arrow-slide-strong 1.8s ease-in-out infinite; }
+.anim-rotate-yz         { animation: anim-rotate-yz 4s ease-in-out infinite; transform-origin: center; }
+.anim-organic-1         { animation: anim-organic-1 5s ease-in-out infinite; }
+.anim-organic-2         { animation: anim-organic-2 5.5s ease-in-out infinite; }
+.anim-organic-3         { animation: anim-organic-3 6s ease-in-out infinite; }
+.anim-organic-4         { animation: anim-organic-4 5.2s ease-in-out infinite; }
+.anim-card-shuffle-1    { animation: anim-card-shuffle-1 4.5s ease-in-out infinite; }
+.anim-card-shuffle-2    { animation: anim-card-shuffle-2 4.5s ease-in-out infinite; }
+.anim-card-shuffle-3    { animation: anim-card-shuffle-3 4.5s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  .anim-pulse-soft,
-  .anim-float-y,
-  .anim-bar-grow,
-  .anim-fade-in-up,
-  .anim-spin-slow,
-  .anim-dash-flow,
-  .anim-arrow-slide,
-  .anim-rotate-yz {
+  [class*="anim-"] {
     animation: none !important;
   }
 }

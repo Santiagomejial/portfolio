@@ -377,14 +377,14 @@ function VisitsVisual() {
         {heights.map((h, i) => (
           <div
             key={i}
-            className="anim-bar-grow w-3 rounded-t-md md:w-4"
+            className="anim-bar-grow-loop w-3 rounded-t-md md:w-4"
             style={{
               height: `${h}%`,
               background:
                 i === heights.length - 1
                   ? 'var(--blue)'
                   : 'color-mix(in oklab, var(--blue) 35%, transparent)',
-              animationDelay: `${i * 0.12}s`,
+              animationDelay: `${i * 0.15}s`,
             }}
           />
         ))}
@@ -456,7 +456,7 @@ function ConversionVisual() {
           stroke="var(--line)"
           strokeWidth="10"
         />
-        {/* Arco del 25% — animado al cargar (counter-clock) */}
+        {/* Arco del 25% — loop: vacío → llena → mantiene → vacía */}
         <circle
           cx="50"
           cy="50"
@@ -465,14 +465,13 @@ function ConversionVisual() {
           stroke="var(--cyan)"
           strokeWidth="10"
           strokeDasharray={circumference}
-          strokeDashoffset={dashOffset}
           strokeLinecap="round"
           transform="rotate(-90 50 50)"
+          className="anim-arc-fill-loop"
           style={{
             // @ts-expect-error -- CSS custom props
-            '--start': circumference,
-            '--end': dashOffset,
-            animation: 'anim-counter-clock 1.4s ease-out forwards',
+            '--arc-start': circumference,
+            '--arc-end': dashOffset,
           }}
         />
       </svg>
@@ -495,8 +494,8 @@ function RatingVisual() {
         {[0, 1, 2, 3, 4].map((i) => (
           <span
             key={i}
-            className="anim-fade-in-up inline-flex"
-            style={{ animationDelay: `${0.1 + i * 0.12}s` }}
+            className="anim-stars-reveal inline-flex"
+            style={{ animationDelay: `${i * 0.18}s` }}
           >
             <StarIcon filled={i < 4} half={i === 4} />
           </span>
@@ -613,6 +612,7 @@ function ProcessIllustration() {
 function DiscoveryVisual() {
   const screens = Array.from({ length: 12 });
   const painPoints = new Set([1, 4, 7, 10]); // pantallas con dot rosa
+  const organicAnims = ['anim-organic-1', 'anim-organic-2', 'anim-organic-3', 'anim-organic-4'];
 
   return (
     <div
@@ -648,8 +648,11 @@ function DiscoveryVisual() {
             </div>
             {painPoints.has(i) && (
               <div
-                className="anim-pulse-soft absolute right-0.5 top-0.5 h-1.5 w-1.5 rounded-full"
-                style={{ background: 'var(--rose)', animationDelay: `${i * 0.3}s` }}
+                className={`${organicAnims[Array.from(painPoints).indexOf(i) % 4]} absolute right-0.5 top-0.5 h-2 w-2 rounded-full`}
+                style={{
+                  background: 'var(--rose)',
+                  boxShadow: '0 0 0 2px color-mix(in oklab, var(--rose) 30%, transparent)',
+                }}
               />
             )}
           </div>
@@ -684,18 +687,24 @@ function ResearchVisual() {
         }}
       />
 
-      {/* Numbers */}
+      {/* Numbers — efecto "fill" de izquierda a derecha que se reinicia */}
       <div className="relative flex flex-col items-center gap-1">
-        <div className="anim-fade-in-up flex items-baseline gap-2" style={{ animationDelay: '0.1s' }}>
-          <span className="bg-brand-gradient bg-clip-text font-serif text-[clamp(36px,5vw,52px)] leading-none text-transparent">
+        <div className="flex items-baseline gap-2">
+          <span
+            className="anim-text-fill bg-brand-gradient bg-clip-text font-serif text-[clamp(36px,5vw,52px)] leading-none text-transparent"
+            style={{ animationDelay: '0s' }}
+          >
             +100
           </span>
           <span className="text-eyebrow uppercase tracking-eyebrow text-ink-soft">
             usuarios
           </span>
         </div>
-        <div className="anim-fade-in-up flex items-baseline gap-2" style={{ animationDelay: '0.4s' }}>
-          <span className="font-serif text-[clamp(28px,4vw,40px)] leading-none text-ink">
+        <div className="flex items-baseline gap-2">
+          <span
+            className="anim-text-fill font-serif text-[clamp(28px,4vw,40px)] leading-none text-ink"
+            style={{ animationDelay: '0.5s' }}
+          >
             +150
           </span>
           <span className="text-eyebrow uppercase tracking-eyebrow text-ink-soft">
@@ -723,23 +732,23 @@ function DesignSystemVisual() {
       aria-hidden
     >
       <div className="grid h-full grid-cols-4 grid-rows-3 gap-2.5 p-4">
-        {/* Círculo */}
+        {/* Círculo — pulsa sutil */}
         <div className="flex items-center justify-center">
           <div
-            className="h-7 w-7 rounded-full border-2"
+            className="anim-pulse-soft h-7 w-7 rounded-full border-2"
             style={{ borderColor: 'var(--blue)' }}
           />
         </div>
-        {/* Cuadrado */}
+        {/* Cuadrado — rota lento */}
         <div className="flex items-center justify-center">
           <div
-            className="h-7 w-7 rounded-sm border-2"
+            className="anim-spin-piece h-7 w-7 rounded-sm border-2"
             style={{ borderColor: 'var(--rose)' }}
           />
         </div>
-        {/* Triángulo */}
+        {/* Triángulo — rota lento */}
         <div className="flex items-center justify-center">
-          <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden>
+          <svg width="28" height="28" viewBox="0 0 28 28" className="anim-spin-piece" style={{ animationDelay: '0.7s' }} aria-hidden>
             <path
               d="M14 4 L26 24 L2 24 Z"
               fill="none"
@@ -749,10 +758,10 @@ function DesignSystemVisual() {
             />
           </svg>
         </div>
-        {/* Tipo: A serif */}
+        {/* Tipo: A serif — float */}
         <div className="flex items-center justify-center">
           <span
-            className="font-serif text-[28px] leading-none"
+            className="anim-float-y font-serif text-[28px] leading-none"
             style={{ color: 'var(--ink)' }}
           >
             Aa

@@ -320,7 +320,7 @@ function InspirationVisual() {
       <div className="grid h-full grid-cols-3 grid-rows-2 gap-1.5 p-5 md:gap-2 md:p-6">
         {/* Item destacado grande (col-span-2 row-span-2) */}
         <div
-          className="anim-float-y col-span-2 row-span-2 rounded-md border border-line"
+          className="anim-float-y-strong col-span-2 row-span-2 rounded-md border border-line"
           style={{ background: 'var(--bg)' }}
         >
           <div className="flex h-full flex-col justify-end p-2">
@@ -380,7 +380,7 @@ function QuotationsVisual() {
           height="20"
           viewBox="0 0 32 20"
           fill="none"
-          className="anim-arrow-slide"
+          className="anim-arrow-slide-strong"
           aria-hidden
         >
           <path
@@ -459,9 +459,9 @@ function PaymentVisual() {
               />
             ))}
           </div>
-          {/* Check circle — pulsa suave */}
+          {/* Check circle — pulsa fuerte */}
           <div
-            className="anim-pulse-soft absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full"
+            className="anim-pulse-strong absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full"
             style={{ background: 'var(--cyan)' }}
           >
             <svg
@@ -524,18 +524,18 @@ function VerticalScreenVisual() {
               style={{ background: 'var(--line)' }}
             />
           </div>
-          {/* Hero block */}
+          {/* Hero block — float sutil */}
           <div
-            className="mt-2 flex-1 rounded-md"
+            className="anim-float-y mt-2 flex-1 rounded-md"
             style={{
               background:
                 'linear-gradient(135deg, color-mix(in oklab, var(--blue) 30%, transparent), color-mix(in oklab, var(--rose) 30%, transparent))',
             }}
           />
-          {/* CTA pill — pulsa */}
+          {/* CTA pill — pulsa fuerte */}
           <div className="mt-2 flex justify-center">
             <div
-              className="anim-pulse-soft h-1.5 w-2/3 rounded-full"
+              className="anim-pulse-strong h-1.5 w-2/3 rounded-full"
               style={{ background: 'var(--ink)' }}
             />
           </div>
@@ -567,19 +567,26 @@ function PublicUxVisual() {
               'linear-gradient(135deg, var(--blue), var(--cyan))',
           }}
         >
-          {/* Ondas de tap — escalonadas */}
+          {/* Ondas de tap — más expansivas */}
           <div
-            className="anim-pulse-soft absolute inset-0 rounded-2xl border-2"
+            className="anim-pulse-strong absolute inset-0 rounded-2xl border-2"
             style={{
-              borderColor: 'color-mix(in oklab, var(--blue) 30%, transparent)',
+              borderColor: 'color-mix(in oklab, var(--blue) 40%, transparent)',
               animationDelay: '0s',
             }}
           />
           <div
-            className="anim-pulse-soft absolute -inset-2 rounded-2xl border-2"
+            className="anim-pulse-strong absolute -inset-2 rounded-2xl border-2"
             style={{
-              borderColor: 'color-mix(in oklab, var(--blue) 15%, transparent)',
-              animationDelay: '0.6s',
+              borderColor: 'color-mix(in oklab, var(--blue) 20%, transparent)',
+              animationDelay: '0.4s',
+            }}
+          />
+          <div
+            className="anim-pulse-strong absolute -inset-4 rounded-2xl border-2"
+            style={{
+              borderColor: 'color-mix(in oklab, var(--blue) 10%, transparent)',
+              animationDelay: '0.8s',
             }}
           />
           {/* Dedo (círculo blanco) */}
@@ -604,21 +611,21 @@ function MultiBrandVisual() {
       <div className="flex h-full items-center justify-center p-5">
         <div className="flex items-center gap-2.5">
           <div
-            className="anim-fade-in-up h-8 w-8 rounded-md"
+            className="anim-float-y-strong h-8 w-8 rounded-md"
             style={{ background: 'var(--blue)', animationDelay: '0s' }}
           />
           <div
-            className="anim-fade-in-up h-10 w-10 rounded-lg bg-brand-gradient"
-            style={{ animationDelay: '0.15s' }}
+            className="anim-pulse-strong h-10 w-10 rounded-lg bg-brand-gradient"
+            style={{ animationDelay: '0.2s' }}
             aria-hidden
           />
           <div
-            className="anim-fade-in-up h-8 w-8 rounded-md"
-            style={{ background: 'var(--cyan)', animationDelay: '0.3s' }}
+            className="anim-float-y-strong h-8 w-8 rounded-md"
+            style={{ background: 'var(--cyan)', animationDelay: '0.4s' }}
           />
           <div
-            className="anim-fade-in-up h-8 w-8 rounded-md"
-            style={{ background: 'var(--rose)', animationDelay: '0.45s' }}
+            className="anim-float-y-strong h-8 w-8 rounded-md"
+            style={{ background: 'var(--rose)', animationDelay: '0.8s' }}
           />
         </div>
       </div>
@@ -640,28 +647,28 @@ function OmnichannelVisual() {
       <div className="flex h-full items-center justify-center gap-3 p-5">
         {/* Pantalla horizontal */}
         <div
-          className="anim-float-y h-9 w-12 rounded-md border border-line"
+          className="anim-float-y-strong h-9 w-12 rounded-md border border-line"
           style={{ background: 'var(--bg)', animationDelay: '0s' }}
         />
         {/* Conector */}
         <span
-          className="h-px w-3"
+          className="anim-dash-flow h-px w-3"
           style={{ background: 'var(--ink-mute)' }}
         />
         {/* Móvil vertical (más alto) */}
         <div
-          className="anim-float-y h-12 w-6 rounded-md border border-line"
-          style={{ background: 'var(--bg)', animationDelay: '0.6s' }}
+          className="anim-float-y-strong h-12 w-6 rounded-md border border-line"
+          style={{ background: 'var(--bg)', animationDelay: '0.4s' }}
         />
         {/* Conector */}
         <span
-          className="h-px w-3"
+          className="anim-dash-flow h-px w-3"
           style={{ background: 'var(--ink-mute)' }}
         />
         {/* Laptop/web */}
         <div
-          className="anim-float-y h-7 w-12 rounded-md border border-line"
-          style={{ background: 'var(--bg)', animationDelay: '1.2s' }}
+          className="anim-float-y-strong h-7 w-12 rounded-md border border-line"
+          style={{ background: 'var(--bg)', animationDelay: '0.8s' }}
         />
       </div>
     </div>

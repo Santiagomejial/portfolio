@@ -337,8 +337,16 @@ function DesignSummaryStrip() {
 
 /* ─── Visuales SVG inline (todos adaptables a light/dark) ─── */
 
-/** 01 · Shell compartida: 4 cuadrados conectados a un nodo central. */
+/**
+ * 01 · Research — lupa sobre 4 segmentos de mercado (donut chart con
+ * 4 secciones de color distinto, una por sub-marca).
+ */
 function SharedShellVisual() {
+  // Donut con 4 segmentos iguales (25% cada uno)
+  const radius = 26;
+  const circumference = 2 * Math.PI * radius;
+  const segment = circumference / 4;
+
   return (
     <div
       className="relative h-full w-full overflow-hidden"
@@ -349,30 +357,56 @@ function SharedShellVisual() {
       aria-hidden
     >
       <div className="flex h-full items-center justify-center p-5">
-        <div className="relative grid grid-cols-3 grid-rows-3 gap-1.5">
-          {/* 4 marcas alrededor del nodo central */}
-          {[0, 2, 6, 8].map((pos) => (
-            <div
-              key={pos}
-              className="h-5 w-5 rounded-md border border-line"
-              style={{
-                background: 'var(--bg)',
-                gridArea: `${Math.floor(pos / 3) + 1} / ${(pos % 3) + 1}`,
-              }}
-            />
-          ))}
-          {/* Nodo central (shell) */}
-          <div
-            className="h-6 w-6 rounded-lg bg-brand-gradient"
-            style={{ gridArea: '2 / 2' }}
-          />
+        <div className="relative">
+          <svg width="80" height="80" viewBox="0 0 80 80">
+            {/* 4 segmentos del donut */}
+            {[
+              { color: 'var(--blue)', offset: 0 },
+              { color: 'var(--rose)', offset: -segment },
+              { color: 'var(--cyan)', offset: -segment * 2 },
+              { color: 'var(--ink-soft)', offset: -segment * 3 },
+            ].map((seg, i) => (
+              <circle
+                key={i}
+                cx="40"
+                cy="40"
+                r={radius}
+                fill="none"
+                stroke={seg.color}
+                strokeWidth="9"
+                strokeDasharray={`${segment - 2} ${circumference - segment + 2}`}
+                strokeDashoffset={seg.offset}
+                transform="rotate(-90 40 40)"
+              />
+            ))}
+          </svg>
+          {/* Lupa superpuesta */}
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="absolute -bottom-1 -right-1 text-ink"
+            style={{ background: 'var(--bg)', borderRadius: '999px', padding: '2px' }}
+            aria-hidden
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="M21 21l-4.35-4.35" />
+          </svg>
         </div>
       </div>
     </div>
   );
 }
 
-/** 02 · Theming: 3 cuadrados de mismo shape, distintos colores. */
+/**
+ * 02 · Componetización — 1 átomo central distribuyendo a 4 componentes con
+ * distintos estilos. Sugiere "una base, múltiples aplicaciones".
+ */
 function ThemingVisual() {
   return (
     <div
@@ -383,27 +417,40 @@ function ThemingVisual() {
       }}
       aria-hidden
     >
-      <div className="flex h-full items-center justify-center gap-2 p-5">
-        <div
-          className="h-12 w-10 rounded-md"
-          style={{ background: 'var(--blue)' }}
-        />
-        <div
-          className="h-12 w-10 rounded-md"
-          style={{ background: 'var(--rose)' }}
-        />
-        <div
-          className="h-12 w-10 rounded-md"
-          style={{ background: 'var(--cyan)' }}
-        />
-        <div className="h-12 w-10 rounded-md bg-brand-gradient" />
+      <div className="flex h-full items-center justify-center p-5">
+        <svg width="100" height="80" viewBox="0 0 100 80" fill="none" aria-hidden>
+          {/* Líneas conectoras desde el átomo central a las 4 esquinas */}
+          <g stroke="var(--line)" strokeWidth="1">
+            <line x1="50" y1="40" x2="20" y2="20" />
+            <line x1="50" y1="40" x2="80" y2="20" />
+            <line x1="50" y1="40" x2="20" y2="60" />
+            <line x1="50" y1="40" x2="80" y2="60" />
+          </g>
+          {/* 4 componentes en las esquinas con colores de marca */}
+          <rect x="14" y="14" width="12" height="12" rx="2" fill="var(--blue)" />
+          <rect x="74" y="14" width="12" height="12" rx="2" fill="var(--rose)" />
+          <rect x="14" y="54" width="12" height="12" rx="2" fill="var(--cyan)" />
+          <rect x="74" y="54" width="12" height="12" rx="2" fill="var(--ink-soft)" />
+          {/* Átomo central (sistema base) */}
+          <circle cx="50" cy="40" r="9" fill="url(#atomGrad)" />
+          <defs>
+            <linearGradient id="atomGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="var(--blue)" />
+              <stop offset="100%" stopColor="var(--rose)" />
+            </linearGradient>
+          </defs>
+        </svg>
       </div>
     </div>
   );
 }
 
-/** 03 · Switching: flechas circulares conectando 3 íconos de marca. */
+/**
+ * 03 · Journey transaccional — 4 mini-pantallas en cadena (Home → PLP → PDP →
+ * Carrito) conectadas con flechas. Representa el flujo de compra completo.
+ */
 function SwitchingVisual() {
+  const screens = ['Home', 'PLP', 'PDP', 'Cart'];
   return (
     <div
       className="relative h-full w-full overflow-hidden"
@@ -413,55 +460,62 @@ function SwitchingVisual() {
       }}
       aria-hidden
     >
-      <div className="flex h-full items-center justify-center gap-2 p-5">
-        <div
-          className="h-8 w-8 rounded-full"
-          style={{ background: 'var(--blue)' }}
-        />
-        <svg
-          width="20"
-          height="14"
-          viewBox="0 0 20 14"
-          fill="none"
-          aria-hidden
-        >
-          <path
-            d="M2 7 H16 M12 2 L18 7 L12 12"
-            stroke="var(--ink-soft)"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-        <div
-          className="h-8 w-8 rounded-full"
-          style={{ background: 'var(--rose)' }}
-        />
-        <svg
-          width="20"
-          height="14"
-          viewBox="0 0 20 14"
-          fill="none"
-          aria-hidden
-        >
-          <path
-            d="M2 7 H16 M12 2 L18 7 L12 12"
-            stroke="var(--ink-soft)"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-        <div
-          className="h-8 w-8 rounded-full"
-          style={{ background: 'var(--cyan)' }}
-        />
+      <div className="flex h-full items-center justify-center gap-1 px-4">
+        {screens.map((label, i) => (
+          <div key={label} className="flex items-center">
+            {/* Mini pantalla */}
+            <div
+              className="flex h-12 w-9 flex-col items-center justify-center gap-0.5 rounded-sm border border-line"
+              style={{ background: 'var(--bg)' }}
+            >
+              <div
+                className="h-0.5 w-5 rounded-full"
+                style={{ background: 'var(--line)' }}
+              />
+              <div
+                className="h-0.5 w-4 rounded-full"
+                style={{ background: 'var(--line)' }}
+              />
+              <div
+                className="mt-0.5 h-2.5 w-6 rounded-sm"
+                style={{
+                  background:
+                    i === screens.length - 1
+                      ? 'var(--rose)'
+                      : 'color-mix(in oklab, var(--blue) 40%, transparent)',
+                }}
+              />
+            </div>
+            {/* Flecha entre pantallas (excepto la última) */}
+            {i < screens.length - 1 && (
+              <svg
+                width="10"
+                height="8"
+                viewBox="0 0 10 8"
+                fill="none"
+                aria-hidden
+              >
+                <path
+                  d="M1 4 H8 M5 1 L9 4 L5 7"
+                  stroke="var(--ink-mute)"
+                  strokeWidth="1"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-/** 04 · Cross-sell: carrito con productos de varias marcas (puntos de color). */
+/**
+ * 04 · Componentes dinámicos — un mismo "componente base" con 3 variantes
+ * encima (Black Friday, Día de la madre, Regreso a clases). Misma forma,
+ * distintos colores y patrones.
+ */
 function CrossSellVisual() {
   return (
     <div
@@ -473,37 +527,44 @@ function CrossSellVisual() {
       aria-hidden
     >
       <div className="flex h-full items-center justify-center p-5">
-        <div className="relative">
-          {/* Carrito */}
-          <svg
-            width="56"
-            height="56"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-ink"
-            aria-hidden
+        <div className="relative h-16 w-20">
+          {/* 3 variantes apiladas en perspectiva (capas) */}
+          {/* Capa atrás (variante 1) */}
+          <div
+            className="absolute left-3 top-3 h-12 w-16 rounded-md"
+            style={{
+              background: 'var(--cyan)',
+              opacity: 0.6,
+            }}
+          />
+          {/* Capa media (variante 2) */}
+          <div
+            className="absolute left-1.5 top-1.5 h-12 w-16 rounded-md"
+            style={{
+              background: 'var(--rose)',
+              opacity: 0.7,
+            }}
+          />
+          {/* Capa frente (variante 3) — la activa */}
+          <div
+            className="absolute left-0 top-0 flex h-12 w-16 flex-col gap-1 rounded-md p-2"
+            style={{
+              background: 'var(--blue)',
+            }}
           >
-            <circle cx="9" cy="21" r="1" />
-            <circle cx="20" cy="21" r="1" />
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-          </svg>
-          {/* Mini badges de productos de distintas marcas */}
-          <span
-            className="absolute right-3 top-2 h-2.5 w-2.5 rounded-full"
-            style={{ background: 'var(--blue)' }}
-          />
-          <span
-            className="absolute right-7 top-4 h-2.5 w-2.5 rounded-full"
-            style={{ background: 'var(--rose)' }}
-          />
-          <span
-            className="absolute right-5 top-7 h-2.5 w-2.5 rounded-full"
-            style={{ background: 'var(--cyan)' }}
-          />
+            <div
+              className="h-0.5 w-8 rounded-full"
+              style={{ background: 'var(--bg)' }}
+            />
+            <div
+              className="h-0.5 w-6 rounded-full"
+              style={{ background: 'var(--bg)', opacity: 0.7 }}
+            />
+            <div
+              className="mt-1 h-3 w-12 rounded-sm"
+              style={{ background: 'var(--bg)', opacity: 0.4 }}
+            />
+          </div>
         </div>
       </div>
     </div>

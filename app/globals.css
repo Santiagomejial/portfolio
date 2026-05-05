@@ -295,8 +295,36 @@
 .anim-card-shuffle-2    { animation: anim-card-shuffle-2 4.5s ease-in-out infinite; }
 .anim-card-shuffle-3    { animation: anim-card-shuffle-3 4.5s ease-in-out infinite; }
 
+/* Reduce-motion: solo desactivamos animaciones de MOVIMIENTO direccional
+   (float, slide, shuffle, organic, spin). Mantenemos las de opacity/scale
+   sutiles (pulse, fade, fill, reveal) que comunican sin desplazamiento. */
 @media (prefers-reduced-motion: reduce) {
-  [class*="anim-"] {
+  .anim-float-y,
+  .anim-float-y-strong,
+  .anim-arrow-slide,
+  .anim-arrow-slide-strong,
+  .anim-spin-slow,
+  .anim-spin-piece,
+  .anim-rotate-yz,
+  .anim-organic-1,
+  .anim-organic-2,
+  .anim-organic-3,
+  .anim-organic-4,
+  .anim-card-shuffle-1,
+  .anim-card-shuffle-2,
+  .anim-card-shuffle-3,
+  .anim-dash-flow {
     animation: none !important;
+  }
+  /* Las de pulse/fade/fill se mantienen pero más lentas */
+  .anim-pulse-soft,
+  .anim-pulse-strong,
+  .anim-bar-grow,
+  .anim-bar-grow-loop,
+  .anim-arc-fill-loop,
+  .anim-stars-reveal,
+  .anim-text-fill,
+  .anim-fade-in-up {
+    animation-duration: 6s !important;
   }
 }

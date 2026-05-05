@@ -7,6 +7,7 @@ import {
   CaseNav,
   Footer,
   HighlightTitle,
+  ClickableImageGrid,
 } from '@/components';
 import { CASE_STORE_IN_STORE } from '@/content/case-store-in-store';
 import type {
@@ -215,14 +216,9 @@ function DecisionesSolucionGrid({
 }
 
 /**
- * Galería final con 4 imágenes (placeholders por ahora).
- * Naming sugerido: gallery-01.jpg ... gallery-04.jpg en
- * public/work/store-in-store/.
+ * Galería final con 4 imágenes — todas clickeables abren CarouselModal.
  */
 function FinalGallery() {
-  // Cambiar a true cuando estén las 4 imágenes en /public/work/store-in-store/
-  const HAS_IMAGES = true;
-
   const items = [
     {
       src: '/work/store-in-store/gallery-01.jpg',
@@ -243,41 +239,13 @@ function FinalGallery() {
   ];
 
   return (
-    <section className="container-portfolio border-t border-line py-16 md:py-20">
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        {items.map((item, i) => (
-          <div
-            key={item.src}
-            className={
-              HAS_IMAGES
-                ? 'relative aspect-[4/3] w-full overflow-hidden rounded-lg'
-                : 'aspect-[4/3] w-full overflow-hidden rounded-lg border border-dashed border-line bg-bg-block'
-            }
-            role="img"
-            aria-label={item.alt}
-          >
-            {HAS_IMAGES ? (
-              <Image
-                src={item.src}
-                alt={item.alt}
-                fill
-                className="object-cover"
-                sizes="(min-width: 768px) 50vw, 100vw"
-              />
-            ) : (
-              <div className="flex h-full items-center justify-center px-4 text-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
-                [ {item.alt} ]
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-      {!HAS_IMAGES && (
-        <p className="mt-5 text-center text-eyebrow uppercase tracking-eyebrow text-ink-mute md:text-left">
-          Cierre · 4 imágenes pendientes de subir.
-        </p>
-      )}
-    </section>
+    <ClickableImageGrid
+      items={items}
+      title="Store in Store · galería"
+      aspect="4/3"
+      columns={2}
+      borderless
+    />
   );
 }
 
@@ -358,8 +326,8 @@ function SharedShellVisual() {
     >
       <div className="flex h-full items-center justify-center p-5">
         <div className="relative">
-          <svg width="80" height="80" viewBox="0 0 80 80">
-            {/* 4 segmentos del donut */}
+          <svg width="80" height="80" viewBox="0 0 80 80" className="anim-spin-slow">
+            {/* 4 segmentos del donut — gira lento */}
             {[
               { color: 'var(--blue)', offset: 0 },
               { color: 'var(--rose)', offset: -segment },
@@ -420,7 +388,7 @@ function ThemingVisual() {
       <div className="flex h-full items-center justify-center p-5">
         <svg width="100" height="80" viewBox="0 0 100 80" fill="none" aria-hidden>
           {/* Líneas conectoras desde el átomo central a las 4 esquinas */}
-          <g stroke="var(--line)" strokeWidth="1">
+          <g stroke="var(--line)" strokeWidth="1" className="anim-dash-flow">
             <line x1="50" y1="40" x2="20" y2="20" />
             <line x1="50" y1="40" x2="80" y2="20" />
             <line x1="50" y1="40" x2="20" y2="60" />
@@ -431,8 +399,8 @@ function ThemingVisual() {
           <rect x="74" y="14" width="12" height="12" rx="2" fill="var(--rose)" />
           <rect x="14" y="54" width="12" height="12" rx="2" fill="var(--cyan)" />
           <rect x="74" y="54" width="12" height="12" rx="2" fill="var(--ink-soft)" />
-          {/* Átomo central (sistema base) */}
-          <circle cx="50" cy="40" r="9" fill="url(#atomGrad)" />
+          {/* Átomo central (sistema base) — pulsa */}
+          <circle cx="50" cy="40" r="9" fill="url(#atomGrad)" className="anim-pulse-soft" style={{ transformOrigin: '50px 40px' }} />
           <defs>
             <linearGradient id="atomGrad" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stopColor="var(--blue)" />
@@ -463,10 +431,10 @@ function SwitchingVisual() {
       <div className="flex h-full items-center justify-center gap-1 px-4">
         {screens.map((label, i) => (
           <div key={label} className="flex items-center">
-            {/* Mini pantalla */}
+            {/* Mini pantalla — fade-in escalonado */}
             <div
-              className="flex h-12 w-9 flex-col items-center justify-center gap-0.5 rounded-sm border border-line"
-              style={{ background: 'var(--bg)' }}
+              className="anim-fade-in-up flex h-12 w-9 flex-col items-center justify-center gap-0.5 rounded-sm border border-line"
+              style={{ background: 'var(--bg)', animationDelay: `${i * 0.18}s` }}
             >
               <div
                 className="h-0.5 w-5 rounded-full"
@@ -531,18 +499,20 @@ function CrossSellVisual() {
           {/* 3 variantes apiladas en perspectiva (capas) */}
           {/* Capa atrás (variante 1) */}
           <div
-            className="absolute left-3 top-3 h-12 w-16 rounded-md"
+            className="anim-float-y absolute left-3 top-3 h-12 w-16 rounded-md"
             style={{
               background: 'var(--cyan)',
               opacity: 0.6,
+              animationDelay: '0.4s',
             }}
           />
           {/* Capa media (variante 2) */}
           <div
-            className="absolute left-1.5 top-1.5 h-12 w-16 rounded-md"
+            className="anim-float-y absolute left-1.5 top-1.5 h-12 w-16 rounded-md"
             style={{
               background: 'var(--rose)',
               opacity: 0.7,
+              animationDelay: '0.2s',
             }}
           />
           {/* Capa frente (variante 3) — la activa */}
@@ -605,8 +575,8 @@ function ScalableSystemVisual() {
             className="mt-0.5 h-3 w-10 rounded-sm bg-brand-gradient opacity-60"
           />
         </div>
-        {/* Flecha de replicación */}
-        <svg width="24" height="14" viewBox="0 0 24 14" fill="none" aria-hidden>
+        {/* Flecha de replicación — desliza */}
+        <svg width="24" height="14" viewBox="0 0 24 14" fill="none" className="anim-arrow-slide" aria-hidden>
           <defs>
             <linearGradient id="repGrad" x1="0" y1="0" x2="24" y2="0">
               <stop offset="0%" stopColor="var(--blue)" />
@@ -676,8 +646,8 @@ function BrandIdentityVisual() {
             style={{ background: 'var(--rose)', opacity: 0.5 }}
           />
         </div>
-        {/* Flecha digital → físico */}
-        <svg width="24" height="14" viewBox="0 0 24 14" fill="none" aria-hidden>
+        {/* Flecha digital → físico — desliza */}
+        <svg width="24" height="14" viewBox="0 0 24 14" fill="none" className="anim-arrow-slide" aria-hidden>
           <defs>
             <linearGradient id="d2pGrad" x1="0" y1="0" x2="24" y2="0">
               <stop offset="0%" stopColor="var(--rose)" />
@@ -768,11 +738,12 @@ function UnifiedJourneyVisual() {
             className="absolute inset-x-2 h-px"
             style={{ background: 'var(--ink-mute)' }}
           />
-          {/* 4 dots */}
+          {/* 4 dots — laten secuencialmente */}
           {[0, 1, 2, 3].map((i) => (
             <span
               key={i}
-              className="relative h-3 w-3 rounded-full bg-brand-gradient"
+              className="anim-pulse-soft relative h-3 w-3 rounded-full bg-brand-gradient"
+              style={{ animationDelay: `${i * 0.4}s` }}
             />
           ))}
         </div>

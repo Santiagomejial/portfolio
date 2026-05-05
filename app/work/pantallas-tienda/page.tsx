@@ -8,6 +8,7 @@ import {
   Footer,
   HighlightTitle,
   ProcessHighlightCard,
+  ClickableImageGrid,
 } from '@/components';
 import { CASE_PANTALLAS_TIENDA } from '@/content/case-pantallas-tienda';
 import type {
@@ -218,7 +219,7 @@ function DecisionesSolucionGrid({
 
 /**
  * Galería final con 4 imágenes del despliegue en tienda.
- * Grid 2x2 sin border en las imágenes (integradas con el fondo).
+ * Grid 2x2 sin border, todas clickeables para abrir en CarouselModal.
  */
 function FinalGallery() {
   const items = [
@@ -241,24 +242,13 @@ function FinalGallery() {
   ];
 
   return (
-    <section className="container-portfolio border-t border-line py-16 md:py-20">
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        {items.map((item) => (
-          <div
-            key={item.src}
-            className="relative aspect-[4/3] w-full overflow-hidden rounded-lg"
-          >
-            <Image
-              src={item.src}
-              alt={item.alt}
-              fill
-              className="object-cover"
-              sizes="(min-width: 768px) 50vw, 100vw"
-            />
-          </div>
-        ))}
-      </div>
-    </section>
+    <ClickableImageGrid
+      items={items}
+      title="Pantallas digitales en tienda · galería"
+      aspect="4/3"
+      columns={2}
+      borderless
+    />
   );
 }
 
@@ -330,7 +320,7 @@ function InspirationVisual() {
       <div className="grid h-full grid-cols-3 grid-rows-2 gap-1.5 p-5 md:gap-2 md:p-6">
         {/* Item destacado grande (col-span-2 row-span-2) */}
         <div
-          className="col-span-2 row-span-2 rounded-md border border-line"
+          className="anim-float-y col-span-2 row-span-2 rounded-md border border-line"
           style={{ background: 'var(--bg)' }}
         >
           <div className="flex h-full flex-col justify-end p-2">
@@ -390,6 +380,7 @@ function QuotationsVisual() {
           height="20"
           viewBox="0 0 32 20"
           fill="none"
+          className="anim-arrow-slide"
           aria-hidden
         >
           <path
@@ -468,9 +459,9 @@ function PaymentVisual() {
               />
             ))}
           </div>
-          {/* Check circle */}
+          {/* Check circle — pulsa suave */}
           <div
-            className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full"
+            className="anim-pulse-soft absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full"
             style={{ background: 'var(--cyan)' }}
           >
             <svg
@@ -541,10 +532,10 @@ function VerticalScreenVisual() {
                 'linear-gradient(135deg, color-mix(in oklab, var(--blue) 30%, transparent), color-mix(in oklab, var(--rose) 30%, transparent))',
             }}
           />
-          {/* CTA pill */}
+          {/* CTA pill — pulsa */}
           <div className="mt-2 flex justify-center">
             <div
-              className="h-1.5 w-2/3 rounded-full"
+              className="anim-pulse-soft h-1.5 w-2/3 rounded-full"
               style={{ background: 'var(--ink)' }}
             />
           </div>
@@ -576,14 +567,20 @@ function PublicUxVisual() {
               'linear-gradient(135deg, var(--blue), var(--cyan))',
           }}
         >
-          {/* Ondas de tap */}
+          {/* Ondas de tap — escalonadas */}
           <div
-            className="absolute inset-0 rounded-2xl border-2"
-            style={{ borderColor: 'color-mix(in oklab, var(--blue) 30%, transparent)' }}
+            className="anim-pulse-soft absolute inset-0 rounded-2xl border-2"
+            style={{
+              borderColor: 'color-mix(in oklab, var(--blue) 30%, transparent)',
+              animationDelay: '0s',
+            }}
           />
           <div
-            className="absolute -inset-2 rounded-2xl border-2"
-            style={{ borderColor: 'color-mix(in oklab, var(--blue) 15%, transparent)' }}
+            className="anim-pulse-soft absolute -inset-2 rounded-2xl border-2"
+            style={{
+              borderColor: 'color-mix(in oklab, var(--blue) 15%, transparent)',
+              animationDelay: '0.6s',
+            }}
           />
           {/* Dedo (círculo blanco) */}
           <span className="h-5 w-5 rounded-full bg-bg" />
@@ -607,20 +604,21 @@ function MultiBrandVisual() {
       <div className="flex h-full items-center justify-center p-5">
         <div className="flex items-center gap-2.5">
           <div
-            className="h-8 w-8 rounded-md"
-            style={{ background: 'var(--blue)' }}
+            className="anim-fade-in-up h-8 w-8 rounded-md"
+            style={{ background: 'var(--blue)', animationDelay: '0s' }}
           />
           <div
-            className="h-10 w-10 rounded-lg bg-brand-gradient"
+            className="anim-fade-in-up h-10 w-10 rounded-lg bg-brand-gradient"
+            style={{ animationDelay: '0.15s' }}
             aria-hidden
           />
           <div
-            className="h-8 w-8 rounded-md"
-            style={{ background: 'var(--cyan)' }}
+            className="anim-fade-in-up h-8 w-8 rounded-md"
+            style={{ background: 'var(--cyan)', animationDelay: '0.3s' }}
           />
           <div
-            className="h-8 w-8 rounded-md"
-            style={{ background: 'var(--rose)' }}
+            className="anim-fade-in-up h-8 w-8 rounded-md"
+            style={{ background: 'var(--rose)', animationDelay: '0.45s' }}
           />
         </div>
       </div>
@@ -642,8 +640,8 @@ function OmnichannelVisual() {
       <div className="flex h-full items-center justify-center gap-3 p-5">
         {/* Pantalla horizontal */}
         <div
-          className="h-9 w-12 rounded-md border border-line"
-          style={{ background: 'var(--bg)' }}
+          className="anim-float-y h-9 w-12 rounded-md border border-line"
+          style={{ background: 'var(--bg)', animationDelay: '0s' }}
         />
         {/* Conector */}
         <span
@@ -652,8 +650,8 @@ function OmnichannelVisual() {
         />
         {/* Móvil vertical (más alto) */}
         <div
-          className="h-12 w-6 rounded-md border border-line"
-          style={{ background: 'var(--bg)' }}
+          className="anim-float-y h-12 w-6 rounded-md border border-line"
+          style={{ background: 'var(--bg)', animationDelay: '0.6s' }}
         />
         {/* Conector */}
         <span
@@ -662,8 +660,8 @@ function OmnichannelVisual() {
         />
         {/* Laptop/web */}
         <div
-          className="h-7 w-12 rounded-md border border-line"
-          style={{ background: 'var(--bg)' }}
+          className="anim-float-y h-7 w-12 rounded-md border border-line"
+          style={{ background: 'var(--bg)', animationDelay: '1.2s' }}
         />
       </div>
     </div>

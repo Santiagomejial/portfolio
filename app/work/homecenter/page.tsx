@@ -11,6 +11,7 @@ import {
   ProcessHighlightCard,
   BeforeAfterComparison,
   MetricResultCard,
+  ClickableImage,
 } from '@/components';
 import { CASE_HOMECENTER } from '@/content/case-homecenter';
 import type {
@@ -303,32 +304,14 @@ function SolutionSectionWithVideo({
  * Cuando exista la imagen real, conectarla en el src del <Image> aquí.
  */
 function CaseClosingImage() {
-  // Cambiar a true cuando se conecte la imagen real
-  const HAS_IMAGE = true;
-
   return (
     <section className="container-portfolio pt-12 pb-8 md:pt-16 md:pb-12">
-      {HAS_IMAGE ? (
-        <div className="relative aspect-[21/9] w-full overflow-hidden rounded-lg">
-          <Image
-            src="/work/homecenter/closing.jpg"
-            alt="Cierre del case App Homecenter — vista final del producto."
-            fill
-            className="object-cover"
-            sizes="100vw"
-          />
-        </div>
-      ) : (
-        <div
-          className="aspect-[21/9] w-full overflow-hidden rounded-lg border border-dashed border-line bg-bg-block"
-          role="img"
-          aria-label="Imagen de cierre del case — pendiente"
-        >
-          <div className="flex h-full items-center justify-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
-            [ imagen de cierre · App Homecenter ]
-          </div>
-        </div>
-      )}
+      <ClickableImage
+        src="/work/homecenter/closing.jpg"
+        alt="Cierre del case App Homecenter — vista final del producto."
+        aspect="21/9"
+        title="App Homecenter · cierre"
+      />
     </section>
   );
 }
@@ -394,13 +377,14 @@ function VisitsVisual() {
         {heights.map((h, i) => (
           <div
             key={i}
-            className="w-3 rounded-t-md md:w-4"
+            className="anim-bar-grow w-3 rounded-t-md md:w-4"
             style={{
               height: `${h}%`,
               background:
                 i === heights.length - 1
                   ? 'var(--blue)'
                   : 'color-mix(in oklab, var(--blue) 35%, transparent)',
+              animationDelay: `${i * 0.12}s`,
             }}
           />
         ))}
@@ -437,7 +421,7 @@ function AddToCartVisual() {
       </svg>
       {/* Badge "+74" en gradient brand sobre el carrito */}
       <div
-        className="absolute right-[28%] top-[28%] flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-bold text-bg shadow-md"
+        className="anim-pulse-soft absolute right-[28%] top-[28%] flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-bold text-bg shadow-md"
         style={{ background: 'var(--rose)' }}
       >
         +74
@@ -472,7 +456,7 @@ function ConversionVisual() {
           stroke="var(--line)"
           strokeWidth="10"
         />
-        {/* Arco del 25% */}
+        {/* Arco del 25% — animado al cargar (counter-clock) */}
         <circle
           cx="50"
           cy="50"
@@ -484,6 +468,12 @@ function ConversionVisual() {
           strokeDashoffset={dashOffset}
           strokeLinecap="round"
           transform="rotate(-90 50 50)"
+          style={{
+            // @ts-expect-error -- CSS custom props
+            '--start': circumference,
+            '--end': dashOffset,
+            animation: 'anim-counter-clock 1.4s ease-out forwards',
+          }}
         />
       </svg>
     </div>
@@ -503,7 +493,13 @@ function RatingVisual() {
     >
       <div className="flex items-center gap-1.5">
         {[0, 1, 2, 3, 4].map((i) => (
-          <StarIcon key={i} filled={i < 4} half={i === 4} />
+          <span
+            key={i}
+            className="anim-fade-in-up inline-flex"
+            style={{ animationDelay: `${0.1 + i * 0.12}s` }}
+          >
+            <StarIcon filled={i < 4} half={i === 4} />
+          </span>
         ))}
       </div>
     </div>
@@ -586,7 +582,10 @@ function ProcessIllustration() {
           >
             {/* Dot + número de etapa */}
             <div className="flex items-center gap-2.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-brand-gradient" />
+              <span
+                className="anim-pulse-soft h-2.5 w-2.5 rounded-full bg-brand-gradient"
+                style={{ animationDelay: `${i * 0.5}s` }}
+              />
               <span className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
                 {`0${i + 1}`}
               </span>
@@ -649,8 +648,8 @@ function DiscoveryVisual() {
             </div>
             {painPoints.has(i) && (
               <div
-                className="absolute right-0.5 top-0.5 h-1.5 w-1.5 rounded-full"
-                style={{ background: 'var(--rose)' }}
+                className="anim-pulse-soft absolute right-0.5 top-0.5 h-1.5 w-1.5 rounded-full"
+                style={{ background: 'var(--rose)', animationDelay: `${i * 0.3}s` }}
               />
             )}
           </div>
@@ -687,7 +686,7 @@ function ResearchVisual() {
 
       {/* Numbers */}
       <div className="relative flex flex-col items-center gap-1">
-        <div className="flex items-baseline gap-2">
+        <div className="anim-fade-in-up flex items-baseline gap-2" style={{ animationDelay: '0.1s' }}>
           <span className="bg-brand-gradient bg-clip-text font-serif text-[clamp(36px,5vw,52px)] leading-none text-transparent">
             +100
           </span>
@@ -695,7 +694,7 @@ function ResearchVisual() {
             usuarios
           </span>
         </div>
-        <div className="flex items-baseline gap-2">
+        <div className="anim-fade-in-up flex items-baseline gap-2" style={{ animationDelay: '0.4s' }}>
           <span className="font-serif text-[clamp(28px,4vw,40px)] leading-none text-ink">
             +150
           </span>
@@ -775,7 +774,7 @@ function DesignSystemVisual() {
           style={{ background: 'var(--cyan)' }}
         />
         {/* Gradient swatch */}
-        <div className="rounded-md bg-brand-gradient" />
+        <div className="anim-pulse-soft rounded-md bg-brand-gradient" style={{ animationDuration: '3.5s' }} />
         {/* Líneas / spacing */}
         <div className="col-span-2 flex flex-col justify-center gap-1.5 px-1">
           <div

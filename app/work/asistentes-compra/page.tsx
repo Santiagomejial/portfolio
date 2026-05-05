@@ -120,34 +120,34 @@ function FeaturesGrid() {
   const features = [
     {
       number: '01',
-      label: 'Búsqueda',
-      title: 'Producto encontrado en segundos.',
+      label: 'A la medida',
+      title: 'Sofás, persianas y cortinas configurables.',
       description:
-        'Búsqueda inteligente que el asesor ejecuta sin salir del flujo.',
+        'Configurador guiado por dimensiones, colores, materiales y complementos para productos a la medida.',
       visual: <SearchVisual />,
     },
     {
       number: '02',
-      label: 'Cotización',
-      title: 'Cotizaciones complejas en un solo paso.',
+      label: 'Proyectos del hogar',
+      title: 'Cocinas, baños y juntas de baño.',
       description:
-        'Productos, descuentos, pagos mixtos y entregas — todo en una pantalla.',
+        'Cotizadores especializados con recorrido completo: arquitectura, materiales, accesorios e instalación.',
       visual: <QuoteVisual />,
     },
     {
       number: '03',
-      label: 'Offline-first',
-      title: 'Funciona sin conexión, sincroniza al volver.',
+      label: 'Construcción',
+      title: 'Obra de placa fácil y materiales para proyectos.',
       description:
-        'En zonas con baja conectividad la herramienta sigue siendo confiable.',
+        'Cálculo de materiales por m², ajustes de obra y recomendaciones técnicas para obras pequeñas y medianas.',
       visual: <OfflineVisual />,
     },
     {
       number: '04',
-      label: 'Cierre asistido',
-      title: 'De cotización a venta sin saltar de sistema.',
+      label: 'Multi-canal responsive',
+      title: 'Mismo flujo en web, tienda, asesoría y contact center.',
       description:
-        'El asesor cierra la transacción dentro de la misma herramienta.',
+        'Diseño completamente responsive — el cliente inicia en un canal y el asesor toma la posta sin perder contexto.',
       visual: <CloseSaleVisual />,
     },
   ];
@@ -285,18 +285,18 @@ function FinalGallery() {
 function DesignSummaryStrip() {
   const items = [
     {
-      label: 'Diseño para expertos',
-      caption: 'Respetar el conocimiento del asesor — remover fricción, no reeducar.',
+      label: 'Sistema modular',
+      caption: 'Una columna vertebral que se adapta a productos a la medida, proyectos y obras.',
       visual: <ExpertVisual />,
     },
     {
-      label: 'Tablet-first',
-      caption: 'Formato natural del asesor en piso de venta. Touch grandes, contraste alto.',
+      label: 'Pasos guiados',
+      caption: 'Decisiones complejas en steps pequeños y revisables — sin overwhelm.',
       visual: <TabletVisual />,
     },
     {
-      label: 'Flujo continuo',
-      caption: 'De cotización a cierre sin salir de la pantalla — sin saltos entre sistemas.',
+      label: 'Continuidad multi-canal',
+      caption: 'El flujo viaja entre web, tienda, asesoría y contact center sin romperse.',
       visual: <FlowVisual />,
     },
   ];

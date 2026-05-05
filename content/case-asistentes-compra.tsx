@@ -18,13 +18,16 @@ export const CASE_ASISTENTES_COMPRA: CaseContent = {
       pre: 'Asistentes de ',
       highlight: 'compra digital',
     },
-    sub: 'Herramienta interna para asesores en tienda que acelera la búsqueda de producto, la cotización y el cierre de venta asistida.',
+    sub: 'Familia de herramientas digitales que guían al cliente en compras complejas — productos a la medida, proyectos del hogar y obras de construcción — con un sistema responsive que vive en web, tienda y canales de asesoría.',
     meta: [
       { label: 'Rol', value: 'UX/UI Designer' },
       { label: 'Periodo', value: '2022 → 2024' },
-      { label: 'Alcance', value: 'Herramienta interna' },
+      { label: 'Alcance', value: 'Familia de asistentes · multi-canal' },
     ],
-    // heroImage: pendiente
+    heroImage: {
+      src: '/work/asistentes-compra/hero.jpg',
+      alt: 'Asistentes de compra digital — hero del case.',
+    },
   },
 
   // ─── SECTIONS ─────────────────────────────────────────
@@ -32,27 +35,35 @@ export const CASE_ASISTENTES_COMPRA: CaseContent = {
     {
       number: '01',
       label: 'Contexto',
-      title:
-        'El asesor es el punto de mayor conversión — y el más fricciónado.',
+      title: 'Compras complejas que el catálogo estándar no resuelve.',
       body: [
         <p key="1">
-          Mientras los kioscos resolvían consultas rápidas, el asesor seguía
-          cerrando las ventas complejas: proyectos grandes, combos, entregas
-          a obra, pagos mixtos. Pero sus herramientas seguían siendo las
-          mismas de hace 15 años.
+          Los asistentes de compra son herramientas digitales que guían al
+          cliente en compras complejas — productos a la medida, proyectos del
+          hogar y obras de construcción. Cada asistente tiene un flujo
+          guiado propio que respeta la lógica del producto: configurar un
+          sofá no es lo mismo que cotizar una cocina o calcular el material
+          para una placa.
+        </p>,
+        <p key="2">
+          Su despliegue es completamente responsive y vive en cuatro
+          superficies: web (desktop y mobile) para el cliente final,
+          pantallas en tienda para autoservicio, y pantallas dedicadas
+          (desktop y mobile) para los asesores en piso y el contact center.
         </p>,
       ],
     },
     {
       number: '02',
       label: 'Problema',
-      title: 'Procesos manuales, cotizaciones lentas, cierre desordenado.',
+      title: 'Demasiadas variables, ningún flujo estándar.',
       body: [
         <p key="1">
-          El asesor saltaba entre sistemas para consultar stock, generar
-          cotización, aplicar descuentos y registrar venta. Cada salto era un
-          punto de caída: el cliente esperaba, el asesor improvisaba, la venta
-          se enfriaba.
+          Sofás a la medida, cocinas, baños, persianas, placas — cada
+          categoría tiene variables propias: dimensiones, colores,
+          materiales, complementos, instalación. Sin guía el cliente
+          abandona; sin herramienta el asesor improvisa. Buena parte del
+          catálogo de proyectos del hogar quedaba fuera del journey digital.
         </p>,
       ],
     },
@@ -62,38 +73,44 @@ export const CASE_ASISTENTES_COMPRA: CaseContent = {
     {
       number: '03',
       label: 'Decisiones',
-      title: 'Tablet-first, offline-first, compacto.',
+      title: 'Una columna vertebral compartida, personalidades propias.',
       body: [
         <p key="1">
-          La herramienta vive en tablet (formato natural del asesor en piso),
-          funciona offline para zonas con baja conectividad, y cada flujo se
-          reduce a los pasos mínimos viables. Nada más — cada input extra es
-          un segundo que el cliente espera.
+          Toda la familia de asistentes parte del mismo patrón —
+          entrada paso a paso, validación en cada step, resumen visual antes
+          del cierre — pero cada producto despliega su lógica particular. La
+          decisión crítica fue diseñar un sistema de componentes que se
+          adaptara a tipologías muy distintas (medida, proyecto,
+          construcción) sin reinventar la lógica cada vez.
         </p>,
       ],
     },
     {
       number: '04',
       label: 'Solución',
-      title: 'Cotización a cierre en un solo flujo.',
+      title: 'Una familia de asistentes con la misma estructura.',
       body: [
         <p key="1">
-          Consulta de stock, armado de carrito, aplicación de descuentos,
-          cotización imprimible y cierre de venta en una sola pantalla
-          continua. El asesor no pierde el hilo, el cliente no pierde la
-          paciencia.
+          Todos los asistentes comparten esqueleto pero tienen comportamientos
+          especializados según el producto. El cliente puede iniciar la
+          cotización desde cualquier canal y retomarla en otro; el asesor
+          puede tomar la posta sin que el cliente pierda contexto. Las
+          decisiones complejas se quiebran en pasos pequeños y revisables.
         </p>,
       ],
     },
     {
       number: '05',
       label: 'Impacto',
-      title: 'Cierre más rápido y menos fricción operativa.',
+      title: 'Categorías nuevas habilitadas para el journey digital.',
       body: [
         <p key="1">
-          Los asesores cerraron ventas en menos tiempo y con menos saltos
-          entre sistemas. La herramienta se volvió parte de su método
-          cotidiano, no una capa más que tolerar.
+          Los asistentes habilitaron categorías que antes no eran vendibles
+          online de forma seria. El cliente que entraba buscando &quot;cortinas
+          a la medida&quot; o &quot;cocina nueva&quot; ya no tenía que
+          aterrizar en una tienda física para arrancar — podía configurar,
+          cotizar y agendar sin moverse. El asesor en tienda y contact center
+          se convirtió en complemento del journey, no en requisito.
         </p>,
       ],
     },

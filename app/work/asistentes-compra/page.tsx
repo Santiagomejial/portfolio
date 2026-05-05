@@ -362,7 +362,7 @@ function ExternalLinkIcon() {
 
 /* ─── Visuales SVG inline (placeholders temáticos) ─── */
 
-/** 01 · Búsqueda — lupa sobre lista de productos. */
+/** 01 · A la medida — silueta de mueble con flechas bidireccionales y medida. */
 function SearchVisual() {
   return (
     <div
@@ -374,53 +374,60 @@ function SearchVisual() {
       aria-hidden
     >
       <div className="flex h-full items-center justify-center p-5">
-        <div className="relative">
-          {/* Lista de items */}
-          <div className="flex flex-col gap-1.5">
-            {[0, 1, 2].map((i) => (
-              <div
-                key={i}
-                className="flex items-center gap-1.5"
-                style={{
-                  opacity: i === 1 ? 1 : 0.5,
-                }}
-              >
-                <span
-                  className="h-2 w-2 rounded-sm"
-                  style={{ background: 'var(--ink-soft)' }}
-                />
-                <span
-                  className="h-1.5 w-12 rounded-full"
-                  style={{
-                    background: i === 1 ? 'var(--blue)' : 'var(--line)',
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-          {/* Lupa */}
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="anim-organic-1 absolute -right-3 top-2 text-ink"
-            aria-hidden
-          >
-            <circle cx="11" cy="11" r="7" />
-            <path d="M21 21l-4.35-4.35" />
+        <div className="flex flex-col items-center gap-2">
+          {/* Silueta de mueble (rectángulo) — float sutil */}
+          <div
+            className="anim-float-y h-7 w-20 rounded-md"
+            style={{
+              background: 'color-mix(in oklab, var(--blue) 35%, transparent)',
+              border: '1px solid var(--blue)',
+            }}
+          />
+
+          {/* Cinta métrica con flechas bidireccionales */}
+          <svg width="84" height="10" viewBox="0 0 84 10" fill="none" aria-hidden>
+            {/* Flecha izquierda */}
+            <path
+              d="M2 5 L7 2 M2 5 L7 8"
+              stroke="var(--ink)"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            {/* Línea de medida */}
+            <line
+              x1="2"
+              y1="5"
+              x2="82"
+              y2="5"
+              stroke="var(--ink)"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+              className="anim-dash-flow"
+            />
+            {/* Flecha derecha */}
+            <path
+              d="M82 5 L77 2 M82 5 L77 8"
+              stroke="var(--ink)"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
+
+          {/* Medida con efecto "se llena" */}
+          <span
+            className="anim-text-fill bg-brand-gradient bg-clip-text font-serif text-[14px] leading-none tracking-display text-transparent"
+          >
+            120 cm
+          </span>
         </div>
       </div>
     </div>
   );
 }
 
-/** 02 · Cotización — documento con líneas y total destacado. */
+/** 02 · Proyectos del hogar — silueta de casa con ventanas pulsando como luces y humo de chimenea. */
 function QuoteVisual() {
   return (
     <div
@@ -432,40 +439,85 @@ function QuoteVisual() {
       aria-hidden
     >
       <div className="flex h-full items-center justify-center p-5">
-        <div
-          className="flex h-16 w-12 flex-col gap-1 rounded-md border border-line p-2"
-          style={{ background: 'var(--bg)' }}
-        >
-          {/* Header */}
-          <div
-            className="h-0.5 w-6 rounded-full"
-            style={{ background: 'var(--ink)' }}
+        <div className="relative">
+          {/* Humo de chimenea (3 círculos que float) */}
+          <span
+            className="anim-float-y-strong absolute -top-3 left-[58%] h-1.5 w-1.5 rounded-full"
+            style={{
+              background: 'color-mix(in oklab, var(--ink) 20%, transparent)',
+              animationDelay: '0s',
+            }}
           />
-          {/* Líneas */}
-          <div className="mt-1 space-y-0.5">
-            <div
-              className="h-0.5 w-full rounded-full"
-              style={{ background: 'var(--line)' }}
+          <span
+            className="anim-float-y-strong absolute -top-5 left-[64%] h-1 w-1 rounded-full"
+            style={{
+              background: 'color-mix(in oklab, var(--ink) 15%, transparent)',
+              animationDelay: '0.4s',
+            }}
+          />
+          <span
+            className="anim-float-y-strong absolute -top-7 left-[60%] h-0.5 w-0.5 rounded-full"
+            style={{
+              background: 'color-mix(in oklab, var(--ink) 10%, transparent)',
+              animationDelay: '0.8s',
+            }}
+          />
+
+          <svg width="68" height="60" viewBox="0 0 68 60" fill="none" aria-hidden>
+            {/* Techo triangular */}
+            <path
+              d="M4 28 L34 6 L64 28 Z"
+              fill="var(--rose)"
+              opacity="0.5"
+              stroke="var(--ink)"
+              strokeWidth="1"
+              strokeLinejoin="round"
             />
-            <div
-              className="h-0.5 w-3/4 rounded-full"
-              style={{ background: 'var(--line)' }}
+            {/* Chimenea */}
+            <rect x="44" y="10" width="6" height="10" fill="var(--ink)" opacity="0.5" />
+            {/* Cuerpo de la casa */}
+            <rect
+              x="10"
+              y="28"
+              width="48"
+              height="28"
+              fill="none"
+              stroke="var(--ink)"
+              strokeWidth="1"
             />
-            <div
-              className="h-0.5 w-5/6 rounded-full"
-              style={{ background: 'var(--line)' }}
+            {/* Ventana izquierda — pulsa como luz encendida */}
+            <rect
+              x="16"
+              y="34"
+              width="10"
+              height="8"
+              fill="var(--blue)"
+              opacity="0.6"
+              className="anim-pulse-strong"
             />
-            <div
-              className="h-0.5 w-2/3 rounded-full"
-              style={{ background: 'var(--line)' }}
+            {/* Ventana derecha — pulsa con delay */}
+            <rect
+              x="42"
+              y="34"
+              width="10"
+              height="8"
+              fill="var(--blue)"
+              opacity="0.6"
+              className="anim-pulse-strong"
+              style={{ animationDelay: '0.6s' }}
             />
-          </div>
-          {/* Total destacado */}
-          <div className="mt-auto flex items-center justify-end gap-1">
-            <span
-              className="anim-pulse-strong h-1 w-3 rounded-full bg-brand-gradient"
+            {/* Puerta — pulsa más sutil con otro delay */}
+            <rect
+              x="29"
+              y="44"
+              width="10"
+              height="12"
+              fill="var(--rose)"
+              opacity="0.7"
+              className="anim-pulse-soft"
+              style={{ animationDelay: '0.3s' }}
             />
-          </div>
+          </svg>
         </div>
       </div>
     </div>

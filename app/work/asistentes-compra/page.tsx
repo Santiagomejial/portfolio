@@ -41,6 +41,9 @@ export default function AsistentesCompraCase() {
         heroVisual={renderHeroImage(hero)}
       />
 
+      {/* CTA "Visitar asistentes" — link externo a Homecenter */}
+      <VisitAssistantsButton />
+
       {establishing && (
         <CaseMedia
           layout={establishing.layout}
@@ -221,60 +224,33 @@ function DecisionesSolucionGrid({
  * public/work/asistentes-compra/.
  */
 function FinalGallery() {
-  // Cambiar a true cuando estén las imágenes
-  const HAS_IMAGES = false;
-
   const items = [
     {
       src: '/work/asistentes-compra/gallery-01.jpg',
-      alt: 'Tablet del asesor en contexto real de tienda Sodimac.',
+      alt: 'Asistente de compra digital — vista en contexto.',
     },
     {
       src: '/work/asistentes-compra/gallery-02.jpg',
-      alt: 'Detalle UI — pantalla de búsqueda y consulta de stock.',
+      alt: 'Detalle UI — flujo de configuración guiada.',
     },
     {
       src: '/work/asistentes-compra/gallery-03.jpg',
-      alt: 'Flujo de cotización con descuentos y pagos mixtos.',
+      alt: 'Cotizador especializado — productos del hogar.',
     },
     {
       src: '/work/asistentes-compra/gallery-04.jpg',
-      alt: 'Cierre de venta asistida — confirmación final.',
+      alt: 'Multi-canal responsive — adaptación entre superficies.',
     },
   ];
 
-  if (HAS_IMAGES) {
-    return (
-      <ClickableImageGrid
-        items={items}
-        title="Asistentes de compra · galería"
-        aspect="4/3"
-        columns={2}
-        borderless
-      />
-    );
-  }
-
   return (
-    <section className="container-portfolio border-t border-line py-16 md:py-20">
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        {items.map((item) => (
-          <div
-            key={item.src}
-            className="aspect-[4/3] w-full overflow-hidden rounded-lg border border-dashed border-line bg-bg-block"
-            role="img"
-            aria-label={item.alt}
-          >
-            <div className="flex h-full items-center justify-center px-4 text-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
-              [ {item.alt} ]
-            </div>
-          </div>
-        ))}
-      </div>
-      <p className="mt-5 text-center text-eyebrow uppercase tracking-eyebrow text-ink-mute md:text-left">
-        Cierre · 4 imágenes pendientes de subir.
-      </p>
-    </section>
+    <ClickableImageGrid
+      items={items}
+      title="Asistentes de compra · galería"
+      aspect="4/3"
+      columns={2}
+      borderless
+    />
   );
 }
 
@@ -327,6 +303,60 @@ function DesignSummaryStrip() {
         ))}
       </div>
     </section>
+  );
+}
+
+/**
+ * Botón CTA después del hero — abre los asistentes en vivo en Homecenter.
+ * Estilo similar al DownloadAppButtons del case Homecenter.
+ */
+function VisitAssistantsButton() {
+  return (
+    <div className="container-portfolio flex flex-col items-center justify-center gap-3 pt-10 pb-16 sm:flex-row md:pt-12 md:pb-24">
+      <a
+        href="https://www.homecenter.com.co/homecenter-co/content/asistentes_dex/?cid=btnhom1008670#DEXhome"
+        target="_blank"
+        rel="noreferrer noopener"
+        className="group inline-flex w-full items-center justify-center gap-2.5 rounded-full border border-line bg-bg-elev px-5 py-3 text-[13px] font-semibold uppercase tracking-eyebrow text-ink transition-base hover:border-blue hover:bg-bg-block sm:w-auto"
+      >
+        <ExternalLinkIcon />
+        <span>Visitar los asistentes en vivo</span>
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="transition-transform group-hover:translate-x-1"
+          aria-hidden
+        >
+          <path d="M5 12h14M13 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  );
+}
+
+function ExternalLinkIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <polyline points="15 3 21 3 21 9" />
+      <line x1="10" y1="14" x2="21" y2="3" />
+    </svg>
   );
 }
 
@@ -442,7 +472,7 @@ function QuoteVisual() {
   );
 }
 
-/** 03 · Offline-first — icono wifi tachado + check. */
+/** 03 · Construcción — casco con planos al lado. */
 function OfflineVisual() {
   return (
     <div
@@ -453,46 +483,48 @@ function OfflineVisual() {
       }}
       aria-hidden
     >
-      <div className="flex h-full items-center justify-center p-5">
-        <div className="relative">
-          <svg
-            width="44"
-            height="44"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-ink"
-            aria-hidden
-          >
-            {/* Wifi waves */}
-            <path d="M5 12.55a11 11 0 0 1 14 0" opacity="0.5" />
-            <path d="M8.5 16.05a6 6 0 0 1 7 0" opacity="0.7" />
-            <line x1="12" y1="20" x2="12.01" y2="20" />
-            {/* Tachado diagonal */}
-            <line x1="2" y1="2" x2="22" y2="22" stroke="var(--rose)" strokeWidth="2" />
-          </svg>
-          {/* Check (sigue funcionando) */}
+      <div className="flex h-full items-center justify-center gap-3 p-5">
+        {/* Casco de construcción (SVG silueta) */}
+        <svg
+          width="40"
+          height="40"
+          viewBox="0 0 48 48"
+          fill="none"
+          className="anim-float-y-strong text-ink"
+          aria-hidden
+        >
+          {/* Visera */}
+          <path
+            d="M4 32 L44 32 L44 36 Q44 40 40 40 L8 40 Q4 40 4 36 Z"
+            fill="var(--rose)"
+            opacity="0.7"
+          />
+          {/* Cuerpo del casco (cúpula) */}
+          <path
+            d="M10 32 Q10 14 24 14 Q38 14 38 32"
+            fill="var(--rose)"
+            stroke="var(--ink)"
+            strokeWidth="1"
+          />
+          {/* Cresta superior */}
+          <rect x="22" y="14" width="4" height="8" fill="var(--ink)" opacity="0.3" />
+        </svg>
+
+        {/* Plano / blueprint con líneas + check */}
+        <div
+          className="relative flex h-12 w-10 flex-col gap-1 rounded-md border border-line p-2"
+          style={{ background: 'var(--bg)' }}
+        >
+          {/* Líneas horizontales (medidas) */}
+          <div className="h-0.5 w-full rounded-full" style={{ background: 'var(--blue)' }} />
+          <div className="h-0.5 w-3/4 rounded-full" style={{ background: 'var(--line)' }} />
+          {/* Cuadrado central (placa) */}
           <div
-            className="anim-pulse-strong absolute -right-1 -bottom-1 flex h-5 w-5 items-center justify-center rounded-full"
-            style={{ background: 'var(--cyan)' }}
-          >
-            <svg
-              width="10"
-              height="10"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="var(--bg)"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden
-            >
-              <path d="M5 12l5 5L20 7" />
-            </svg>
-          </div>
+            className="anim-pulse-strong mt-0.5 h-3 w-6 self-center rounded-sm"
+            style={{ background: 'var(--blue)', opacity: 0.5 }}
+          />
+          {/* Línea inferior */}
+          <div className="mt-auto h-0.5 w-2/3 rounded-full" style={{ background: 'var(--line)' }} />
         </div>
       </div>
     </div>

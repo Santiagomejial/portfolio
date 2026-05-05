@@ -41,6 +41,9 @@ export default function StoreInStoreCase() {
         heroVisual={renderHeroImage(hero)}
       />
 
+      {/* CTA — botones que llevan a cada store en vivo */}
+      <VisitStoresButtons />
+
       {establishing && (
         <CaseMedia
           layout={establishing.layout}
@@ -300,6 +303,74 @@ function DesignSummaryStrip() {
         ))}
       </div>
     </section>
+  );
+}
+
+/**
+ * 4 botones CTA después del hero — abren cada store en vivo en Homecenter.
+ * Mobile: stack vertical. Desktop: grid 4 columnas.
+ */
+function VisitStoresButtons() {
+  const stores = [
+    {
+      label: 'Constructor',
+      href: 'https://www.homecenter.com.co/homecenter-co/tiendas/constructor/?store=constructor/',
+      accent: 'var(--blue)',
+    },
+    {
+      label: 'Al por mayor',
+      href: 'https://www.homecenter.com.co/homecenter-co/tiendas/compras-por-mayor-grandes-volumenes/?store=grandesvolumenes/',
+      accent: 'var(--ink-soft)',
+    },
+    {
+      label: 'Carcenter',
+      href: 'https://www.homecenter.com.co/homecenter-co/tiendas/servicio-automotriz-carcenter/?store=carcenter/',
+      accent: 'var(--cyan)',
+    },
+    {
+      label: 'Petizoos · Petcenter',
+      href: 'https://www.homecenter.com.co/homecenter-co/tiendas/tienda-mascotas-pet-center/?store=petcenter/',
+      accent: 'var(--rose)',
+    },
+  ];
+
+  return (
+    <div className="container-portfolio pt-10 pb-16 md:pt-12 md:pb-24">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4">
+        {stores.map((s) => (
+          <a
+            key={s.href}
+            href={s.href}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="group inline-flex items-center justify-between gap-3 rounded-full border border-line bg-bg-elev px-4 py-3 text-[12px] font-semibold uppercase tracking-eyebrow text-ink transition-base hover:border-blue hover:bg-bg-block"
+          >
+            <span className="inline-flex items-center gap-2.5">
+              <span
+                className="h-2 w-2 shrink-0 rounded-full"
+                style={{ background: s.accent }}
+                aria-hidden
+              />
+              {s.label}
+            </span>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="shrink-0 transition-transform group-hover:translate-x-1"
+              aria-hidden
+            >
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg>
+          </a>
+        ))}
+      </div>
+    </div>
   );
 }
 

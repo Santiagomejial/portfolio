@@ -20,11 +20,17 @@ export const CASE_STORE_IN_STORE: CaseContent = {
     },
     sub: 'Sistema digital que permite a las sub-marcas Sodimac convivir dentro del mismo ecosistema sin romper la coherencia del negocio principal.',
     meta: [
-      { label: 'Rol', value: 'UX/UI Designer' },
-      { label: 'Periodo', value: '2024' },
-      { label: 'Alcance', value: 'Sistema multi-marca' },
+      { label: 'Rol', value: 'UX/UI Designer líder' },
+      { label: 'Periodo', value: 'Nov 2023 → Jun 2024' },
+      {
+        label: 'Alcance',
+        value: 'Sistema multimarca · componetización global',
+      },
     ],
-    // heroImage: pendiente
+    heroImage: {
+      src: '/work/store-in-store/hero.jpg',
+      alt: 'Store in Store — hero del case multi-marca.',
+    },
   },
 
   // ─── SECTIONS ─────────────────────────────────────────
@@ -35,12 +41,12 @@ export const CASE_STORE_IN_STORE: CaseContent = {
       title: 'Sodimac no es una sola marca: es un conjunto.',
       body: [
         <p key="1">
-          Constructor, Petcenter, Carcenter y la unidad de venta al por mayor
-          operan bajo el paraguas de Sodimac pero con identidades, audiencias y
-          propuestas de valor distintas. En físico cohabitan en la misma tienda
-          o tienen espacios propios — la pregunta era cómo replicar esa
-          coexistencia en digital sin que el usuario se sienta rebotado entre
-          marcas desconectadas.
+          La store al por mayor, Constructor, Petcenter y Carcenter operan
+          bajo el paraguas de Sodimac pero con identidades, audiencias y
+          propuestas de valor distintas. En físico cohabitan en la misma
+          tienda o tienen espacios propios — la pregunta era cómo replicar
+          esa coexistencia en digital sin fragmentar la experiencia del
+          usuario al transitar entre marcas.
         </p>,
       ],
     },
@@ -50,10 +56,11 @@ export const CASE_STORE_IN_STORE: CaseContent = {
       title: 'Un usuario, múltiples marcas, un solo journey.',
       body: [
         <p key="1">
-          El riesgo era doble: si se unificaba todo bajo una sola identidad,
-          cada marca perdía diferenciación; si se separaba en sitios o apps
-          independientes, se fragmentaba el journey de compra y se perdía
-          oportunidad de cross-sell entre las distintas líneas de negocio.
+          Cada sub-marca debía sentirse parte de Homecenter pero atender a sus
+          necesidades particulares. El desarrollo se hizo en web y web mobile,
+          contemplando un journey de conversión claro y diferenciado por
+          audiencia, pero apoyado en una base de componentes unificada. El
+          alcance cubrió Homes, PLPs y PDPs.
         </p>,
       ],
     },
@@ -63,12 +70,13 @@ export const CASE_STORE_IN_STORE: CaseContent = {
     {
       number: '03',
       label: 'Decisiones',
-      title: 'Una shell compartida, con theming por marca.',
+      title: 'Una base común, identidades distintas.',
       body: [
         <p key="1">
-          Definimos una shell de navegación compartida (búsqueda, carrito,
-          cuenta, checkout) con un sistema de theming que adapta color,
-          tipografía y tono editorial por cada sub-marca. Las pantallas de
+          Definimos una capa de navegación compartida — búsqueda, carrito,
+          cuenta y paso al checkout — con un sistema que adapta color,
+          tipografía y tono editorial por cada sub-marca: Constructor,
+          Petcenter, Carcenter y la unidad al por mayor. Las pantallas de
           catálogo, PDP y promos viven dentro de cada marca, pero la capa
           transaccional es única.
         </p>,
@@ -77,13 +85,13 @@ export const CASE_STORE_IN_STORE: CaseContent = {
     {
       number: '04',
       label: 'Solución',
-      title: 'Un producto, varias identidades, cero fragmentación.',
+      title: 'Plantillas que viven y evolucionan con cada marca.',
       body: [
         <p key="1">
-          El usuario navega entre Constructor, Petcenter, Carcenter y la unidad
-          al por mayor como si caminara entre departamentos de una misma
-          tienda. Cada marca conserva su personalidad; el sistema conserva su
-          coherencia. Checkout, cuenta y loyalty funcionan transversalmente.
+          Plantillas de componentes con administración y evolución determinada
+          desde sus bases. Cada marca administra sus propias variantes para
+          atender a su segmento de mercado y reforzar su identidad — sin
+          perder la coherencia con el sistema base.
         </p>,
       ],
     },

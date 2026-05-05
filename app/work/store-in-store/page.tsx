@@ -119,34 +119,34 @@ function FeaturesGrid() {
   const features = [
     {
       number: '01',
-      label: 'Shell compartida',
-      title: 'Una sola capa transaccional para todas las marcas.',
+      label: 'Research',
+      title: 'Investigación de mercado y requerimientos del negocio.',
       description:
-        'Búsqueda, carrito, cuenta y checkout únicos — el usuario nunca cambia de "tienda" para finalizar la compra.',
+        'Análisis de cada segmento (Constructor, Petcenter, Carcenter, mayoristas) y mapeo de los requerimientos que tenían en común vs. los específicos de cada uno.',
       visual: <SharedShellVisual />,
     },
     {
       number: '02',
-      label: 'Theming por marca',
-      title: 'Color, tipografía y tono se adaptan automáticamente.',
+      label: 'Componetización',
+      title: 'Sistema global con identidad por marca.',
       description:
-        'Cada marca conserva su identidad visual sin romper la consistencia del producto base.',
+        'Una sola librería de componentes para todas las stores. Cada marca aplica su identidad sobre la misma base — sin duplicar lógica ni romper la consistencia.',
       visual: <ThemingVisual />,
     },
     {
       number: '03',
-      label: 'Switching transparente',
-      title: 'Transición fluida entre Constructor, Petcenter, Carcenter…',
+      label: 'Journey transaccional',
+      title: 'Home, PLPs, PDPs y paso al carrito web.',
       description:
-        'El usuario navega entre marcas como si caminara entre departamentos de una misma tienda.',
+        'Cada marca tiene su recorrido completo de compra: home temática, PLP, PDP y paso al carrito web normal de Homecenter para finalizar la transacción.',
       visual: <SwitchingVisual />,
     },
     {
       number: '04',
-      label: 'Cross-sell habilitado',
-      title: 'Recomendaciones que cruzan las líneas de negocio.',
+      label: 'Componentes dinámicos',
+      title: 'Variantes que atienden cada evento del año.',
       description:
-        'Productos de Petcenter aparecen en checkout de Constructor cuando hace sentido — sin duplicar inventario ni lógica.',
+        'Componentes que se adaptan dinámicamente a la temporada o evento comercial — Black Friday, día de la madre, regreso a clases — sin reescribir la base.',
       visual: <CrossSellVisual />,
     },
   ];
@@ -288,13 +288,15 @@ function FinalGallery() {
 function DesignSummaryStrip() {
   const items = [
     {
-      label: 'Sistema escalable',
-      caption: 'Una arquitectura que admite nuevas marcas sin reescribir base.',
+      label: 'Replicado en la nueva app',
+      caption:
+        'El sistema escaló al rediseño de la App Homecenter — misma base de componetización.',
       visual: <ScalableSystemVisual />,
     },
     {
-      label: 'Identidad por marca',
-      caption: 'Theming dinámico que respeta la personalidad de cada negocio.',
+      label: 'Del digital al físico',
+      caption:
+        'Independencia local que generó ofertas diferenciadas — algunas escalaron a tiendas físicas (Petizoos / Petcenter).',
       visual: <BrandIdentityVisual />,
     },
     {

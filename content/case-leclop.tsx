@@ -25,7 +25,10 @@ export const CASE_LECLOP: CaseContent = {
       { label: 'Periodo', value: '2021 → 2022' },
       { label: 'Alcance', value: 'Identidad de marca + producto digital' },
     ],
-    // heroImage: pendiente
+    heroImage: {
+      src: '/work/leclop/hero.jpg',
+      alt: 'LeClop — hero del case · marca de eventos.',
+    },
   },
 
   // ─── SECTIONS ─────────────────────────────────────────

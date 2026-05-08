@@ -1,5 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { useLang } from '@/lib/use-lang';
 
 interface FooterProps {
   className?: string;
@@ -35,12 +38,24 @@ const SOCIAL_LINKS = [
 const EMAIL = 'santiagomejial.sml@gmail.com';
 const YEAR = new Date().getFullYear();
 
+const T = {
+  tagline: { es: 'Colombia', en: 'Colombia' },
+  contact: { es: 'Contacto', en: 'Contact' },
+  web: { es: 'En la web', en: 'On the web' },
+  copyright: {
+    es: `© ${YEAR} Santiago Mejía L. · Bogotá, Colombia`,
+    en: `© ${YEAR} Santiago Mejía L. · Bogotá, Colombia`,
+  },
+  backToTop: { es: 'Volver al inicio ↑', en: 'Back to top ↑' },
+};
+
 /**
  * Footer global tipo manifiesto.
  * Vive al final de cada página y absorbe el rol del antiguo CTABlock —
  * es la única zona de cierre. Vertical, con respiración.
  */
 export function Footer({ className }: FooterProps) {
+  const { lang } = useLang();
   return (
     <footer className={cn('relative pb-8 pt-12 md:pt-14', className)}>
       {/* Línea superior con gradiente — cose el footer con el resto del sitio */}
@@ -60,14 +75,14 @@ export function Footer({ className }: FooterProps) {
           <span className="text-blue">.</span>
         </h2>
 
-        <p className="mt-2 max-w-xl text-body text-ink-soft">Colombia</p>
+        <p className="mt-2 max-w-xl text-body text-ink-soft">{T.tagline[lang]}</p>
 
         {/* Contacto + Redes en grid horizontal en desktop */}
         <div className="mt-10 grid gap-8 md:grid-cols-2 md:gap-12">
           {/* Contacto */}
           <div>
             <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-              Contacto
+              {T.contact[lang]}
             </div>
             <a
               href={`mailto:${EMAIL}`}
@@ -84,7 +99,7 @@ export function Footer({ className }: FooterProps) {
           {/* En la web — iconos sociales */}
           <div>
             <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-              En la web
+              {T.web[lang]}
             </div>
             <ul className="mt-2 flex items-center gap-2.5">
               {SOCIAL_LINKS.map(({ label, href, hoverColor, Icon }) => (
@@ -113,10 +128,10 @@ export function Footer({ className }: FooterProps) {
 
         {/* Bottom bar */}
         <div className="mt-10 flex flex-col items-start justify-between gap-2 border-t border-line pt-5 text-body-sm text-ink-mute md:flex-row md:items-center">
-          <div>© {YEAR} Santiago Mejía L. · Bogotá, Colombia</div>
+          <div>{T.copyright[lang]}</div>
           <div>
             <Link href="/" className="transition-base hover:text-ink">
-              Volver al inicio ↑
+              {T.backToTop[lang]}
             </Link>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/lib/use-theme';
+import { useLang } from '@/lib/use-lang';
 
 /**
  * Floating Nav — pill flotante con blur.
@@ -20,15 +21,44 @@ import { useTheme } from '@/lib/use-theme';
  */
 
 const LINKS = [
-  { href: '/about', label: 'Sobre mí' },
-  { href: '/work', label: 'Proyectos' },
+  {
+    href: '/about',
+    label: { es: 'Sobre mí', en: 'About' },
+  },
+  {
+    href: '/work',
+    label: { es: 'Proyectos', en: 'Work' },
+  },
 ] as const;
+
+const I18N = {
+  contact: { es: 'Contacto', en: 'Contact' },
+  themeOnDark: {
+    es: 'Activar modo claro',
+    en: 'Switch to light mode',
+  },
+  themeOnLight: {
+    es: 'Activar modo oscuro',
+    en: 'Switch to dark mode',
+  },
+  langSwitch: {
+    es: 'Cambiar a inglés',
+    en: 'Cambiar a español',
+  },
+  navAria: {
+    es: 'Navegación principal',
+    en: 'Main navigation',
+  },
+  openMenu: { es: 'Abrir menú', en: 'Open menu' },
+  closeMenu: { es: 'Cerrar menú', en: 'Close menu' },
+} as const;
 
 const EMAIL = 'santiagomejial.sml@gmail.com';
 
 export function FloatingNav() {
   const pathname = usePathname();
   const { theme, toggle: toggleTheme, mounted: themeMounted } = useTheme();
+  const { lang, toggle: toggleLang, mounted: langMounted } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -62,7 +92,7 @@ export function FloatingNav() {
   return (
     <div className="fixed left-1/2 top-4 z-nav -translate-x-1/2">
       <nav
-        aria-label="Navegación principal"
+        aria-label={I18N.navAria[lang]}
         className={cn(
           'flex items-center gap-1 p-1.5',
           'rounded-full border border-line',
@@ -109,7 +139,7 @@ export function FloatingNav() {
                   )}
                   aria-current={active ? 'page' : undefined}
                 >
-                  {link.label}
+                  {link.label[lang]}
                 </Link>
               </li>
             );
@@ -117,6 +147,20 @@ export function FloatingNav() {
         </ul>
 
         <span className="hidden h-5 w-px bg-line md:block" aria-hidden />
+
+        {/* Lang toggle ES / EN */}
+        <button
+          type="button"
+          onClick={toggleLang}
+          className={cn(
+            'flex h-8 items-center justify-center rounded-full px-2.5',
+            'text-[11px] font-semibold uppercase tracking-eyebrow',
+            'text-ink-soft transition-base hover:bg-bg-block hover:text-ink'
+          )}
+          aria-label={I18N.langSwitch[lang]}
+        >
+          {langMounted ? (lang === 'es' ? 'EN' : 'ES') : 'EN'}
+        </button>
 
         {/* Theme toggle (siempre visible) */}
         <button
@@ -126,7 +170,9 @@ export function FloatingNav() {
             'flex h-8 w-8 items-center justify-center rounded-full',
             'text-ink-soft transition-base hover:bg-bg-block hover:text-ink'
           )}
-          aria-label={theme === 'dark' ? 'Activar modo claro' : 'Activar modo oscuro'}
+          aria-label={
+            theme === 'dark' ? I18N.themeOnDark[lang] : I18N.themeOnLight[lang]
+          }
         >
           {themeMounted && theme === 'dark' ? <SunIcon /> : <MoonIcon />}
         </button>
@@ -140,14 +186,14 @@ export function FloatingNav() {
             'transition-base hover:opacity-80'
           )}
         >
-          Contacto
+          {I18N.contact[lang]}
         </a>
 
         {/* ─── Mobile: hamburguesa ─── */}
         <button
           type="button"
           onClick={() => setMobileOpen((v) => !v)}
-          aria-label={mobileOpen ? 'Cerrar menú' : 'Abrir menú'}
+          aria-label={mobileOpen ? I18N.closeMenu[lang] : I18N.openMenu[lang]}
           aria-expanded={mobileOpen}
           aria-controls="mobile-nav-drawer"
           className={cn(
@@ -165,7 +211,7 @@ export function FloatingNav() {
           {/* Backdrop suave para cerrar al tap fuera */}
           <button
             type="button"
-            aria-label="Cerrar menú"
+            aria-label={I18N.closeMenu[lang]}
             onClick={() => setMobileOpen(false)}
             className="fixed inset-0 -z-10 cursor-default bg-bg/40 backdrop-blur-sm md:hidden"
           />
@@ -196,7 +242,7 @@ export function FloatingNav() {
                       )}
                       aria-current={active ? 'page' : undefined}
                     >
-                      {link.label}
+                      {link.label[lang]}
                     </Link>
                   </li>
                 );
@@ -212,7 +258,7 @@ export function FloatingNav() {
                 'transition-base hover:opacity-80'
               )}
             >
-              Contacto
+              {I18N.contact[lang]}
             </a>
           </div>
         </>

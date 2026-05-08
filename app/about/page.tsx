@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import {
   Eyebrow,
@@ -11,47 +13,164 @@ import {
   type TimelineItem,
 } from '@/components';
 import { HOME } from '@/content/home';
+import { useLang } from '@/lib/use-lang';
 
-/**
- * ABOUT — /about
- * Página editorial: quién es Santiago, cómo trabaja, por qué este arco.
- * Copy final y foto portrait los reemplaza Santiago en la fase Claude Design.
- */
-
-const RESUMEN_TEXT =
-  'Product Owner y diseñador UX / UI con más de cuatro años impulsando transformación digital en retail y servicios. Diseñé y lideré el lanzamiento de la App Homecenter — canal móvil de la empresa líder en mejoramiento del hogar en Colombia. Esta doble perspectiva diseñador → PO me permite materializar productos que responden al usuario y al negocio simultáneamente, traduciendo necesidades complejas en soluciones rentables. Mi rol actual lidera la estrategia del canal digital con impacto directo en ventas y conversión.';
+const T = {
+  hero: {
+    eyebrow: { es: 'Sobre mí', en: 'About me' },
+    title: {
+      es: { soy: 'Soy Santiago,', diseñadorIndustrial: 'Diseñador industrial', y: 'y' },
+      en: { soy: "I'm Santiago,", diseñadorIndustrial: 'Industrial Designer', y: 'and' },
+    },
+    chips: {
+      es: [
+        'Colombiano',
+        'Diseñador UX/UI',
+        'Digital Product Owner',
+        'Investigación UX',
+        'Design systems',
+        'Gestión de proyectos',
+      ],
+      en: [
+        'Colombian',
+        'UX/UI Designer',
+        'Digital Product Owner',
+        'UX Research',
+        'Design systems',
+        'Project Management',
+      ],
+    },
+    portraitAlt: {
+      es: 'Santiago Mejía L. — retrato',
+      en: 'Santiago Mejía L. — portrait',
+    },
+  },
+  resumen: {
+    label: { es: '01 · Resumen', en: '01 · Summary' },
+    body: {
+      es: 'Product Owner y diseñador UX / UI con más de cuatro años impulsando transformación digital en retail y servicios. Diseñé y lideré el lanzamiento de la App Homecenter — canal móvil de la empresa líder en mejoramiento del hogar en Colombia. Esta doble perspectiva diseñador → PO me permite materializar productos que responden al usuario y al negocio simultáneamente, traduciendo necesidades complejas en soluciones rentables. Mi rol actual lidera la estrategia del canal digital con impacto directo en ventas y conversión.',
+      en: 'Product Owner and UX/UI designer with over four years driving digital transformation in retail and services. I designed and led the launch of the Homecenter App — the mobile channel of the leading home improvement retailer in Colombia. This dual designer → PO perspective lets me materialize products that respond to user and business needs simultaneously, translating complex requirements into profitable solutions. My current role leads the digital channel strategy with direct impact on sales and conversion.',
+    },
+  },
+  skills: {
+    label: { es: '02 · Habilidades', en: '02 · Skills' },
+    title: {
+      es: 'Herramientas y ámbitos donde me muevo bien.',
+      en: 'Tools and areas where I move with ease.',
+    },
+    poBA: { es: 'Product Owner / BA', en: 'Product Owner / BA' },
+    poBAList: {
+      es: [
+        'Gestión de backlog y priorización',
+        'Definición y escritura de historias de usuario',
+        'KPIs de retail y análisis de métricas',
+        'Refinamiento y sprint planning',
+        'Stakeholder management',
+      ],
+      en: [
+        'Backlog management and prioritization',
+        'User story definition and writing',
+        'Retail KPIs and metrics analysis',
+        'Refinement and sprint planning',
+        'Stakeholder management',
+      ],
+    },
+    productDesign: { es: 'Product Design / UX · UI', en: 'Product Design / UX · UI' },
+    productDesignList: {
+      es: [
+        'Research y síntesis',
+        'Arquitectura de información',
+        'Design systems y componentes',
+        'Prototipado e interacción',
+        'UX writing y micro-copy',
+      ],
+      en: [
+        'Research and synthesis',
+        'Information architecture',
+        'Design systems and components',
+        'Prototyping and interaction',
+        'UX writing and micro-copy',
+      ],
+    },
+    otras: { es: 'Otras', en: 'Other' },
+    otrasList: {
+      es: [
+        'Figma · FigJam',
+        'Azure · OneClick',
+        'Adobe Creative Suite',
+        'Claude · Claude Design',
+        'Gemini Suite',
+      ],
+      en: [
+        'Figma · FigJam',
+        'Azure · OneClick',
+        'Adobe Creative Suite',
+        'Claude · Claude Design',
+        'Gemini Suite',
+      ],
+    },
+  },
+  trajectory: {
+    label: { es: '03 · Trayectoria Profesional', en: '03 · Career Path' },
+  },
+  outside: {
+    label: { es: 'Fuera del producto', en: 'Outside of product' },
+    title: {
+      es: 'Lo que me mantiene curioso.',
+      en: 'What keeps me curious.',
+    },
+    body1: {
+      es: 'Me interesa profundamente el diseño UX/UI, las nuevas tecnologías y estar al tanto de nuevas herramientas que permitan más en pensar que en hacer.',
+      en: "I'm deeply interested in UX/UI design, new technologies and staying on top of new tools that prioritize thinking over doing.",
+    },
+    body2: {
+      es: 'Me encanta conocer culturas, su música, sus sabores y su forma de ver el mundo, así como el fútbol y el arte plástico.',
+      en: 'I love discovering cultures — their music, flavors and worldviews — alongside football and visual arts.',
+    },
+  },
+};
 
 export default function AboutPage() {
+  const { lang } = useLang();
+
+  // Resolver timeline desde Home (single source of truth)
+  const timelineItems: TimelineItem[] = HOME.timeline.items.map((it) => ({
+    year: it.year[lang],
+    title: it.title[lang],
+    description: it.description[lang],
+    milestone: it.milestone,
+  }));
+
+  const titleNode = (
+    <>
+      {T.hero.title[lang].soy}{' '}
+      <span className="text-gradient">{T.hero.title[lang].diseñadorIndustrial}</span>,{' '}
+      <span className="text-gradient">UX/UI</span> {T.hero.title[lang].y}{' '}
+      <span className="text-gradient">BA/Product Owner</span>.
+    </>
+  );
+
   return (
     <>
-      {/* HERO con media slot para portrait */}
+      {/* HERO */}
       <PageHero
-        eyebrow="Sobre mí"
+        eyebrow={T.hero.eyebrow[lang]}
         titleClassName="display-lg"
-        title={
-          <>
-            Soy Santiago,{' '}
-            <span className="text-gradient">Diseñador industrial</span>,{' '}
-            <span className="text-gradient">UX/UI</span> y{' '}
-            <span className="text-gradient">BA/Product Owner</span>.
-          </>
-        }
+        title={titleNode}
         media={
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg border border-line">
             <Image
               src="/portrait.jpg"
-              alt="Santiago Mejía L. — retrato"
+              alt={T.hero.portraitAlt[lang]}
               fill
               className="object-cover"
               sizes="(min-width: 768px) 33vw, 100vw"
               priority
             />
-            {/* Overlay sutil con gradient brand (azul → rosa) */}
             <span
               aria-hidden
               className="pointer-events-none absolute inset-0 bg-brand-gradient opacity-25 mix-blend-overlay"
             />
-            {/* Viñeta inferior tenue para integrar con el bg de la página */}
             <span
               aria-hidden
               className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-bg/40 to-transparent"
@@ -59,35 +178,23 @@ export default function AboutPage() {
           </div>
         }
       >
-        <ChipRow
-          items={[
-            'Colombiano',
-            'Diseñador UX/UI',
-            'Digital Product Owner',
-            'Investigación UX',
-            'Design systems',
-            'Gestión de proyectos',
-          ]}
-        />
+        <ChipRow items={[...T.hero.chips[lang]]} />
       </PageHero>
 
       {/* 01 — RESUMEN */}
-      <section
-        id="resumen"
-        className="border-t border-line py-12 md:py-16"
-      >
+      <section id="resumen" className="border-t border-line py-12 md:py-16">
         <div className="container-portfolio">
           <div className="grid gap-8 md:grid-cols-12">
             <div className="md:col-span-3">
               <div className="sticky top-28">
                 <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-                  01 · Resumen
+                  {T.resumen.label[lang]}
                 </div>
               </div>
             </div>
             <div className="md:col-span-9">
               <p className="text-body-lg leading-relaxed text-ink-soft">
-                {RESUMEN_TEXT}
+                {T.resumen.body[lang]}
               </p>
             </div>
           </div>
@@ -100,72 +207,59 @@ export default function AboutPage() {
         className="container-portfolio border-t border-line py-20 md:py-28"
       >
         <SectionHead
-          label="02 · Habilidades"
-          title="Herramientas y ámbitos donde me muevo bien."
+          label={T.skills.label[lang]}
+          title={T.skills.title[lang]}
           className="mb-12"
         />
         <div className="grid gap-10 md:grid-cols-3">
           <div>
-            <Eyebrow className="mb-4">Product Owner / BA</Eyebrow>
+            <Eyebrow className="mb-4">{T.skills.poBA[lang]}</Eyebrow>
             <ul className="space-y-2 text-body-lg text-ink-soft">
-              <li>Gestión de backlog y priorización</li>
-              <li>Definición y escritura de historias de usuario</li>
-              <li>KPIs de retail y análisis de métricas</li>
-              <li>Refinamiento y sprint planning</li>
-              <li>Stakeholder management</li>
+              {T.skills.poBAList[lang].map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </div>
           <div>
-            <Eyebrow className="mb-4">Product Design / UX · UI</Eyebrow>
+            <Eyebrow className="mb-4">{T.skills.productDesign[lang]}</Eyebrow>
             <ul className="space-y-2 text-body-lg text-ink-soft">
-              <li>Research y síntesis</li>
-              <li>Arquitectura de información</li>
-              <li>Design systems y componentes</li>
-              <li>Prototipado e interacción</li>
-              <li>UX writing y micro-copy</li>
+              {T.skills.productDesignList[lang].map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </div>
           <div>
-            <Eyebrow className="mb-4">Otras</Eyebrow>
+            <Eyebrow className="mb-4">{T.skills.otras[lang]}</Eyebrow>
             <ul className="space-y-2 text-body-lg text-ink-soft">
-              <li>Figma · FigJam</li>
-              <li>Azure · OneClick</li>
-              <li>Adobe Creative Suite</li>
-              <li>Claude · Claude Design</li>
-              <li>Gemini Suite</li>
+              {T.skills.otrasList[lang].map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </div>
         </div>
       </section>
 
-      {/* TRAYECTORIA — sincronizada con Home (single source of truth) */}
+      {/* TRAJECTORY */}
       <section
         id="trajectory"
         className="container-portfolio border-t border-line py-20 md:py-28"
       >
         <SectionHead
-          label="03 · Trayectoria Profesional"
-          title={<HighlightTitle {...HOME.timeline.title} />}
+          label={T.trajectory.label[lang]}
+          title={<HighlightTitle {...HOME.timeline.title[lang]} />}
           className="mb-12"
         />
-        <Timeline items={HOME.timeline.items as TimelineItem[]} />
+        <Timeline items={timelineItems} />
       </section>
 
-      {/* FUERA DEL PRODUCTO — toque personal */}
+      {/* FUERA DEL PRODUCTO */}
       <CaseSection
         number="04"
-        label="Fuera del producto"
-        title="Lo que me mantiene curioso."
+        label={T.outside.label[lang]}
+        title={T.outside.title[lang]}
       >
-        <p>
-          Me interesa profundamente el diseño UX/UI, las nuevas tecnologías y
-          estar al tanto de nuevas herramientas que permitan más en pensar que
-          en hacer.
-        </p>
-        <p>
-          Me encanta conocer culturas, su música, sus sabores y su forma de ver
-          el mundo, así como el fútbol y el arte plástico.
-        </p>
+        <p>{T.outside.body1[lang]}</p>
+        <p>{T.outside.body2[lang]}</p>
       </CaseSection>
 
       <Footer />

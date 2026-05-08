@@ -1,3 +1,5 @@
+'use client';
+
 import {
   SectionHead,
   ChipRow,
@@ -10,40 +12,44 @@ import {
   ViewAllLink,
   type TimelineItem,
 } from '@/components';
-// Nota: si se reactiva la sección Snapshot, reimportar Eyebrow y MetricCard.
-import { HOME } from '@/content/home';
+import { HOME, resolveHomeCards } from '@/content/home';
+import { useLang } from '@/lib/use-lang';
 
-/**
- * HOME — Santiago Mejía · Product Designer + Product Owner.
- *
- * Todo el copy vive en /content/home.ts.
- * Este archivo solo compone layout y consume el contenido tipado.
- */
 export default function HomePage() {
+  const { lang } = useLang();
+  const cards = resolveHomeCards(lang);
+
+  const timelineItems: TimelineItem[] = HOME.timeline.items.map((it) => ({
+    year: it.year[lang],
+    title: it.title[lang],
+    description: it.description[lang],
+    milestone: it.milestone,
+  }));
+
   return (
     <>
       {/* HERO */}
       <PageHero
-        eyebrow={HOME.hero.eyebrow}
-        title={<HighlightTitle {...HOME.hero.title} />}
-        sub={HOME.hero.sub}
+        eyebrow={HOME.hero.eyebrow[lang]}
+        title={<HighlightTitle {...HOME.hero.title[lang]} />}
+        sub={HOME.hero.sub[lang]}
       >
-        <ChipRow items={[...HOME.hero.chips]} />
+        <ChipRow items={[...HOME.hero.chips[lang]]} />
       </PageHero>
 
       {/* 01 · SELECTED WORK */}
       <section id="work" className="container-portfolio py-20 md:py-28">
         <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHead
-            label={HOME.work.label}
-            title={<HighlightTitle {...HOME.work.title} />}
+            label={HOME.work.label[lang]}
+            title={<HighlightTitle {...HOME.work.title[lang]} />}
           />
           <ViewAllLink href="/work" className="shrink-0">
-            Ver todos los proyectos
+            {HOME.viewAllProjects[lang]}
           </ViewAllLink>
         </div>
         <div className="grid grid-cols-1 gap-5 md:grid-cols-12">
-          {HOME.work.cards.map((card) => (
+          {cards.map((card) => (
             <WorkCard
               key={card.href}
               href={card.href}
@@ -58,7 +64,7 @@ export default function HomePage() {
           ))}
         </div>
         <div className="mt-10 flex justify-center md:mt-12">
-          <ViewAllLink href="/work">Ver todos los proyectos</ViewAllLink>
+          <ViewAllLink href="/work">{HOME.viewAllProjects[lang]}</ViewAllLink>
         </div>
       </section>
 
@@ -66,19 +72,11 @@ export default function HomePage() {
           El contenido sigue en HOME.snapshot por si se quiere reactivar.
           Para mostrar de nuevo: descomentar el bloque <section> abajo.
 
-      <section
-        id="snapshot"
-        className="container-portfolio border-t border-line py-20 md:py-28"
-      >
-        <Eyebrow className="mb-10">{HOME.snapshot.label}</Eyebrow>
+      <section id="snapshot" className="container-portfolio border-t border-line py-20 md:py-28">
+        <Eyebrow className="mb-10">{HOME.snapshot.label[lang]}</Eyebrow>
         <div className="grid grid-cols-3 gap-6 md:gap-8">
           {HOME.snapshot.metrics.map((m) => (
-            <MetricCard
-              key={m.label}
-              label={m.label}
-              value={m.value}
-              unit={m.unit}
-            />
+            <MetricCard key={m.label.es} label={m.label[lang]} value={m.value} unit={m.unit?.[lang]} />
           ))}
         </div>
       </section>
@@ -87,10 +85,10 @@ export default function HomePage() {
       {/* PULL QUOTE */}
       <section className="container-portfolio border-t border-line py-20 md:py-28">
         <PullQuote
-          highlight={HOME.quote.highlight}
-          attribution={HOME.quote.attribution}
+          highlight={[...HOME.quote.highlight[lang]]}
+          attribution={HOME.quote.attribution[lang]}
         >
-          {HOME.quote.body}
+          {HOME.quote.body[lang]}
         </PullQuote>
       </section>
 
@@ -100,14 +98,14 @@ export default function HomePage() {
         className="container-portfolio border-t border-line py-20 md:py-28"
       >
         <SectionHead
-          label={HOME.timeline.label}
-          title={<HighlightTitle {...HOME.timeline.title} />}
+          label={HOME.timeline.label[lang]}
+          title={<HighlightTitle {...HOME.timeline.title[lang]} />}
           className="mb-12"
         />
-        <Timeline items={HOME.timeline.items as TimelineItem[]} />
+        <Timeline items={timelineItems} />
       </section>
 
-      {/* Footer (zona de cierre única — absorbió el rol del antiguo CTA) */}
+      {/* Footer */}
       <Footer />
     </>
   );

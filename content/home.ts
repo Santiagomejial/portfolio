@@ -91,13 +91,13 @@ export const HOME = {
       {
         href: '/work/dartstation',
         span: 6,
-        meta: ['2020 → 2022', 'Asesor Innovación', 'Fisheye SA'],
-        title: 'Asesor en innovación',
+        meta: ['2022', 'UX/UI Designer', 'Co-autoría'],
+        title: 'DartStation',
         description:
-          'Desarrollo para empresas y gestores en Bogotá D.C.',
-        image: '/work/asesor-innovacion.jpg',
+          'E-commerce e identidad gráfica para una marquetería y galería de cuadros en Barranquilla. Co-autoría con Daniela Salcedo Mejía.',
+        image: '/work/dartstation/hero.jpg',
         imageAlt:
-          'Asesoría en innovación para empresas — Fisheye SA, Bogotá.',
+          'DartStation — marquetería y galería de cuadros en Barranquilla.',
       },
       {
         href: '/work/leclop',

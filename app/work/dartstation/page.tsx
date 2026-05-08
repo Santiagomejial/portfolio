@@ -205,7 +205,7 @@ function DecisionesSolucionGrid({
 
 function FinalGallery() {
   // Cambiar a true cuando estén las imágenes en /public/work/dartstation/
-  const HAS_IMAGES = false;
+  const HAS_IMAGES = true;
 
   const items = [
     {

@@ -23,7 +23,10 @@ export const CASE_DARTSTATION: CaseContent = {
       { label: 'Periodo', value: '2022' },
       { label: 'Alcance', value: 'E-commerce + branding' },
     ],
-    // heroImage: pendiente
+    heroImage: {
+      src: '/work/dartstation/hero.jpg',
+      alt: 'DartStation — hero del case · marquetería en Barranquilla.',
+    },
   },
 
   // ─── SECTIONS ─────────────────────────────────────────

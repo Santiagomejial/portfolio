@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import {
   PullQuote,
@@ -19,15 +21,155 @@ import type {
   CaseSectionContent,
   HighlightTitle as HighlightTitleType,
 } from '@/content/types';
+import { useLang } from '@/lib/use-lang';
+import type { Lang } from '@/lib/use-lang';
 
-/**
- * CASE PRINCIPAL — App Homecenter & Constructor.
- * Todo el copy vive en /content/case-homecenter.tsx.
- * Esta página solo compone layout y consume el contenido tipado.
- */
+/* ─── Traducciones de UI / sub-componentes ─── */
+const T = {
+  highlights: {
+    discovery: {
+      label: { es: 'Discovery', en: 'Discovery' },
+      title: {
+        es: 'Voz del negocio + voz del cliente.',
+        en: 'Voice of business + voice of the customer.',
+      },
+      description: {
+        es: '3 meses recopilando requerimientos y dolores de las gerencias de Homecenter, sumados a entrevistas guerrilla con clientes reales usando la app. Visualización de todas las pantallas, componentes y flujos críticos en un solo Figma.',
+        en: '3 months gathering requirements and pain points from Homecenter business units, combined with guerrilla interviews with real customers using the app. Visualization of all screens, components and critical flows in a single Figma file.',
+      },
+    },
+    research: {
+      label: { es: 'Research', en: 'Research' },
+      title: {
+        es: 'Investigación a escala nacional y global.',
+        en: 'Research at national and global scale.',
+      },
+      description: {
+        es: '+100 usuarios entrevistados y +150 apps analizadas a nivel nacional y mundial. Construcción de la base estratégica del rediseño.',
+        en: '+100 users interviewed and +150 apps analyzed nationally and globally. Building the strategic foundation of the redesign.',
+      },
+    },
+    designSystem: {
+      label: { es: 'Design System', en: 'Design System' },
+      title: {
+        es: 'Construcción atómica del nuevo DS.',
+        en: 'Atomic construction of the new DS.',
+      },
+      description: {
+        es: 'Puesta en marcha del Design System átomo a átomo, integrando ilustración, tipografía y patrones reutilizables en cada superficie del producto.',
+        en: 'Launch of the Design System atom by atom, integrating illustration, typography and reusable patterns across every product surface.',
+      },
+    },
+  },
+  beforeAfter: {
+    beforeAlt: {
+      es: 'App Homecenter — versión anterior',
+      en: 'Homecenter App — previous version',
+    },
+    afterAlt: {
+      es: 'App Homecenter — versión rediseñada',
+      en: 'Homecenter App — redesigned version',
+    },
+    caption: {
+      es: 'Antes / después · resultado del rediseño integral',
+      en: 'Before / after · result of the full redesign',
+    },
+  },
+  videoAria: {
+    es: 'Recorrido completo de la App Homecenter',
+    en: 'Full walkthrough of the Homecenter App',
+  },
+  closing: {
+    alt: {
+      es: 'Cierre del case App Homecenter — vista final del producto.',
+      en: 'Closing image of the Homecenter App case — final product view.',
+    },
+    title: { es: 'App Homecenter · cierre', en: 'Homecenter App · closing' },
+  },
+  impact: {
+    visits: {
+      label: { es: 'Visitas', en: 'Visits' },
+      description: {
+        es: '50M+ visitas totales en el periodo.',
+        en: '50M+ total visits in the period.',
+      },
+    },
+    a2c: {
+      label: { es: 'Add to Cart', en: 'Add to Cart' },
+      description: {
+        es: 'Más productos agregados al carrito en flujos de compra.',
+        en: 'More products added to cart in purchase flows.',
+      },
+    },
+    conversion: {
+      label: { es: 'Conversión', en: 'Conversion' },
+      description: {
+        es: 'Con +25% de incremento en venta.',
+        en: 'With +25% increase in sales.',
+      },
+    },
+    rating: {
+      label: { es: 'Rating en stores', en: 'Store rating' },
+      description: {
+        es: 'App Store · Play Store — sin caída tras el rediseño.',
+        en: 'App Store · Play Store — no drop after the redesign.',
+      },
+    },
+    disclaimer: {
+      es: 'Comparación jul–dic 2024 vs 2025 · cifras aproximadas no oficiales.',
+      en: 'Comparison Jul–Dec 2024 vs 2025 · approximate, unofficial figures.',
+    },
+  },
+  process: {
+    research: {
+      label: { es: 'Research', en: 'Research' },
+      desc: {
+        es: 'Session replays, entrevistas y embudo analítico.',
+        en: 'Session replays, interviews and analytical funnel.',
+      },
+    },
+    mapping: {
+      label: { es: 'Mapeo', en: 'Mapping' },
+      desc: {
+        es: 'Flujos críticos, síntesis y documentación.',
+        en: 'Critical flows, synthesis and documentation.',
+      },
+    },
+    wireframes: {
+      label: { es: 'Wireframes', en: 'Wireframes' },
+      desc: {
+        es: 'Componentes base, arquitectura y validación.',
+        en: 'Base components, architecture and validation.',
+      },
+    },
+    hifi: {
+      label: { es: 'High-Fi', en: 'High-Fi' },
+      desc: {
+        es: 'Producción, paridad iOS/Android y handoff.',
+        en: 'Production, iOS/Android parity and handoff.',
+      },
+    },
+  },
+  research: {
+    users: { es: 'usuarios', en: 'users' },
+    apps: { es: 'apps', en: 'apps' },
+  },
+  hero: {
+    placeholder: {
+      es: '[ hero visual · App Homecenter ]',
+      en: '[ hero visual · Homecenter App ]',
+    },
+    placeholderAlt: {
+      es: 'Hero visual — pendiente',
+      en: 'Hero visual — pending',
+    },
+  },
+};
 
 export default function HomecenterCase() {
-  const { hero, establishing, sections, nav } = CASE_HOMECENTER;
+  const { lang } = useLang();
+  const content = CASE_HOMECENTER[lang];
+  const { hero, establishing, sections, nav } = content;
 
   return (
     <>
@@ -38,7 +180,7 @@ export default function HomecenterCase() {
         title={renderTitle(hero.title)}
         sub={hero.sub}
         meta={[...hero.meta]}
-        heroVisual={renderHeroImage(hero)}
+        heroVisual={renderHeroImage(hero, lang)}
       />
 
       {hero.appLinks && (
@@ -70,59 +212,52 @@ export default function HomecenterCase() {
         <div className="container-portfolio grid gap-5 md:grid-cols-3">
           <ProcessHighlightCard
             number="01"
-            label="Discovery"
-            title="Voz del negocio + voz del cliente."
-            description="3 meses recopilando requerimientos y dolores de las gerencias de Homecenter, sumados a entrevistas guerrilla con clientes reales usando la app. Visualización de todas las pantallas, componentes y flujos críticos en un solo Figma."
+            label={T.highlights.discovery.label[lang]}
+            title={T.highlights.discovery.title[lang]}
+            description={T.highlights.discovery.description[lang]}
             visual={<DiscoveryVisual />}
           />
           <ProcessHighlightCard
             number="02"
-            label="Research"
-            title="Investigación a escala nacional y global."
-            description="+100 usuarios entrevistados y +150 apps analizadas a nivel nacional y mundial. Construcción de la base estratégica del rediseño."
-            visual={<ResearchVisual />}
+            label={T.highlights.research.label[lang]}
+            title={T.highlights.research.title[lang]}
+            description={T.highlights.research.description[lang]}
+            visual={<ResearchVisual lang={lang} />}
           />
           <ProcessHighlightCard
             number="03"
-            label="Design System"
-            title="Construcción atómica del nuevo DS."
-            description="Puesta en marcha del Design System átomo a átomo, integrando ilustración, tipografía y patrones reutilizables en cada superficie del producto."
+            label={T.highlights.designSystem.label[lang]}
+            title={T.highlights.designSystem.title[lang]}
+            description={T.highlights.designSystem.description[lang]}
             visual={<DesignSystemVisual />}
           />
         </div>
       </section>
 
-      {/* 03 Proceso — texto e ilustración lado a lado dentro del col-span-9 */}
-      <ProcessSectionWithIllustration section={sections[2]} />
+      <ProcessSectionWithIllustration section={sections[2]} lang={lang} />
 
-      {/* 04 Decisiones (sin mediaAfter — abajo va el comparativo Antes/Después) */}
       <SectionWithExtras section={sections[3]} />
 
-      {/* Comparativo Antes / Después de la app — sin separador ni outlines
-          para que las imágenes se integren con el fondo del case */}
       <BeforeAfterComparison
         dividerTop={false}
         imageBorder={false}
         before={{
           src: '/work/homecenter/before.png',
-          alt: 'App Homecenter — versión anterior',
+          alt: T.beforeAfter.beforeAlt[lang],
         }}
         after={{
           src: '/work/homecenter/after.png',
-          alt: 'App Homecenter — versión rediseñada',
+          alt: T.beforeAfter.afterAlt[lang],
         }}
-        caption="Antes / después · resultado del rediseño integral"
+        caption={T.beforeAfter.caption[lang]}
       />
 
-      {/* 05 Solución — texto + video del recorrido lado a lado */}
-      <SolutionSectionWithVideo section={sections[4]} />
+      <SolutionSectionWithVideo section={sections[4]} lang={lang} />
 
-      {/* 06 Impacto · como PO + 4 cards de resultados + disclaimer */}
       <SectionWithExtras section={sections[5]} />
-      <ImpactResultsGrid />
+      <ImpactResultsGrid lang={lang} />
 
-      {/* Imagen grande de cierre del case (reemplaza la antigua sec 07) */}
-      <CaseClosingImage />
+      <CaseClosingImage lang={lang} />
 
       <CaseNav prev={nav.prev} next={nav.next} />
 
@@ -131,10 +266,6 @@ export default function HomecenterCase() {
   );
 }
 
-/**
- * Renderiza una sección + su mediaAfter + su quoteAfter (si existen).
- * Encapsula el patrón "sección de prosa, después media, después quote".
- */
 function SectionWithExtras({ section }: { section: CaseSectionContent }) {
   return (
     <>
@@ -169,10 +300,6 @@ function SectionWithExtras({ section }: { section: CaseSectionContent }) {
   );
 }
 
-/**
- * Versión compacta de CaseSection — sin la grid interna 3+9.
- * Se usa cuando hay 2 secciones lado a lado en un grid externo de 2 columnas.
- */
 function CompactSection({ section }: { section: CaseSectionContent }) {
   return (
     <div>
@@ -187,27 +314,21 @@ function CompactSection({ section }: { section: CaseSectionContent }) {
   );
 }
 
-/** Renderiza title como string plano o con HighlightTitle según tipo. */
 function renderTitle(title: string | HighlightTitleType): React.ReactNode {
   if (typeof title === 'string') return title;
   return <HighlightTitle {...title} />;
 }
 
-/**
- * Sección Proceso con ilustración debajo, full width del container.
- * Mantiene el patrón clásico (label sticky + texto col-span-9) y agrega
- * un bloque visual debajo que ocupa todo el ancho desde la columna del label
- * hasta el margen derecho del container.
- */
 function ProcessSectionWithIllustration({
   section,
+  lang,
 }: {
   section: CaseSectionContent;
+  lang: Lang;
 }) {
   return (
     <section className="border-t border-line py-12 md:py-16">
       <div className="container-portfolio">
-        {/* Texto del proceso (estructura clásica: label sticky + body) */}
         <div className="grid gap-8 md:grid-cols-12">
           <div className="md:col-span-3">
             <div className="sticky top-28">
@@ -226,31 +347,26 @@ function ProcessSectionWithIllustration({
           </div>
         </div>
 
-        {/* Ilustración debajo, full width del container */}
         <div className="mt-8 w-full md:mt-10">
-          <ProcessIllustration />
+          <ProcessIllustration lang={lang} />
         </div>
       </div>
     </section>
   );
 }
 
-/**
- * Sección Solución con video del recorrido completo de la app al lado.
- * Layout split: texto a la izquierda, video vertical (formato mobile) a la derecha.
- * Mobile se apila. Después del bloque, se renderiza el quoteAfter como transición.
- */
 function SolutionSectionWithVideo({
   section,
+  lang,
 }: {
   section: CaseSectionContent;
+  lang: Lang;
 }) {
   return (
     <>
       <section className="border-t border-line py-12 md:py-16">
         <div className="container-portfolio">
           <div className="grid items-start gap-10 md:grid-cols-[1fr_auto] md:gap-16">
-            {/* Columna izquierda: eyebrow + título + texto, todo alineado izq */}
             <div>
               <div className="mb-4 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
                 {section.number} · {section.label}
@@ -263,7 +379,6 @@ function SolutionSectionWithVideo({
               </div>
             </div>
 
-            {/* Columna derecha: video del recorrido */}
             <div className="flex justify-center md:justify-end">
               <video
                 src="/work/homecenter/recorrido-web.mp4"
@@ -274,14 +389,13 @@ function SolutionSectionWithVideo({
                 preload="metadata"
                 className="w-full max-w-[280px] rounded-2xl shadow-lg md:max-w-[320px]"
                 style={{ aspectRatio: '1080 / 2340' }}
-                aria-label="Recorrido completo de la App Homecenter"
+                aria-label={T.videoAria[lang]}
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Pull quote de transición al capítulo PO (quoteAfter de la sección) */}
       {section.quoteAfter && (
         <section className="container-portfolio border-t border-line py-20 md:py-28">
           <PullQuote
@@ -296,72 +410,57 @@ function SolutionSectionWithVideo({
   );
 }
 
-/**
- * Imagen grande de cierre del case (reemplaza la antigua sección 07).
- * Mismo aspect ratio del hero (21:9) y sin border para que se integre con
- * el fondo, igual que el hero visual y el comparativo Antes/Después.
- *
- * Cuando exista la imagen real, conectarla en el src del <Image> aquí.
- */
-function CaseClosingImage() {
+function CaseClosingImage({ lang }: { lang: Lang }) {
   return (
     <section className="container-portfolio pt-12 pb-8 md:pt-16 md:pb-12">
       <ClickableImage
         src="/work/homecenter/closing.jpg"
-        alt="Cierre del case App Homecenter — vista final del producto."
+        alt={T.closing.alt[lang]}
         aspect="21/9"
-        title="App Homecenter · cierre"
+        title={T.closing.title[lang]}
       />
     </section>
   );
 }
 
-/**
- * Grid de 4 cards con los resultados clave post-release.
- * Se renderiza debajo del texto de la sección 06 · Impacto.
- * Cifras aproximadas comparando jul-dic 2024 vs 2025, no oficiales.
- */
-function ImpactResultsGrid() {
+function ImpactResultsGrid({ lang }: { lang: Lang }) {
   return (
     <section className="container-portfolio py-12 md:py-16">
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-4">
         <MetricResultCard
           value="+10%"
-          label="Visitas"
-          description="50M+ visitas totales en el periodo."
+          label={T.impact.visits.label[lang]}
+          description={T.impact.visits.description[lang]}
           visual={<VisitsVisual />}
         />
         <MetricResultCard
           value="+74%"
-          label="Add to Cart"
-          description="Más productos agregados al carrito en flujos de compra."
+          label={T.impact.a2c.label[lang]}
+          description={T.impact.a2c.description[lang]}
           visual={<AddToCartVisual />}
         />
         <MetricResultCard
           value="+25%"
-          label="Conversión"
-          description="Con +25% de incremento en venta."
+          label={T.impact.conversion.label[lang]}
+          description={T.impact.conversion.description[lang]}
           visual={<ConversionVisual />}
         />
         <MetricResultCard
           value="4.8 / 4.7"
-          label="Rating en stores"
-          description="App Store · Play Store — sin caída tras el rediseño."
+          label={T.impact.rating.label[lang]}
+          description={T.impact.rating.description[lang]}
           visual={<RatingVisual />}
         />
       </div>
       <p className="mt-6 text-center text-eyebrow uppercase tracking-eyebrow text-ink-mute md:text-left">
-        <em>
-          Comparación jul–dic 2024 vs 2025 · cifras aproximadas no oficiales.
-        </em>
+        <em>{T.impact.disclaimer[lang]}</em>
       </p>
     </section>
   );
 }
 
-/* ─── Visuales de las 4 cards de resultado (adaptables a light/dark) ─── */
+/* ─── Visuales ─── */
 
-/** Visual visitas — barras ascendentes sugiriendo crecimiento. */
 function VisitsVisual() {
   const heights = [30, 45, 55, 70, 85];
   return (
@@ -393,7 +492,6 @@ function VisitsVisual() {
   );
 }
 
-/** Visual add to cart — carrito SVG con badge de check. */
 function AddToCartVisual() {
   return (
     <div
@@ -404,22 +502,11 @@ function AddToCartVisual() {
       }}
       aria-hidden
     >
-      <svg
-        width="64"
-        height="64"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="text-ink"
-      >
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-ink">
         <circle cx="9" cy="21" r="1" />
         <circle cx="20" cy="21" r="1" />
         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
       </svg>
-      {/* Badge "+74" en gradient brand sobre el carrito */}
       <div
         className="anim-pulse-soft absolute right-[28%] top-[28%] flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-bold text-bg shadow-md"
         style={{ background: 'var(--rose)' }}
@@ -430,9 +517,7 @@ function AddToCartVisual() {
   );
 }
 
-/** Visual conversión — donut chart sugiriendo proporción. */
 function ConversionVisual() {
-  // Donut a 25% del círculo (representa el incremento)
   const radius = 36;
   const circumference = 2 * Math.PI * radius;
   const dashOffset = circumference * (1 - 0.25);
@@ -447,16 +532,7 @@ function ConversionVisual() {
       aria-hidden
     >
       <svg width="100" height="100" viewBox="0 0 100 100">
-        {/* Círculo base */}
-        <circle
-          cx="50"
-          cy="50"
-          r={radius}
-          fill="none"
-          stroke="var(--line)"
-          strokeWidth="10"
-        />
-        {/* Arco del 25% — loop: vacío → llena → mantiene → vacía */}
+        <circle cx="50" cy="50" r={radius} fill="none" stroke="var(--line)" strokeWidth="10" />
         <circle
           cx="50"
           cy="50"
@@ -479,7 +555,6 @@ function ConversionVisual() {
   );
 }
 
-/** Visual rating — 5 estrellas con la última semi-llena (4.8/5). */
 function RatingVisual() {
   return (
     <div
@@ -492,11 +567,7 @@ function RatingVisual() {
     >
       <div className="flex items-center gap-1.5">
         {[0, 1, 2, 3, 4].map((i) => (
-          <span
-            key={i}
-            className="anim-stars-reveal inline-flex"
-            style={{ animationDelay: `${i * 0.18}s` }}
-          >
+          <span key={i} className="anim-stars-reveal inline-flex" style={{ animationDelay: `${i * 0.18}s` }}>
             <StarIcon filled={i < 4} half={i === 4} />
           </span>
         ))}
@@ -506,8 +577,7 @@ function RatingVisual() {
 }
 
 function StarIcon({ filled, half }: { filled: boolean; half?: boolean }) {
-  const path =
-    'M12 2 L14.5 8.5 L21.5 9 L16 13.5 L17.5 20.5 L12 17 L6.5 20.5 L8 13.5 L2.5 9 L9.5 8.5 Z';
+  const path = 'M12 2 L14.5 8.5 L21.5 9 L16 13.5 L17.5 20.5 L12 17 L6.5 20.5 L8 13.5 L2.5 9 L9.5 8.5 Z';
   if (half) {
     return (
       <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden>
@@ -522,46 +592,18 @@ function StarIcon({ filled, half }: { filled: boolean; half?: boolean }) {
     );
   }
   return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill={filled ? 'var(--rose)' : 'none'}
-      stroke={filled ? 'var(--rose)' : 'var(--line)'}
-      strokeWidth="1.5"
-      strokeLinejoin="round"
-      aria-hidden
-    >
+    <svg width="22" height="22" viewBox="0 0 24 24" fill={filled ? 'var(--rose)' : 'none'} stroke={filled ? 'var(--rose)' : 'var(--line)'} strokeWidth="1.5" strokeLinejoin="round" aria-hidden>
       <path d={path} />
     </svg>
   );
 }
 
-/* ─── Visuales decorativos del proceso (adaptables a light/dark) ─── */
-
-/**
- * Ilustración del proceso de diseño — stepper horizontal de 4 etapas.
- * Mobile: stack vertical (1 columna). Desktop: 4 columnas con divisores.
- * Cada etapa: dot gradient + número + label + desc corta.
- */
-function ProcessIllustration() {
+function ProcessIllustration({ lang }: { lang: Lang }) {
   const steps = [
-    {
-      label: 'Research',
-      desc: 'Session replays, entrevistas y embudo analítico.',
-    },
-    {
-      label: 'Mapeo',
-      desc: 'Flujos críticos, síntesis y documentación.',
-    },
-    {
-      label: 'Wireframes',
-      desc: 'Componentes base, arquitectura y validación.',
-    },
-    {
-      label: 'High-Fi',
-      desc: 'Producción, paridad iOS/Android y handoff.',
-    },
+    { label: T.process.research.label[lang], desc: T.process.research.desc[lang] },
+    { label: T.process.mapping.label[lang], desc: T.process.mapping.desc[lang] },
+    { label: T.process.wireframes.label[lang], desc: T.process.wireframes.desc[lang] },
+    { label: T.process.hifi.label[lang], desc: T.process.hifi.desc[lang] },
   ];
 
   return (
@@ -575,28 +617,13 @@ function ProcessIllustration() {
     >
       <div className="grid grid-cols-1 md:grid-cols-4 md:divide-x md:divide-line">
         {steps.map((step, i) => (
-          <div
-            key={step.label}
-            className="flex flex-col gap-2 p-4 md:gap-2.5 md:p-5"
-          >
-            {/* Dot + número de etapa */}
+          <div key={step.label} className="flex flex-col gap-2 p-4 md:gap-2.5 md:p-5">
             <div className="flex items-center gap-2.5">
-              <span
-                className="anim-pulse-soft h-2.5 w-2.5 rounded-full bg-brand-gradient"
-                style={{ animationDelay: `${i * 0.5}s` }}
-              />
-              <span className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-                {`0${i + 1}`}
-              </span>
+              <span className="anim-pulse-soft h-2.5 w-2.5 rounded-full bg-brand-gradient" style={{ animationDelay: `${i * 0.5}s` }} />
+              <span className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">{`0${i + 1}`}</span>
             </div>
-            {/* Label */}
-            <div className="font-serif text-[18px] leading-tight text-ink">
-              {step.label}
-            </div>
-            {/* Desc */}
-            <div className="text-body-sm leading-snug text-ink-soft">
-              {step.desc}
-            </div>
+            <div className="font-serif text-[18px] leading-tight text-ink">{step.label}</div>
+            <div className="text-body-sm leading-snug text-ink-soft">{step.desc}</div>
           </div>
         ))}
       </div>
@@ -604,14 +631,9 @@ function ProcessIllustration() {
   );
 }
 
-/**
- * Visual 01 — Discovery.
- * Grid de mini-pantallas de la app (4×3) sugiriendo el "mapeo completo del producto".
- * Algunas tienen un dot rosa marcando dolor/oportunidad detectada.
- */
 function DiscoveryVisual() {
   const screens = Array.from({ length: 12 });
-  const painPoints = new Set([1, 4, 7, 10]); // pantallas con dot rosa
+  const painPoints = new Set([1, 4, 7, 10]);
   const organicAnims = ['anim-organic-1', 'anim-organic-2', 'anim-organic-3', 'anim-organic-4'];
 
   return (
@@ -625,34 +647,16 @@ function DiscoveryVisual() {
     >
       <div className="grid h-full grid-cols-4 grid-rows-3 gap-2 p-4">
         {screens.map((_, i) => (
-          <div
-            key={i}
-            className="relative rounded-[3px] border border-line"
-            style={{ background: 'var(--bg)' }}
-          >
-            {/* status bar simulada */}
-            <div
-              className="absolute inset-x-1 top-1 h-[2px] rounded-full"
-              style={{ background: 'var(--line)' }}
-            />
-            {/* content lines */}
+          <div key={i} className="relative rounded-[3px] border border-line" style={{ background: 'var(--bg)' }}>
+            <div className="absolute inset-x-1 top-1 h-[2px] rounded-full" style={{ background: 'var(--line)' }} />
             <div className="absolute inset-x-1.5 top-3 space-y-1">
-              <div
-                className="h-[2px] rounded-full"
-                style={{ background: 'var(--line)' }}
-              />
-              <div
-                className="h-[2px] w-2/3 rounded-full"
-                style={{ background: 'var(--line)' }}
-              />
+              <div className="h-[2px] rounded-full" style={{ background: 'var(--line)' }} />
+              <div className="h-[2px] w-2/3 rounded-full" style={{ background: 'var(--line)' }} />
             </div>
             {painPoints.has(i) && (
               <div
                 className={`${organicAnims[Array.from(painPoints).indexOf(i) % 4]} absolute right-0.5 top-0.5 h-2 w-2 rounded-full`}
-                style={{
-                  background: 'var(--rose)',
-                  boxShadow: '0 0 0 2px color-mix(in oklab, var(--rose) 30%, transparent)',
-                }}
+                style={{ background: 'var(--rose)', boxShadow: '0 0 0 2px color-mix(in oklab, var(--rose) 30%, transparent)' }}
               />
             )}
           </div>
@@ -662,12 +666,7 @@ function DiscoveryVisual() {
   );
 }
 
-/**
- * Visual 02 — Research.
- * Cifras grandes en serif: +100 usuarios / +150 apps.
- * Background con dots pattern (representa la muestra estudiada).
- */
-function ResearchVisual() {
+function ResearchVisual({ lang }: { lang: Lang }) {
   return (
     <div
       className="relative flex h-full w-full items-center justify-center overflow-hidden"
@@ -677,50 +676,25 @@ function ResearchVisual() {
       }}
       aria-hidden
     >
-      {/* Dots pattern */}
-      <div
-        className="absolute inset-0 opacity-40"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle, var(--line) 1px, transparent 1px)',
-          backgroundSize: '14px 14px',
-        }}
-      />
-
-      {/* Numbers — efecto "fill" de izquierda a derecha que se reinicia */}
+      <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'radial-gradient(circle, var(--line) 1px, transparent 1px)', backgroundSize: '14px 14px' }} />
       <div className="relative flex flex-col items-center gap-1">
         <div className="flex items-baseline gap-2">
-          <span
-            className="anim-text-fill bg-brand-gradient bg-clip-text font-serif text-[clamp(36px,5vw,52px)] leading-none text-transparent"
-            style={{ animationDelay: '0s' }}
-          >
+          <span className="anim-text-fill bg-brand-gradient bg-clip-text font-serif text-[clamp(36px,5vw,52px)] leading-none text-transparent" style={{ animationDelay: '0s' }}>
             +100
           </span>
-          <span className="text-eyebrow uppercase tracking-eyebrow text-ink-soft">
-            usuarios
-          </span>
+          <span className="text-eyebrow uppercase tracking-eyebrow text-ink-soft">{T.research.users[lang]}</span>
         </div>
         <div className="flex items-baseline gap-2">
-          <span
-            className="anim-text-fill font-serif text-[clamp(28px,4vw,40px)] leading-none text-ink"
-            style={{ animationDelay: '0.5s' }}
-          >
+          <span className="anim-text-fill font-serif text-[clamp(28px,4vw,40px)] leading-none text-ink" style={{ animationDelay: '0.5s' }}>
             +150
           </span>
-          <span className="text-eyebrow uppercase tracking-eyebrow text-ink-soft">
-            apps
-          </span>
+          <span className="text-eyebrow uppercase tracking-eyebrow text-ink-soft">{T.research.apps[lang]}</span>
         </div>
       </div>
     </div>
   );
 }
 
-/**
- * Visual 03 — Design System.
- * Grid de "átomos": círculo, cuadrado, triángulo, color swatches, líneas, tipografía.
- * Representa los building blocks del DS construido.
- */
 function DesignSystemVisual() {
   return (
     <div
@@ -732,79 +706,31 @@ function DesignSystemVisual() {
       aria-hidden
     >
       <div className="grid h-full grid-cols-4 grid-rows-3 gap-2.5 p-4">
-        {/* Círculo — pulsa sutil */}
         <div className="flex items-center justify-center">
-          <div
-            className="anim-pulse-soft h-7 w-7 rounded-full border-2"
-            style={{ borderColor: 'var(--blue)' }}
-          />
+          <div className="anim-pulse-soft h-7 w-7 rounded-full border-2" style={{ borderColor: 'var(--blue)' }} />
         </div>
-        {/* Cuadrado — rota lento */}
         <div className="flex items-center justify-center">
-          <div
-            className="anim-spin-piece h-7 w-7 rounded-sm border-2"
-            style={{ borderColor: 'var(--rose)' }}
-          />
+          <div className="anim-spin-piece h-7 w-7 rounded-sm border-2" style={{ borderColor: 'var(--rose)' }} />
         </div>
-        {/* Triángulo — rota lento */}
         <div className="flex items-center justify-center">
           <svg width="28" height="28" viewBox="0 0 28 28" className="anim-spin-piece" style={{ animationDelay: '0.7s' }} aria-hidden>
-            <path
-              d="M14 4 L26 24 L2 24 Z"
-              fill="none"
-              stroke="var(--cyan)"
-              strokeWidth="2"
-              strokeLinejoin="round"
-            />
+            <path d="M14 4 L26 24 L2 24 Z" fill="none" stroke="var(--cyan)" strokeWidth="2" strokeLinejoin="round" />
           </svg>
         </div>
-        {/* Tipo: A serif — float */}
         <div className="flex items-center justify-center">
-          <span
-            className="anim-float-y font-serif text-[28px] leading-none"
-            style={{ color: 'var(--ink)' }}
-          >
-            Aa
-          </span>
+          <span className="anim-float-y font-serif text-[28px] leading-none" style={{ color: 'var(--ink)' }}>Aa</span>
         </div>
-        {/* Swatch blue */}
-        <div
-          className="rounded-md"
-          style={{ background: 'var(--blue)' }}
-        />
-        {/* Swatch rose */}
-        <div
-          className="rounded-md"
-          style={{ background: 'var(--rose)' }}
-        />
-        {/* Swatch cyan */}
-        <div
-          className="rounded-md"
-          style={{ background: 'var(--cyan)' }}
-        />
-        {/* Gradient swatch */}
+        <div className="rounded-md" style={{ background: 'var(--blue)' }} />
+        <div className="rounded-md" style={{ background: 'var(--rose)' }} />
+        <div className="rounded-md" style={{ background: 'var(--cyan)' }} />
         <div className="anim-pulse-soft rounded-md bg-brand-gradient" style={{ animationDuration: '3.5s' }} />
-        {/* Líneas / spacing */}
         <div className="col-span-2 flex flex-col justify-center gap-1.5 px-1">
-          <div
-            className="h-[2px] rounded-full"
-            style={{ background: 'var(--ink)' }}
-          />
-          <div
-            className="h-[2px] w-3/4 rounded-full"
-            style={{ background: 'var(--ink-soft)' }}
-          />
-          <div
-            className="h-[2px] w-1/2 rounded-full"
-            style={{ background: 'var(--ink-mute)' }}
-          />
+          <div className="h-[2px] rounded-full" style={{ background: 'var(--ink)' }} />
+          <div className="h-[2px] w-3/4 rounded-full" style={{ background: 'var(--ink-soft)' }} />
+          <div className="h-[2px] w-1/2 rounded-full" style={{ background: 'var(--ink-mute)' }} />
         </div>
-        {/* Pill/button */}
         <div className="col-span-2 flex items-center justify-center">
-          <div
-            className="rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-eyebrow"
-            style={{ background: 'var(--ink)', color: 'var(--bg)' }}
-          >
+          <div className="rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-eyebrow" style={{ background: 'var(--ink)', color: 'var(--bg)' }}>
             Button
           </div>
         </div>
@@ -813,30 +739,18 @@ function DesignSystemVisual() {
   );
 }
 
-/** Renderiza el hero visual: imagen real si hay heroImage, placeholder si no. */
-function renderHeroImage(hero: CaseHeroContent): React.ReactNode {
+function renderHeroImage(hero: CaseHeroContent, lang: Lang): React.ReactNode {
   if (hero.heroImage) {
     return (
       <div className="relative aspect-[21/9] w-full overflow-hidden rounded-lg">
-        <Image
-          src={hero.heroImage.src}
-          alt={hero.heroImage.alt}
-          fill
-          className="object-cover"
-          sizes="100vw"
-          priority
-        />
+        <Image src={hero.heroImage.src} alt={hero.heroImage.alt} fill className="object-cover" sizes="100vw" priority />
       </div>
     );
   }
   return (
-    <div
-      className="aspect-[21/9] w-full overflow-hidden rounded-lg border border-line bg-bg-block"
-      role="img"
-      aria-label="Hero visual — pendiente"
-    >
+    <div className="aspect-[21/9] w-full overflow-hidden rounded-lg border border-line bg-bg-block" role="img" aria-label={T.hero.placeholderAlt[lang]}>
       <div className="flex h-full items-center justify-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
-        [ hero visual · App Homecenter ]
+        {T.hero.placeholder[lang]}
       </div>
     </div>
   );

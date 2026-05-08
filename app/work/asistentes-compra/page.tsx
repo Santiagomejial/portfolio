@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import {
   PullQuote,
@@ -15,6 +17,59 @@ import type {
   CaseSectionContent,
   HighlightTitle as HighlightTitleType,
 } from '@/content/types';
+import { useLang } from '@/lib/use-lang';
+import type { Lang } from '@/lib/use-lang';
+
+const T = {
+  visitButton: { es: 'Visitar los asistentes en vivo', en: 'Visit the assistants live' },
+  features: {
+    label: { es: 'Funcionalidades · herramienta del asesor', en: 'Features · advisor tool' },
+    custom: {
+      label: { es: 'A la medida', en: 'Custom-made' },
+      title: { es: 'Sofás, persianas y cortinas configurables.', en: 'Configurable sofas, blinds and curtains.' },
+      description: { es: 'Configurador guiado por dimensiones, colores, materiales y complementos para productos a la medida.', en: 'Guided configurator for dimensions, colors, materials and complements for custom products.' },
+    },
+    home: {
+      label: { es: 'Proyectos del hogar', en: 'Home projects' },
+      title: { es: 'Cocinas, baños y juntas de baño.', en: 'Kitchens, bathrooms and bathroom sets.' },
+      description: { es: 'Cotizadores especializados con recorrido completo: arquitectura, materiales, accesorios e instalación.', en: 'Specialized quoters with full journey: architecture, materials, accessories and installation.' },
+    },
+    construction: {
+      label: { es: 'Construcción', en: 'Construction' },
+      title: { es: 'Obra de placa fácil y materiales para proyectos.', en: 'Easy slab work and materials for projects.' },
+      description: { es: 'Cálculo de materiales por m², ajustes de obra y recomendaciones técnicas para obras pequeñas y medianas.', en: 'Material calculation per m², project adjustments and technical recommendations for small and medium works.' },
+    },
+    multiChannel: {
+      label: { es: 'Multi-canal responsive', en: 'Multi-channel responsive' },
+      title: { es: 'Mismo flujo en web, tienda, asesoría y contact center.', en: 'Same flow on web, store, advisory and contact center.' },
+      description: { es: 'Diseño completamente responsive — el cliente inicia en un canal y el asesor toma la posta sin perder contexto.', en: 'Fully responsive design — the customer starts on one channel and the advisor picks up without losing context.' },
+    },
+  },
+  galleryTitle: { es: 'Asistentes de compra · galería', en: 'Shopping assistants · gallery' },
+  galleryAlts: {
+    a: { es: 'Asistente de compra digital — vista en contexto.', en: 'Digital shopping assistant — view in context.' },
+    b: { es: 'Detalle UI — flujo de configuración guiada.', en: 'UI detail — guided configuration flow.' },
+    c: { es: 'Cotizador especializado — productos del hogar.', en: 'Specialized quoter — home products.' },
+    d: { es: 'Multi-canal responsive — adaptación entre superficies.', en: 'Multi-channel responsive — adaptation across surfaces.' },
+  },
+  summary: {
+    label: { es: 'Resumen · intervención de diseño', en: 'Summary · design intervention' },
+    modular: {
+      label: { es: 'Sistema modular', en: 'Modular system' },
+      caption: { es: 'Una columna vertebral que se adapta a productos a la medida, proyectos y obras.', en: 'A backbone that adapts to custom products, projects and construction works.' },
+    },
+    guided: {
+      label: { es: 'Pasos guiados', en: 'Guided steps' },
+      caption: { es: 'Decisiones complejas en steps pequeños y revisables — sin overwhelm.', en: 'Complex decisions in small, reviewable steps — without overwhelm.' },
+    },
+    multiChannel: {
+      label: { es: 'Continuidad multi-canal', en: 'Multi-channel continuity' },
+      caption: { es: 'El flujo viaja entre web, tienda, asesoría y contact center sin romperse.', en: 'The flow travels between web, store, advisory and contact center without breaking.' },
+    },
+  },
+  heroPlaceholder: { es: '[ hero visual · Asistentes de compra digital ]', en: '[ hero visual · Digital shopping assistants ]' },
+  heroPlaceholderAlt: { es: 'Hero visual — pendiente', en: 'Hero visual — pending' },
+};
 
 /**
  * CASE — Asistentes de compra digital.
@@ -27,7 +82,9 @@ import type {
  */
 
 export default function AsistentesCompraCase() {
-  const { hero, establishing, sections, nav } = CASE_ASISTENTES_COMPRA;
+  const { lang } = useLang();
+  const content = CASE_ASISTENTES_COMPRA[lang];
+  const { hero, establishing, sections, nav } = content;
 
   return (
     <>
@@ -38,11 +95,11 @@ export default function AsistentesCompraCase() {
         title={renderTitle(hero.title)}
         sub={hero.sub}
         meta={[...hero.meta]}
-        heroVisual={renderHeroImage(hero)}
+        heroVisual={renderHeroImage(hero, lang)}
       />
 
       {/* CTA "Visitar asistentes" — link externo a Homecenter */}
-      <VisitAssistantsButton />
+      <VisitAssistantsButton lang={lang} />
 
       {establishing && (
         <CaseMedia
@@ -57,20 +114,15 @@ export default function AsistentesCompraCase() {
         <SectionWithExtras key={section.number} section={section} />
       ))}
 
-      {/* 4 FeatureCards en fila — placeholders pendientes de copies reales */}
-      <FeaturesGrid />
+      <FeaturesGrid lang={lang} />
 
-      {/* 03 Decisiones + 04 Solución en grid 2 cols */}
       <DecisionesSolucionGrid sections={[sections[2], sections[3]]} />
 
-      {/* 4 imágenes del despliegue (placeholders por ahora) */}
-      <FinalGallery />
+      <FinalGallery lang={lang} />
 
-      {/* 05 Impacto */}
       <SectionWithExtras section={sections[4]} />
 
-      {/* 3 ilustraciones de cierre — placeholders pendientes */}
-      <DesignSummaryStrip />
+      <DesignSummaryStrip lang={lang} />
 
       <CaseNav prev={nav.prev} next={nav.next} />
 
@@ -119,38 +171,34 @@ function SectionWithExtras({ section }: { section: CaseSectionContent }) {
  * 4 cards compactas en fila — funcionalidades de la herramienta.
  * Copies y visuales: PENDIENTES — Santiago dictará el contenido.
  */
-function FeaturesGrid() {
+function FeaturesGrid({ lang }: { lang: Lang }) {
   const features = [
     {
       number: '01',
-      label: 'A la medida',
-      title: 'Sofás, persianas y cortinas configurables.',
-      description:
-        'Configurador guiado por dimensiones, colores, materiales y complementos para productos a la medida.',
+      label: T.features.custom.label[lang],
+      title: T.features.custom.title[lang],
+      description: T.features.custom.description[lang],
       visual: <SearchVisual />,
     },
     {
       number: '02',
-      label: 'Proyectos del hogar',
-      title: 'Cocinas, baños y juntas de baño.',
-      description:
-        'Cotizadores especializados con recorrido completo: arquitectura, materiales, accesorios e instalación.',
+      label: T.features.home.label[lang],
+      title: T.features.home.title[lang],
+      description: T.features.home.description[lang],
       visual: <QuoteVisual />,
     },
     {
       number: '03',
-      label: 'Construcción',
-      title: 'Obra de placa fácil y materiales para proyectos.',
-      description:
-        'Cálculo de materiales por m², ajustes de obra y recomendaciones técnicas para obras pequeñas y medianas.',
+      label: T.features.construction.label[lang],
+      title: T.features.construction.title[lang],
+      description: T.features.construction.description[lang],
       visual: <OfflineVisual />,
     },
     {
       number: '04',
-      label: 'Multi-canal responsive',
-      title: 'Mismo flujo en web, tienda, asesoría y contact center.',
-      description:
-        'Diseño completamente responsive — el cliente inicia en un canal y el asesor toma la posta sin perder contexto.',
+      label: T.features.multiChannel.label[lang],
+      title: T.features.multiChannel.title[lang],
+      description: T.features.multiChannel.description[lang],
       visual: <CloseSaleVisual />,
     },
   ];
@@ -159,7 +207,7 @@ function FeaturesGrid() {
     <section className="border-t border-line py-12 md:py-16">
       <div className="container-portfolio">
         <div className="mb-8 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-          Funcionalidades · herramienta del asesor
+          {T.features.label[lang]}
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
           {features.map((f) => (
@@ -223,30 +271,18 @@ function DecisionesSolucionGrid({
  * Naming: gallery-01.jpg ... gallery-04.jpg en
  * public/work/asistentes-compra/.
  */
-function FinalGallery() {
+function FinalGallery({ lang }: { lang: Lang }) {
   const items = [
-    {
-      src: '/work/asistentes-compra/gallery-01.jpg',
-      alt: 'Asistente de compra digital — vista en contexto.',
-    },
-    {
-      src: '/work/asistentes-compra/gallery-02.jpg',
-      alt: 'Detalle UI — flujo de configuración guiada.',
-    },
-    {
-      src: '/work/asistentes-compra/gallery-03.jpg',
-      alt: 'Cotizador especializado — productos del hogar.',
-    },
-    {
-      src: '/work/asistentes-compra/gallery-04.jpg',
-      alt: 'Multi-canal responsive — adaptación entre superficies.',
-    },
+    { src: '/work/asistentes-compra/gallery-01.jpg', alt: T.galleryAlts.a[lang] },
+    { src: '/work/asistentes-compra/gallery-02.jpg', alt: T.galleryAlts.b[lang] },
+    { src: '/work/asistentes-compra/gallery-03.jpg', alt: T.galleryAlts.c[lang] },
+    { src: '/work/asistentes-compra/gallery-04.jpg', alt: T.galleryAlts.d[lang] },
   ];
 
   return (
     <ClickableImageGrid
       items={items}
-      title="Asistentes de compra · galería"
+      title={T.galleryTitle[lang]}
       aspect="4/3"
       columns={2}
       borderless
@@ -258,21 +294,21 @@ function FinalGallery() {
  * 3 ilustraciones de cierre — resumen de la intervención de diseño.
  * Copies tentativos — Santiago dictará.
  */
-function DesignSummaryStrip() {
+function DesignSummaryStrip({ lang }: { lang: Lang }) {
   const items = [
     {
-      label: 'Sistema modular',
-      caption: 'Una columna vertebral que se adapta a productos a la medida, proyectos y obras.',
+      label: T.summary.modular.label[lang],
+      caption: T.summary.modular.caption[lang],
       visual: <ExpertVisual />,
     },
     {
-      label: 'Pasos guiados',
-      caption: 'Decisiones complejas en steps pequeños y revisables — sin overwhelm.',
+      label: T.summary.guided.label[lang],
+      caption: T.summary.guided.caption[lang],
       visual: <TabletVisual />,
     },
     {
-      label: 'Continuidad multi-canal',
-      caption: 'El flujo viaja entre web, tienda, asesoría y contact center sin romperse.',
+      label: T.summary.multiChannel.label[lang],
+      caption: T.summary.multiChannel.caption[lang],
       visual: <FlowVisual />,
     },
   ];
@@ -280,7 +316,7 @@ function DesignSummaryStrip() {
   return (
     <section className="container-portfolio border-t border-line py-16 md:py-20">
       <div className="mb-8 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-        Resumen · intervención de diseño
+        {T.summary.label[lang]}
       </div>
       <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
         {items.map((item) => (
@@ -310,7 +346,7 @@ function DesignSummaryStrip() {
  * Botón CTA después del hero — abre los asistentes en vivo en Homecenter.
  * Estilo similar al DownloadAppButtons del case Homecenter.
  */
-function VisitAssistantsButton() {
+function VisitAssistantsButton({ lang }: { lang: Lang }) {
   return (
     <div className="container-portfolio flex flex-col items-center justify-center gap-3 pt-10 pb-16 sm:flex-row md:pt-12 md:pb-24">
       <a
@@ -320,7 +356,7 @@ function VisitAssistantsButton() {
         className="group inline-flex w-full items-center justify-center gap-2.5 rounded-full border border-line bg-bg-elev px-5 py-3 text-[13px] font-semibold uppercase tracking-eyebrow text-ink transition-base hover:border-blue hover:bg-bg-block sm:w-auto"
       >
         <ExternalLinkIcon />
-        <span>Visitar los asistentes en vivo</span>
+        <span>{T.visitButton[lang]}</span>
         <svg
           width="14"
           height="14"
@@ -769,7 +805,7 @@ function renderTitle(title: string | HighlightTitleType): React.ReactNode {
 }
 
 /** Renderiza el hero visual: imagen real si hay heroImage, placeholder si no. */
-function renderHeroImage(hero: CaseHeroContent): React.ReactNode {
+function renderHeroImage(hero: CaseHeroContent, lang: Lang): React.ReactNode {
   if (hero.heroImage) {
     return (
       <div className="relative aspect-[21/9] w-full overflow-hidden rounded-lg">
@@ -788,10 +824,10 @@ function renderHeroImage(hero: CaseHeroContent): React.ReactNode {
     <div
       className="aspect-[21/9] w-full overflow-hidden rounded-lg border border-dashed border-line bg-bg-block"
       role="img"
-      aria-label="Hero visual — pendiente"
+      aria-label={T.heroPlaceholderAlt[lang]}
     >
       <div className="flex h-full items-center justify-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
-        [ hero visual · Asistentes de compra digital ]
+        {T.heroPlaceholder[lang]}
       </div>
     </div>
   );

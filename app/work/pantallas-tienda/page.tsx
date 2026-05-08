@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import {
   PullQuote,
@@ -16,15 +18,63 @@ import type {
   CaseSectionContent,
   HighlightTitle as HighlightTitleType,
 } from '@/content/types';
+import { useLang } from '@/lib/use-lang';
+import type { Lang } from '@/lib/use-lang';
 
-/**
- * CASE — Pantallas digitales en tienda (antes "Kioscos Digitales").
- * Slug: /work/pantallas-tienda. Todo el copy vive en
- * /content/case-pantallas-tienda.tsx. Esta página solo compone layout.
- */
+const T = {
+  features: {
+    sectionLabel: { es: 'Funcionalidades · escala omnicanal', en: 'Features · omnichannel scale' },
+    inspiration: {
+      label: { es: 'Inspiración', en: 'Inspiration' },
+      title: { es: 'Catálogo editorial de productos destacados.', en: 'Editorial catalog of featured products.' },
+      description: { es: 'Nuevo espacio tipo revista con productos curados y selecciones de expertos.', en: 'New magazine-style space with curated products and expert selections.' },
+    },
+    quotes: {
+      label: { es: 'Cotizaciones omnicanal', en: 'Omnichannel quotes' },
+      title: { es: 'La primera funcionalidad realmente omnicanal.', en: 'The first truly omnichannel feature.' },
+      description: { es: 'Cotizaciones que se inician en tienda y se cierran en digital (o viceversa).', en: 'Quotes that start in-store and finish digitally (or vice versa).' },
+    },
+    payment: {
+      label: { es: 'Pago autoasistido', en: 'Self-served payment' },
+      title: { es: 'Checkout con datáfono explicado paso a paso.', en: 'Checkout with payment terminal, step by step.' },
+      description: { es: 'Ilustraciones guían el pago autoasistido en datáfonos físicos.', en: 'Illustrations guide self-served payment on physical terminals.' },
+    },
+    vertical: {
+      label: { es: 'Pantalla vertical', en: 'Vertical screen' },
+      title: { es: 'Rediseño e instalación de un nuevo formato.', en: 'Redesign and installation of a new format.' },
+      description: { es: 'Reformulación de UI bajo formato vertical y nueva ubicación en tienda.', en: 'UI reformulation in vertical format and new in-store location.' },
+    },
+  },
+  galleryTitle: { es: 'Pantallas digitales en tienda · galería', en: 'In-store digital screens · gallery' },
+  galleryAlts: {
+    a: { es: 'Pantalla digital en contexto físico real de tienda Homecenter.', en: 'Digital screen in real physical context of a Homecenter store.' },
+    b: { es: 'Detalle de UI — sección de inspiración con catálogo editorial.', en: 'UI detail — inspiration section with editorial catalog.' },
+    c: { es: 'Flujo de cotización omnicanal — pantalla + app en sincronía.', en: 'Omnichannel quote flow — screen + app in sync.' },
+    d: { es: 'Pantalla vertical — nuevo formato instalado en tienda.', en: 'Vertical screen — new format installed in-store.' },
+  },
+  summary: {
+    label: { es: 'Resumen · intervención de diseño', en: 'Summary · design intervention' },
+    publicUx: {
+      label: { es: 'UX semi-pública', en: 'Semi-public UX' },
+      caption: { es: 'Touch targets grandes, jerarquía marcada, flujos cortos.', en: 'Large touch targets, strong hierarchy, short flows.' },
+    },
+    multiBrand: {
+      label: { es: 'Sistema multi-marca', en: 'Multi-brand system' },
+      caption: { es: 'Una UI que se adapta a Constructor, Carcenter y Proyectos.', en: 'A UI that adapts to Constructor, Carcenter and Projects.' },
+    },
+    omnichannel: {
+      label: { es: 'Escala omnicanal', en: 'Omnichannel scale' },
+      caption: { es: 'Pantallas como nodo conectado con app, web y tienda.', en: 'Screens as a node connected to app, web and store.' },
+    },
+  },
+  heroPlaceholder: { es: '[ hero visual · Pantallas digitales en tienda ]', en: '[ hero visual · In-store digital screens ]' },
+  heroPlaceholderAlt: { es: 'Hero visual — pendiente', en: 'Hero visual — pending' },
+};
 
 export default function PantallasTiendaCase() {
-  const { hero, establishing, sections, nav } = CASE_PANTALLAS_TIENDA;
+  const { lang } = useLang();
+  const content = CASE_PANTALLAS_TIENDA[lang];
+  const { hero, establishing, sections, nav } = content;
 
   return (
     <>
@@ -35,7 +85,7 @@ export default function PantallasTiendaCase() {
         title={renderTitle(hero.title)}
         sub={hero.sub}
         meta={[...hero.meta]}
-        heroVisual={renderHeroImage(hero)}
+        heroVisual={renderHeroImage(hero, lang)}
       />
 
       {establishing && (
@@ -51,20 +101,15 @@ export default function PantallasTiendaCase() {
         <SectionWithExtras key={section.number} section={section} />
       ))}
 
-      {/* 4 FeatureCards en fila — funcionalidades que escalaron a omnicanal */}
-      <FeaturesGrid />
+      <FeaturesGrid lang={lang} />
 
-      {/* 03 Decisiones + 04 Solución en grid 2 cols (CompactSection) */}
       <DecisionesSolucionGrid sections={[sections[2], sections[3]]} />
 
-      {/* 4 imágenes del despliegue en tienda */}
-      <FinalGallery />
+      <FinalGallery lang={lang} />
 
-      {/* 05 Impacto */}
       <SectionWithExtras section={sections[4]} />
 
-      {/* 3 ilustraciones de cierre — resumen de la intervención de diseño */}
-      <DesignSummaryStrip />
+      <DesignSummaryStrip lang={lang} />
 
       <CaseNav prev={nav.prev} next={nav.next} />
 
@@ -115,38 +160,34 @@ function SectionWithExtras({ section }: { section: CaseSectionContent }) {
  * 4 cards compactas en fila — funcionalidades que diseñé y escalaron a
  * omnicanal. Versión más pequeña que ProcessHighlightCard del Homecenter.
  */
-function FeaturesGrid() {
+function FeaturesGrid({ lang }: { lang: Lang }) {
   const features = [
     {
       number: '01',
-      label: 'Inspiración',
-      title: 'Catálogo editorial de productos destacados.',
-      description:
-        'Nuevo espacio tipo revista con productos curados y selecciones de expertos.',
+      label: T.features.inspiration.label[lang],
+      title: T.features.inspiration.title[lang],
+      description: T.features.inspiration.description[lang],
       visual: <InspirationVisual />,
     },
     {
       number: '02',
-      label: 'Cotizaciones omnicanal',
-      title: 'La primera funcionalidad realmente omnicanal.',
-      description:
-        'Cotizaciones que se inician en tienda y se cierran en digital (o viceversa).',
+      label: T.features.quotes.label[lang],
+      title: T.features.quotes.title[lang],
+      description: T.features.quotes.description[lang],
       visual: <QuotationsVisual />,
     },
     {
       number: '03',
-      label: 'Pago autoasistido',
-      title: 'Checkout con datáfono explicado paso a paso.',
-      description:
-        'Ilustraciones guían el pago autoasistido en datáfonos físicos.',
+      label: T.features.payment.label[lang],
+      title: T.features.payment.title[lang],
+      description: T.features.payment.description[lang],
       visual: <PaymentVisual />,
     },
     {
       number: '04',
-      label: 'Pantalla vertical',
-      title: 'Rediseño e instalación de un nuevo formato.',
-      description:
-        'Reformulación de UI bajo formato vertical y nueva ubicación en tienda.',
+      label: T.features.vertical.label[lang],
+      title: T.features.vertical.title[lang],
+      description: T.features.vertical.description[lang],
       visual: <VerticalScreenVisual />,
     },
   ];
@@ -155,7 +196,7 @@ function FeaturesGrid() {
     <section className="border-t border-line py-12 md:py-16">
       <div className="container-portfolio">
         <div className="mb-8 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-          Funcionalidades · escala omnicanal
+          {T.features.sectionLabel[lang]}
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
           {features.map((f) => (
@@ -221,30 +262,18 @@ function DecisionesSolucionGrid({
  * Galería final con 4 imágenes del despliegue en tienda.
  * Grid 2x2 sin border, todas clickeables para abrir en CarouselModal.
  */
-function FinalGallery() {
+function FinalGallery({ lang }: { lang: Lang }) {
   const items = [
-    {
-      src: '/work/pantallas-tienda/gallery-01.jpg',
-      alt: 'Pantalla digital en contexto físico real de tienda Homecenter.',
-    },
-    {
-      src: '/work/pantallas-tienda/gallery-02.jpg',
-      alt: 'Detalle de UI — sección de inspiración con catálogo editorial.',
-    },
-    {
-      src: '/work/pantallas-tienda/gallery-03.jpg',
-      alt: 'Flujo de cotización omnicanal — pantalla + app en sincronía.',
-    },
-    {
-      src: '/work/pantallas-tienda/gallery-04.jpg',
-      alt: 'Pantalla vertical — nuevo formato instalado en tienda.',
-    },
+    { src: '/work/pantallas-tienda/gallery-01.jpg', alt: T.galleryAlts.a[lang] },
+    { src: '/work/pantallas-tienda/gallery-02.jpg', alt: T.galleryAlts.b[lang] },
+    { src: '/work/pantallas-tienda/gallery-03.jpg', alt: T.galleryAlts.c[lang] },
+    { src: '/work/pantallas-tienda/gallery-04.jpg', alt: T.galleryAlts.d[lang] },
   ];
 
   return (
     <ClickableImageGrid
       items={items}
-      title="Pantallas digitales en tienda · galería"
+      title={T.galleryTitle[lang]}
       aspect="4/3"
       columns={2}
       borderless
@@ -256,21 +285,21 @@ function FinalGallery() {
  * 3 ilustraciones pequeñas de cierre — resumen de la intervención de diseño.
  * Cards muy compactas, en fila de 3, con visual + label + frase corta.
  */
-function DesignSummaryStrip() {
+function DesignSummaryStrip({ lang }: { lang: Lang }) {
   const items = [
     {
-      label: 'UX semi-pública',
-      caption: 'Touch targets grandes, jerarquía marcada, flujos cortos.',
+      label: T.summary.publicUx.label[lang],
+      caption: T.summary.publicUx.caption[lang],
       visual: <PublicUxVisual />,
     },
     {
-      label: 'Sistema multi-marca',
-      caption: 'Una UI que se adapta a Constructor, Carcenter y Proyectos.',
+      label: T.summary.multiBrand.label[lang],
+      caption: T.summary.multiBrand.caption[lang],
       visual: <MultiBrandVisual />,
     },
     {
-      label: 'Escala omnicanal',
-      caption: 'Pantallas como nodo conectado con app, web y tienda.',
+      label: T.summary.omnichannel.label[lang],
+      caption: T.summary.omnichannel.caption[lang],
       visual: <OmnichannelVisual />,
     },
   ];
@@ -278,7 +307,7 @@ function DesignSummaryStrip() {
   return (
     <section className="container-portfolio border-t border-line py-16 md:py-20">
       <div className="mb-8 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-        Resumen · intervención de diseño
+        {T.summary.label[lang]}
       </div>
       <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
         {items.map((item) => (
@@ -681,8 +710,7 @@ function renderTitle(title: string | HighlightTitleType): React.ReactNode {
   return <HighlightTitle {...title} />;
 }
 
-/** Renderiza el hero visual: imagen real si hay heroImage, placeholder si no. */
-function renderHeroImage(hero: CaseHeroContent): React.ReactNode {
+function renderHeroImage(hero: CaseHeroContent, lang: Lang): React.ReactNode {
   if (hero.heroImage) {
     return (
       <div className="relative aspect-[21/9] w-full overflow-hidden rounded-lg">
@@ -701,10 +729,10 @@ function renderHeroImage(hero: CaseHeroContent): React.ReactNode {
     <div
       className="aspect-[21/9] w-full overflow-hidden rounded-lg border border-dashed border-line bg-bg-block"
       role="img"
-      aria-label="Hero visual — pendiente"
+      aria-label={T.heroPlaceholderAlt[lang]}
     >
       <div className="flex h-full items-center justify-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
-        [ hero visual · Pantallas digitales en tienda ]
+        {T.heroPlaceholder[lang]}
       </div>
     </div>
   );

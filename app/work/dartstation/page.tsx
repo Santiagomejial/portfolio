@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import {
   PullQuote,
@@ -15,6 +17,59 @@ import type {
   CaseSectionContent,
   HighlightTitle as HighlightTitleType,
 } from '@/content/types';
+import { useLang } from '@/lib/use-lang';
+import type { Lang } from '@/lib/use-lang';
+
+const T = {
+  features: {
+    label: { es: 'Funcionalidades · vitrina digital', en: 'Features · digital storefront' },
+    brandIdentity: {
+      label: { es: 'Identidad de marca', en: 'Brand identity' },
+      title: { es: 'Logo, paleta y voz editorial.', en: 'Logo, palette and editorial voice.' },
+      description: { es: 'Sistema visual completo que captura el oficio de la marquetería y se traduce a digital sin perder carácter.', en: 'Complete visual system that captures the framing craft and translates to digital without losing character.' },
+    },
+    catalog: {
+      label: { es: 'Catálogo digital', en: 'Digital catalog' },
+      title: { es: 'La obra disponible en la web.', en: 'Available work on the web.' },
+      description: { es: 'Categorías por técnica, formato y disponibilidad — el catálogo de la tienda física trasladado a una vitrina permanente.', en: 'Categories by technique, format and availability — the physical store catalog moved to a permanent storefront.' },
+    },
+    customOrder: {
+      label: { es: 'Trabajos a la medida', en: 'Custom orders' },
+      title: { es: 'Solicitudes desde la web.', en: 'Requests from the web.' },
+      description: { es: 'Flujo guiado para encargos personalizados — medidas, materiales, presupuesto y conversación directa con el taller.', en: 'Guided flow for custom orders — dimensions, materials, budget and direct conversation with the workshop.' },
+    },
+    pairWork: {
+      label: { es: 'Co-autoría', en: 'Co-authorship' },
+      title: { es: 'Proyecto en pareja con Daniela Salcedo Mejía.', en: 'Project paired with Daniela Salcedo Mejía.' },
+      description: { es: 'Diseño compartido — branding, UI y dirección visual a 4 manos. Mejor decisión cuando el alcance es pequeño y el tiempo apremia.', en: 'Shared design — branding, UI and visual direction four-handed. The right call when scope is small and time is tight.' },
+    },
+  },
+  galleryTitle: { es: 'DartStation · galería', en: 'DartStation · gallery' },
+  galleryAlts: {
+    a: { es: 'DartStation — sistema de marca aplicado a la web.', en: 'DartStation — brand system applied to the web.' },
+    b: { es: 'DartStation — catálogo digital de obra disponible.', en: 'DartStation — digital catalog of available work.' },
+    c: { es: 'DartStation — flujo de trabajos a la medida.', en: 'DartStation — custom orders flow.' },
+    d: { es: 'DartStation — vista responsive en mobile.', en: 'DartStation — responsive mobile view.' },
+  },
+  galleryPendingNote: { es: 'Cierre · 4 imágenes pendientes de subir.', en: 'Closing · 4 images pending upload.' },
+  summary: {
+    label: { es: 'Resumen · intervención de diseño', en: 'Summary · design intervention' },
+    brandProduct: {
+      label: { es: 'Marca + producto', en: 'Brand + product' },
+      caption: { es: 'Identidad gráfica como columna vertebral del e-commerce.', en: 'Visual identity as backbone of the e-commerce.' },
+    },
+    pairClose: {
+      label: { es: 'Diseño en pareja', en: 'Paired design' },
+      caption: { es: 'Co-autoría con Daniela Salcedo Mejía — decisiones a 4 manos.', en: 'Co-authored with Daniela Salcedo Mejía — four-handed decisions.' },
+    },
+    showcase: {
+      label: { es: 'Vitrina permanente', en: 'Permanent storefront' },
+      caption: { es: 'De tienda local a marca disponible en cualquier momento.', en: 'From local shop to brand available anytime.' },
+    },
+  },
+  heroPlaceholder: { es: '[ hero visual · DartStation ]', en: '[ hero visual · DartStation ]' },
+  heroPlaceholderAlt: { es: 'Hero visual — pendiente', en: 'Hero visual — pending' },
+};
 
 /**
  * CASE — DartStation. Marquetería en Barranquilla.
@@ -22,7 +77,9 @@ import type {
  */
 
 export default function DartStationCase() {
-  const { hero, establishing, sections, nav } = CASE_DARTSTATION;
+  const { lang } = useLang();
+  const content = CASE_DARTSTATION[lang];
+  const { hero, establishing, sections, nav } = content;
 
   return (
     <>
@@ -33,7 +90,7 @@ export default function DartStationCase() {
         title={renderTitle(hero.title)}
         sub={hero.sub}
         meta={[...hero.meta]}
-        heroVisual={renderHeroImage(hero)}
+        heroVisual={renderHeroImage(hero, lang)}
       />
 
       {establishing && (
@@ -50,19 +107,19 @@ export default function DartStationCase() {
       ))}
 
       {/* 4 FeatureCards en fila */}
-      <FeaturesGrid />
+      <FeaturesGrid lang={lang} />
 
       {/* 03 Decisiones + 04 Solución en grid 2 cols */}
       <DecisionesSolucionGrid sections={[sections[2], sections[3]]} />
 
       {/* Galería */}
-      <FinalGallery />
+      <FinalGallery lang={lang} />
 
       {/* 05 Impacto */}
       <SectionWithExtras section={sections[4]} />
 
       {/* 3 ilustraciones de cierre */}
-      <DesignSummaryStrip />
+      <DesignSummaryStrip lang={lang} />
 
       <CaseNav prev={nav.prev} next={nav.next} />
 
@@ -107,38 +164,34 @@ function SectionWithExtras({ section }: { section: CaseSectionContent }) {
   );
 }
 
-function FeaturesGrid() {
+function FeaturesGrid({ lang }: { lang: Lang }) {
   const features = [
     {
       number: '01',
-      label: 'Identidad de marca',
-      title: 'Logo, paleta y voz editorial.',
-      description:
-        'Sistema visual completo que captura el oficio de la marquetería y se traduce a digital sin perder carácter.',
+      label: T.features.brandIdentity.label[lang],
+      title: T.features.brandIdentity.title[lang],
+      description: T.features.brandIdentity.description[lang],
       visual: <BrandIdentityVisual />,
     },
     {
       number: '02',
-      label: 'Catálogo digital',
-      title: 'La obra disponible en la web.',
-      description:
-        'Categorías por técnica, formato y disponibilidad — el catálogo de la tienda física trasladado a una vitrina permanente.',
+      label: T.features.catalog.label[lang],
+      title: T.features.catalog.title[lang],
+      description: T.features.catalog.description[lang],
       visual: <CatalogVisual />,
     },
     {
       number: '03',
-      label: 'Trabajos a la medida',
-      title: 'Solicitudes desde la web.',
-      description:
-        'Flujo guiado para encargos personalizados — medidas, materiales, presupuesto y conversación directa con el taller.',
+      label: T.features.customOrder.label[lang],
+      title: T.features.customOrder.title[lang],
+      description: T.features.customOrder.description[lang],
       visual: <CustomOrderVisual />,
     },
     {
       number: '04',
-      label: 'Co-autoría',
-      title: 'Proyecto en pareja con Daniela Salcedo Mejía.',
-      description:
-        'Diseño compartido — branding, UI y dirección visual a 4 manos. Mejor decisión cuando el alcance es pequeño y el tiempo apremia.',
+      label: T.features.pairWork.label[lang],
+      title: T.features.pairWork.title[lang],
+      description: T.features.pairWork.description[lang],
       visual: <PairWorkVisual />,
     },
   ];
@@ -147,7 +200,7 @@ function FeaturesGrid() {
     <section className="border-t border-line py-12 md:py-16">
       <div className="container-portfolio">
         <div className="mb-8 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-          Funcionalidades · vitrina digital
+          {T.features.label[lang]}
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
           {features.map((f) => (
@@ -203,34 +256,22 @@ function DecisionesSolucionGrid({
   );
 }
 
-function FinalGallery() {
+function FinalGallery({ lang }: { lang: Lang }) {
   // Cambiar a true cuando estén las imágenes en /public/work/dartstation/
   const HAS_IMAGES = true;
 
   const items = [
-    {
-      src: '/work/dartstation/gallery-01.jpg',
-      alt: 'DartStation — sistema de marca aplicado a la web.',
-    },
-    {
-      src: '/work/dartstation/gallery-02.jpg',
-      alt: 'DartStation — catálogo digital de obra disponible.',
-    },
-    {
-      src: '/work/dartstation/gallery-03.jpg',
-      alt: 'DartStation — flujo de trabajos a la medida.',
-    },
-    {
-      src: '/work/dartstation/gallery-04.jpg',
-      alt: 'DartStation — vista responsive en mobile.',
-    },
+    { src: '/work/dartstation/gallery-01.jpg', alt: T.galleryAlts.a[lang] },
+    { src: '/work/dartstation/gallery-02.jpg', alt: T.galleryAlts.b[lang] },
+    { src: '/work/dartstation/gallery-03.jpg', alt: T.galleryAlts.c[lang] },
+    { src: '/work/dartstation/gallery-04.jpg', alt: T.galleryAlts.d[lang] },
   ];
 
   if (HAS_IMAGES) {
     return (
       <ClickableImageGrid
         items={items}
-        title="DartStation · galería"
+        title={T.galleryTitle[lang]}
         aspect="4/3"
         columns={2}
         borderless
@@ -255,27 +296,27 @@ function FinalGallery() {
         ))}
       </div>
       <p className="mt-5 text-center text-eyebrow uppercase tracking-eyebrow text-ink-mute md:text-left">
-        Cierre · 4 imágenes pendientes de subir.
+        {T.galleryPendingNote[lang]}
       </p>
     </section>
   );
 }
 
-function DesignSummaryStrip() {
+function DesignSummaryStrip({ lang }: { lang: Lang }) {
   const items = [
     {
-      label: 'Marca + producto',
-      caption: 'Identidad gráfica como columna vertebral del e-commerce.',
+      label: T.summary.brandProduct.label[lang],
+      caption: T.summary.brandProduct.caption[lang],
       visual: <BrandProductVisual />,
     },
     {
-      label: 'Diseño en pareja',
-      caption: 'Co-autoría con Daniela Salcedo Mejía — decisiones a 4 manos.',
+      label: T.summary.pairClose.label[lang],
+      caption: T.summary.pairClose.caption[lang],
       visual: <PairCloseVisual />,
     },
     {
-      label: 'Vitrina permanente',
-      caption: 'De tienda local a marca disponible en cualquier momento.',
+      label: T.summary.showcase.label[lang],
+      caption: T.summary.showcase.caption[lang],
       visual: <ShowcaseVisual />,
     },
   ];
@@ -283,7 +324,7 @@ function DesignSummaryStrip() {
   return (
     <section className="container-portfolio border-t border-line py-16 md:py-20">
       <div className="mb-8 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-        Resumen · intervención de diseño
+        {T.summary.label[lang]}
       </div>
       <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
         {items.map((item) => (
@@ -526,7 +567,7 @@ function renderTitle(title: string | HighlightTitleType): React.ReactNode {
 }
 
 /** Renderiza el hero visual: imagen real si hay heroImage, placeholder si no. */
-function renderHeroImage(hero: CaseHeroContent): React.ReactNode {
+function renderHeroImage(hero: CaseHeroContent, lang: Lang): React.ReactNode {
   if (hero.heroImage) {
     return (
       <div className="relative aspect-[21/9] w-full overflow-hidden rounded-lg">
@@ -545,10 +586,10 @@ function renderHeroImage(hero: CaseHeroContent): React.ReactNode {
     <div
       className="aspect-[21/9] w-full overflow-hidden rounded-lg border border-dashed border-line bg-bg-block"
       role="img"
-      aria-label="Hero visual — pendiente"
+      aria-label={T.heroPlaceholderAlt[lang]}
     >
       <div className="flex h-full items-center justify-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
-        [ hero visual · DartStation ]
+        {T.heroPlaceholder[lang]}
       </div>
     </div>
   );

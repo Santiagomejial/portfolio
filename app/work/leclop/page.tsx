@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import {
   PullQuote,
@@ -15,6 +17,68 @@ import type {
   CaseSectionContent,
   HighlightTitle as HighlightTitleType,
 } from '@/content/types';
+import { useLang } from '@/lib/use-lang';
+import type { Lang } from '@/lib/use-lang';
+
+const T = {
+  links: {
+    instagram: { es: 'Instagram @le.clop', en: 'Instagram @le.clop' },
+    manual: { es: 'Manual de marca · Behance', en: 'Brand manual · Behance' },
+    app: { es: 'App (académica) · Behance', en: 'App (academic) · Behance' },
+  },
+  features: {
+    label: { es: 'Funcionalidades · construcción de marca', en: 'Features · brand construction' },
+    brandSystem: {
+      label: { es: 'Identidad de marca', en: 'Brand identity' },
+      title: { es: 'Logo, paleta y tipografías oficiales.', en: 'Logo, palette and official typefaces.' },
+      description: { es: 'Sistema gráfico construido para hablar a una audiencia joven en redes, posters de campaña y merchandising.', en: 'Graphic system built to speak to young audiences on social, campaign posters and merchandising.' },
+    },
+    manual: {
+      label: { es: 'Manual de marca', en: 'Brand manual' },
+      title: { es: 'Sistema documentado y escalable.', en: 'Documented and scalable system.' },
+      description: { es: '80+ páginas de retículas, usos, variaciones y aplicaciones modelo — la marca funcionando sola sin que yo esté en cada pieza.', en: '80+ pages of grids, uses, variations and model applications — the brand running on its own without me being on every piece.' },
+    },
+    multiCity: {
+      label: { es: 'Multi-ciudad', en: 'Multi-city' },
+      title: { es: 'Bogotá D.C. y Manizales bajo la misma marca.', en: 'Bogotá D.C. and Manizales under the same brand.' },
+      description: { es: 'Una identidad que se aplica de la misma forma en eventos de las dos ciudades, conservando coherencia y reconocimiento.', en: 'One identity applied the same way in events across both cities, keeping coherence and recognition.' },
+    },
+    academicApp: {
+      label: { es: 'App académica', en: 'Academic app' },
+      title: { es: 'Prototipo de boletería desde la marca.', en: 'Ticketing prototype from the brand.' },
+      description: { es: 'Como ejercicio académico, prototipé una app de eventos completa aplicando el sistema visual de LeClop a un producto digital.', en: 'As an academic exercise, I prototyped a full events app applying the LeClop visual system to a digital product.' },
+    },
+  },
+  galleryTitle: { es: 'LeClop · galería', en: 'LeClop · gallery' },
+  galleryAlts: {
+    a: { es: 'LeClop — manual de marca, página de logo y construcción.', en: 'LeClop — brand manual, logo and construction page.' },
+    b: { es: 'LeClop — paleta de color y aplicaciones.', en: 'LeClop — color palette and applications.' },
+    c: { es: 'LeClop — campaña aplicada en posters de eventos.', en: 'LeClop — campaign applied to event posters.' },
+    d: { es: 'LeClop — app académica · pantallas principales.', en: 'LeClop — academic app · main screens.' },
+  },
+  galleryPendingNote: { es: 'Cierre · 4 imágenes pendientes de subir.', en: 'Closing · 4 images pending upload.' },
+  summary: {
+    label: { es: 'Resumen · intervención de diseño', en: 'Summary · design intervention' },
+    fromScratch: {
+      label: { es: 'Marca desde cero', en: 'Brand from scratch' },
+      caption: { es: 'De hoja en blanco a sistema completo documentado en manual.', en: 'From blank page to complete system documented in a manual.' },
+    },
+    coFounder: {
+      label: { es: 'Co-fundador', en: 'Co-founder' },
+      caption: { es: 'Decisiones de negocio + dirección visual desde el día uno.', en: 'Business decisions + visual direction from day one.' },
+    },
+    operativeBrand: {
+      label: { es: 'Marca operativa', en: 'Operating brand' },
+      caption: { es: 'Campañas semanales en dos ciudades sin perder coherencia.', en: 'Weekly campaigns in two cities without losing coherence.' },
+    },
+  },
+  coFounderVisual: {
+    business: { es: 'Negocio', en: 'Business' },
+    design: { es: 'Diseño', en: 'Design' },
+  },
+  heroPlaceholder: { es: '[ hero visual · LeClop ]', en: '[ hero visual · LeClop ]' },
+  heroPlaceholderAlt: { es: 'Hero visual — pendiente', en: 'Hero visual — pending' },
+};
 
 /**
  * CASE — LeClop. Marca de eventos en Bogotá D.C. y Manizales.
@@ -22,7 +86,9 @@ import type {
  */
 
 export default function LeClopCase() {
-  const { hero, establishing, sections, nav } = CASE_LECLOP;
+  const { lang } = useLang();
+  const content = CASE_LECLOP[lang];
+  const { hero, establishing, sections, nav } = content;
 
   return (
     <>
@@ -33,11 +99,11 @@ export default function LeClopCase() {
         title={renderTitle(hero.title)}
         sub={hero.sub}
         meta={[...hero.meta]}
-        heroVisual={renderHeroImage(hero)}
+        heroVisual={renderHeroImage(hero, lang)}
       />
 
       {/* Botones a Instagram + Behance del Manual + Behance de la App */}
-      <ExternalLinksRow />
+      <ExternalLinksRow lang={lang} />
 
       {establishing && (
         <CaseMedia
@@ -53,19 +119,19 @@ export default function LeClopCase() {
       ))}
 
       {/* 4 FeatureCards en fila */}
-      <FeaturesGrid />
+      <FeaturesGrid lang={lang} />
 
       {/* 03 Decisiones + 04 Solución en grid 2 cols */}
       <DecisionesSolucionGrid sections={[sections[2], sections[3]]} />
 
       {/* Galería */}
-      <FinalGallery />
+      <FinalGallery lang={lang} />
 
       {/* 05 Impacto */}
       <SectionWithExtras section={sections[4]} />
 
       {/* 3 ilustraciones de cierre */}
-      <DesignSummaryStrip />
+      <DesignSummaryStrip lang={lang} />
 
       <CaseNav prev={nav.prev} next={nav.next} />
 
@@ -111,20 +177,20 @@ function SectionWithExtras({ section }: { section: CaseSectionContent }) {
 }
 
 /** Botones a las referencias externas: Instagram, Behance manual, Behance app. */
-function ExternalLinksRow() {
+function ExternalLinksRow({ lang }: { lang: Lang }) {
   const links = [
     {
-      label: 'Instagram @le.clop',
+      label: T.links.instagram[lang],
       href: 'https://www.instagram.com/le.clop/',
       accent: 'var(--rose)',
     },
     {
-      label: 'Manual de marca · Behance',
+      label: T.links.manual[lang],
       href: 'https://www.behance.net/gallery/139149093/MANUAL-DE-MARCA-LECLOP',
       accent: 'var(--blue)',
     },
     {
-      label: 'App (académica) · Behance',
+      label: T.links.app[lang],
       href: 'https://www.behance.net/gallery/148451899/Le-Clop-App',
       accent: 'var(--cyan)',
     },
@@ -170,38 +236,34 @@ function ExternalLinksRow() {
   );
 }
 
-function FeaturesGrid() {
+function FeaturesGrid({ lang }: { lang: Lang }) {
   const features = [
     {
       number: '01',
-      label: 'Identidad de marca',
-      title: 'Logo, paleta y tipografías oficiales.',
-      description:
-        'Sistema gráfico construido para hablar a una audiencia joven en redes, posters de campaña y merchandising.',
+      label: T.features.brandSystem.label[lang],
+      title: T.features.brandSystem.title[lang],
+      description: T.features.brandSystem.description[lang],
       visual: <BrandSystemVisual />,
     },
     {
       number: '02',
-      label: 'Manual de marca',
-      title: 'Sistema documentado y escalable.',
-      description:
-        '80+ páginas de retículas, usos, variaciones y aplicaciones modelo — la marca funcionando sola sin que yo esté en cada pieza.',
+      label: T.features.manual.label[lang],
+      title: T.features.manual.title[lang],
+      description: T.features.manual.description[lang],
       visual: <BrandManualVisual />,
     },
     {
       number: '03',
-      label: 'Multi-ciudad',
-      title: 'Bogotá D.C. y Manizales bajo la misma marca.',
-      description:
-        'Una identidad que se aplica de la misma forma en eventos de las dos ciudades, conservando coherencia y reconocimiento.',
+      label: T.features.multiCity.label[lang],
+      title: T.features.multiCity.title[lang],
+      description: T.features.multiCity.description[lang],
       visual: <MultiCityVisual />,
     },
     {
       number: '04',
-      label: 'App académica',
-      title: 'Prototipo de boletería desde la marca.',
-      description:
-        'Como ejercicio académico, prototipé una app de eventos completa aplicando el sistema visual de LeClop a un producto digital.',
+      label: T.features.academicApp.label[lang],
+      title: T.features.academicApp.title[lang],
+      description: T.features.academicApp.description[lang],
       visual: <AcademicAppVisual />,
     },
   ];
@@ -210,7 +272,7 @@ function FeaturesGrid() {
     <section className="border-t border-line py-12 md:py-16">
       <div className="container-portfolio">
         <div className="mb-8 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-          Funcionalidades · construcción de marca
+          {T.features.label[lang]}
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
           {features.map((f) => (
@@ -266,34 +328,22 @@ function DecisionesSolucionGrid({
   );
 }
 
-function FinalGallery() {
+function FinalGallery({ lang }: { lang: Lang }) {
   // Cambiar a true cuando estén las imágenes en /public/work/leclop/
   const HAS_IMAGES = true;
 
   const items = [
-    {
-      src: '/work/leclop/gallery-01.jpg',
-      alt: 'LeClop — manual de marca, página de logo y construcción.',
-    },
-    {
-      src: '/work/leclop/gallery-02.jpg',
-      alt: 'LeClop — paleta de color y aplicaciones.',
-    },
-    {
-      src: '/work/leclop/gallery-03.jpg',
-      alt: 'LeClop — campaña aplicada en posters de eventos.',
-    },
-    {
-      src: '/work/leclop/gallery-04.jpg',
-      alt: 'LeClop — app académica · pantallas principales.',
-    },
+    { src: '/work/leclop/gallery-01.jpg', alt: T.galleryAlts.a[lang] },
+    { src: '/work/leclop/gallery-02.jpg', alt: T.galleryAlts.b[lang] },
+    { src: '/work/leclop/gallery-03.jpg', alt: T.galleryAlts.c[lang] },
+    { src: '/work/leclop/gallery-04.jpg', alt: T.galleryAlts.d[lang] },
   ];
 
   if (HAS_IMAGES) {
     return (
       <ClickableImageGrid
         items={items}
-        title="LeClop · galería"
+        title={T.galleryTitle[lang]}
         aspect="4/3"
         columns={2}
         borderless
@@ -318,27 +368,27 @@ function FinalGallery() {
         ))}
       </div>
       <p className="mt-5 text-center text-eyebrow uppercase tracking-eyebrow text-ink-mute md:text-left">
-        Cierre · 4 imágenes pendientes de subir.
+        {T.galleryPendingNote[lang]}
       </p>
     </section>
   );
 }
 
-function DesignSummaryStrip() {
+function DesignSummaryStrip({ lang }: { lang: Lang }) {
   const items = [
     {
-      label: 'Marca desde cero',
-      caption: 'De hoja en blanco a sistema completo documentado en manual.',
+      label: T.summary.fromScratch.label[lang],
+      caption: T.summary.fromScratch.caption[lang],
       visual: <FromScratchVisual />,
     },
     {
-      label: 'Co-fundador',
-      caption: 'Decisiones de negocio + dirección visual desde el día uno.',
-      visual: <CoFounderVisual />,
+      label: T.summary.coFounder.label[lang],
+      caption: T.summary.coFounder.caption[lang],
+      visual: <CoFounderVisual lang={lang} />,
     },
     {
-      label: 'Marca operativa',
-      caption: 'Campañas semanales en dos ciudades sin perder coherencia.',
+      label: T.summary.operativeBrand.label[lang],
+      caption: T.summary.operativeBrand.caption[lang],
       visual: <OperativeBrandVisual />,
     },
   ];
@@ -346,7 +396,7 @@ function DesignSummaryStrip() {
   return (
     <section className="container-portfolio border-t border-line py-16 md:py-20">
       <div className="mb-8 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-        Resumen · intervención de diseño
+        {T.summary.label[lang]}
       </div>
       <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
         {items.map((item) => (
@@ -575,7 +625,7 @@ function FromScratchVisual() {
 }
 
 /** Co-founder — 2 sombreros (negocio + diseño). */
-function CoFounderVisual() {
+function CoFounderVisual({ lang }: { lang: Lang }) {
   return (
     <div
       className="relative h-full w-full overflow-hidden"
@@ -591,7 +641,7 @@ function CoFounderVisual() {
           className="anim-float-y flex h-10 w-10 items-center justify-center rounded-md text-[8px] font-bold uppercase tracking-eyebrow text-bg"
           style={{ background: 'var(--blue)' }}
         >
-          Negocio
+          {T.coFounderVisual.business[lang]}
         </div>
         {/* + */}
         <span className="text-lg font-semibold text-ink-mute">+</span>
@@ -600,7 +650,7 @@ function CoFounderVisual() {
           className="anim-float-y flex h-10 w-10 items-center justify-center rounded-full text-[8px] font-bold uppercase tracking-eyebrow text-bg"
           style={{ background: 'var(--rose)', animationDelay: '0.4s' }}
         >
-          Diseño
+          {T.coFounderVisual.design[lang]}
         </div>
       </div>
     </div>
@@ -643,7 +693,7 @@ function renderTitle(title: string | HighlightTitleType): React.ReactNode {
 }
 
 /** Renderiza el hero visual: imagen real si hay heroImage, placeholder si no. */
-function renderHeroImage(hero: CaseHeroContent): React.ReactNode {
+function renderHeroImage(hero: CaseHeroContent, lang: Lang): React.ReactNode {
   if (hero.heroImage) {
     return (
       <div className="relative aspect-[21/9] w-full overflow-hidden rounded-lg">
@@ -662,10 +712,10 @@ function renderHeroImage(hero: CaseHeroContent): React.ReactNode {
     <div
       className="aspect-[21/9] w-full overflow-hidden rounded-lg border border-dashed border-line bg-bg-block"
       role="img"
-      aria-label="Hero visual — pendiente"
+      aria-label={T.heroPlaceholderAlt[lang]}
     >
       <div className="flex h-full items-center justify-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
-        [ hero visual · LeClop ]
+        {T.heroPlaceholder[lang]}
       </div>
     </div>
   );

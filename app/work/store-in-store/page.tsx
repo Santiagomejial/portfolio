@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import {
   PullQuote,
@@ -15,6 +17,59 @@ import type {
   CaseSectionContent,
   HighlightTitle as HighlightTitleType,
 } from '@/content/types';
+import { useLang } from '@/lib/use-lang';
+import type { Lang } from '@/lib/use-lang';
+
+const T = {
+  visitStores: { es: 'Visitar las stores en vivo', en: 'Visit the live stores' },
+  features: {
+    label: { es: 'Funcionalidades · sistema multi-marca', en: 'Features · multi-brand system' },
+    research: {
+      label: { es: 'Research', en: 'Research' },
+      title: { es: 'Investigación de mercado y requerimientos del negocio.', en: 'Market research and business requirements.' },
+      description: { es: 'Análisis de cada segmento (Constructor, Petcenter, Carcenter, mayoristas) y mapeo de los requerimientos que tenían en común vs. los específicos de cada uno.', en: 'Analysis of each segment (Constructor, Petcenter, Carcenter, wholesale) and mapping of shared vs. brand-specific requirements.' },
+    },
+    componentization: {
+      label: { es: 'Componetización', en: 'Componentization' },
+      title: { es: 'Sistema global con identidad por marca.', en: 'Global system with per-brand identity.' },
+      description: { es: 'Una sola librería de componentes para todas las stores. Cada marca aplica su identidad sobre la misma base — sin duplicar lógica ni romper la consistencia.', en: 'One component library for all stores. Each brand applies its identity on the same base — without duplicating logic or breaking consistency.' },
+    },
+    journey: {
+      label: { es: 'Journey transaccional', en: 'Transactional journey' },
+      title: { es: 'Home, PLPs, PDPs y paso al carrito web.', en: 'Home, PLPs, PDPs and step to web cart.' },
+      description: { es: 'Cada marca tiene su recorrido completo de compra: home temática, PLP, PDP y paso al carrito web normal de Homecenter para finalizar la transacción.', en: 'Each brand has its full purchase journey: thematic home, PLP, PDP and step to the standard Homecenter web cart to close the transaction.' },
+    },
+    dynamic: {
+      label: { es: 'Componentes dinámicos', en: 'Dynamic components' },
+      title: { es: 'Variantes que atienden cada evento del año.', en: 'Variants for every event of the year.' },
+      description: { es: 'Componentes que se adaptan dinámicamente a la temporada o evento comercial — Black Friday, día de la madre, regreso a clases — sin reescribir la base.', en: 'Components that dynamically adapt to seasons or commercial events — Black Friday, Mother\'s Day, back to school — without rewriting the base.' },
+    },
+  },
+  galleryTitle: { es: 'Store in Store · galería', en: 'Store in Store · gallery' },
+  galleryAlts: {
+    a: { es: 'Constructor — landing y catálogo dentro del ecosistema.', en: 'Constructor — landing and catalog inside the ecosystem.' },
+    b: { es: 'Petcenter — landing temática conviviendo con la shell común.', en: 'Petcenter — themed landing coexisting with the shared shell.' },
+    c: { es: 'Carcenter — adaptación visual para automotriz.', en: 'Carcenter — visual adaptation for automotive.' },
+    d: { es: 'Venta al por mayor — flujo y tono editorial diferenciado.', en: 'Wholesale — differentiated flow and editorial tone.' },
+  },
+  summary: {
+    label: { es: 'Resumen · intervención de diseño', en: 'Summary · design intervention' },
+    replicated: {
+      label: { es: 'Replicado en la nueva app', en: 'Replicated in the new app' },
+      caption: { es: 'El sistema escaló al rediseño de la App Homecenter — misma base de componetización.', en: 'The system scaled to the Homecenter App redesign — same componentization base.' },
+    },
+    digitalToPhysical: {
+      label: { es: 'Del digital al físico', en: 'From digital to physical' },
+      caption: { es: 'Independencia local que generó ofertas diferenciadas — algunas escalaron a tiendas físicas (Petizoos / Petcenter).', en: 'Local independence that produced differentiated offerings — some scaled to physical stores (Petizoos / Petcenter).' },
+    },
+    unifiedJourney: {
+      label: { es: 'Journey unificado', en: 'Unified journey' },
+      caption: { es: 'Un solo flujo de compra para múltiples líneas de producto.', en: 'A single purchase flow for multiple product lines.' },
+    },
+  },
+  heroPlaceholder: { es: '[ hero visual · Store in Store ]', en: '[ hero visual · Store in Store ]' },
+  heroPlaceholderAlt: { es: 'Hero visual — pendiente', en: 'Hero visual — pending' },
+};
 
 /**
  * CASE — Store in Store, Constructor, Petcenter, Carcenter y al por mayor.
@@ -27,7 +82,9 @@ import type {
  */
 
 export default function StoreInStoreCase() {
-  const { hero, establishing, sections, nav } = CASE_STORE_IN_STORE;
+  const { lang } = useLang();
+  const content = CASE_STORE_IN_STORE[lang];
+  const { hero, establishing, sections, nav } = content;
 
   return (
     <>
@@ -38,11 +95,11 @@ export default function StoreInStoreCase() {
         title={renderTitle(hero.title)}
         sub={hero.sub}
         meta={[...hero.meta]}
-        heroVisual={renderHeroImage(hero)}
+        heroVisual={renderHeroImage(hero, lang)}
       />
 
       {/* CTA — botones que llevan a cada store en vivo */}
-      <VisitStoresButtons />
+      <VisitStoresButtons lang={lang} />
 
       {establishing && (
         <CaseMedia
@@ -57,20 +114,15 @@ export default function StoreInStoreCase() {
         <SectionWithExtras key={section.number} section={section} />
       ))}
 
-      {/* 4 FeatureCards en fila — funcionalidades del sistema multi-marca */}
-      <FeaturesGrid />
+      <FeaturesGrid lang={lang} />
 
-      {/* 03 Decisiones + 04 Solución en grid 2 cols */}
       <DecisionesSolucionGrid sections={[sections[2], sections[3]]} />
 
-      {/* 4 imágenes del despliegue */}
-      <FinalGallery />
+      <FinalGallery lang={lang} />
 
-      {/* 05 Impacto */}
       <SectionWithExtras section={sections[4]} />
 
-      {/* 3 ilustraciones de cierre — resumen de intervención de diseño */}
-      <DesignSummaryStrip />
+      <DesignSummaryStrip lang={lang} />
 
       <CaseNav prev={nav.prev} next={nav.next} />
 
@@ -119,38 +171,34 @@ function SectionWithExtras({ section }: { section: CaseSectionContent }) {
  * 4 cards compactas en fila — funcionalidades del sistema multi-marca.
  * Copies y visuales temáticos: PENDIENTES — Santiago dictará el contenido.
  */
-function FeaturesGrid() {
+function FeaturesGrid({ lang }: { lang: Lang }) {
   const features = [
     {
       number: '01',
-      label: 'Research',
-      title: 'Investigación de mercado y requerimientos del negocio.',
-      description:
-        'Análisis de cada segmento (Constructor, Petcenter, Carcenter, mayoristas) y mapeo de los requerimientos que tenían en común vs. los específicos de cada uno.',
+      label: T.features.research.label[lang],
+      title: T.features.research.title[lang],
+      description: T.features.research.description[lang],
       visual: <SharedShellVisual />,
     },
     {
       number: '02',
-      label: 'Componetización',
-      title: 'Sistema global con identidad por marca.',
-      description:
-        'Una sola librería de componentes para todas las stores. Cada marca aplica su identidad sobre la misma base — sin duplicar lógica ni romper la consistencia.',
+      label: T.features.componentization.label[lang],
+      title: T.features.componentization.title[lang],
+      description: T.features.componentization.description[lang],
       visual: <ThemingVisual />,
     },
     {
       number: '03',
-      label: 'Journey transaccional',
-      title: 'Home, PLPs, PDPs y paso al carrito web.',
-      description:
-        'Cada marca tiene su recorrido completo de compra: home temática, PLP, PDP y paso al carrito web normal de Homecenter para finalizar la transacción.',
+      label: T.features.journey.label[lang],
+      title: T.features.journey.title[lang],
+      description: T.features.journey.description[lang],
       visual: <SwitchingVisual />,
     },
     {
       number: '04',
-      label: 'Componentes dinámicos',
-      title: 'Variantes que atienden cada evento del año.',
-      description:
-        'Componentes que se adaptan dinámicamente a la temporada o evento comercial — Black Friday, día de la madre, regreso a clases — sin reescribir la base.',
+      label: T.features.dynamic.label[lang],
+      title: T.features.dynamic.title[lang],
+      description: T.features.dynamic.description[lang],
       visual: <CrossSellVisual />,
     },
   ];
@@ -159,7 +207,7 @@ function FeaturesGrid() {
     <section className="border-t border-line py-12 md:py-16">
       <div className="container-portfolio">
         <div className="mb-8 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-          Funcionalidades · sistema multi-marca
+          {T.features.label[lang]}
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
           {features.map((f) => (
@@ -221,30 +269,18 @@ function DecisionesSolucionGrid({
 /**
  * Galería final con 4 imágenes — todas clickeables abren CarouselModal.
  */
-function FinalGallery() {
+function FinalGallery({ lang }: { lang: Lang }) {
   const items = [
-    {
-      src: '/work/store-in-store/gallery-01.jpg',
-      alt: 'Constructor — landing y catálogo dentro del ecosistema.',
-    },
-    {
-      src: '/work/store-in-store/gallery-02.jpg',
-      alt: 'Petcenter — landing temática conviviendo con la shell común.',
-    },
-    {
-      src: '/work/store-in-store/gallery-03.jpg',
-      alt: 'Carcenter — adaptación visual para automotriz.',
-    },
-    {
-      src: '/work/store-in-store/gallery-04.jpg',
-      alt: 'Venta al por mayor — flujo y tono editorial diferenciado.',
-    },
+    { src: '/work/store-in-store/gallery-01.jpg', alt: T.galleryAlts.a[lang] },
+    { src: '/work/store-in-store/gallery-02.jpg', alt: T.galleryAlts.b[lang] },
+    { src: '/work/store-in-store/gallery-03.jpg', alt: T.galleryAlts.c[lang] },
+    { src: '/work/store-in-store/gallery-04.jpg', alt: T.galleryAlts.d[lang] },
   ];
 
   return (
     <ClickableImageGrid
       items={items}
-      title="Store in Store · galería"
+      title={T.galleryTitle[lang]}
       aspect="4/3"
       columns={2}
       borderless
@@ -256,23 +292,21 @@ function FinalGallery() {
  * 3 ilustraciones de cierre — resumen de la intervención de diseño.
  * Copies y visuales temáticos: PENDIENTES — Santiago dictará.
  */
-function DesignSummaryStrip() {
+function DesignSummaryStrip({ lang }: { lang: Lang }) {
   const items = [
     {
-      label: 'Replicado en la nueva app',
-      caption:
-        'El sistema escaló al rediseño de la App Homecenter — misma base de componetización.',
+      label: T.summary.replicated.label[lang],
+      caption: T.summary.replicated.caption[lang],
       visual: <ScalableSystemVisual />,
     },
     {
-      label: 'Del digital al físico',
-      caption:
-        'Independencia local que generó ofertas diferenciadas — algunas escalaron a tiendas físicas (Petizoos / Petcenter).',
+      label: T.summary.digitalToPhysical.label[lang],
+      caption: T.summary.digitalToPhysical.caption[lang],
       visual: <BrandIdentityVisual />,
     },
     {
-      label: 'Journey unificado',
-      caption: 'Un solo flujo de compra para múltiples líneas de producto.',
+      label: T.summary.unifiedJourney.label[lang],
+      caption: T.summary.unifiedJourney.caption[lang],
       visual: <UnifiedJourneyVisual />,
     },
   ];
@@ -280,7 +314,7 @@ function DesignSummaryStrip() {
   return (
     <section className="container-portfolio border-t border-line py-16 md:py-20">
       <div className="mb-8 text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
-        Resumen · intervención de diseño
+        {T.summary.label[lang]}
       </div>
       <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
         {items.map((item) => (
@@ -310,7 +344,7 @@ function DesignSummaryStrip() {
  * 4 botones CTA después del hero — abren cada store en vivo en Homecenter.
  * Mobile: stack vertical. Desktop: grid 4 columnas.
  */
-function VisitStoresButtons() {
+function VisitStoresButtons({ lang }: { lang: Lang }) {
   const stores = [
     {
       label: 'Constructor',
@@ -318,7 +352,7 @@ function VisitStoresButtons() {
       accent: 'var(--blue)',
     },
     {
-      label: 'Al por mayor',
+      label: lang === 'es' ? 'Al por mayor' : 'Wholesale',
       href: 'https://www.homecenter.com.co/homecenter-co/tiendas/compras-por-mayor-grandes-volumenes/?store=grandesvolumenes/',
       accent: 'var(--ink-soft)',
     },
@@ -830,7 +864,7 @@ function renderTitle(title: string | HighlightTitleType): React.ReactNode {
 }
 
 /** Renderiza el hero visual: imagen real si hay heroImage, placeholder si no. */
-function renderHeroImage(hero: CaseHeroContent): React.ReactNode {
+function renderHeroImage(hero: CaseHeroContent, lang: Lang): React.ReactNode {
   if (hero.heroImage) {
     return (
       <div className="relative aspect-[21/9] w-full overflow-hidden rounded-lg">
@@ -849,10 +883,10 @@ function renderHeroImage(hero: CaseHeroContent): React.ReactNode {
     <div
       className="aspect-[21/9] w-full overflow-hidden rounded-lg border border-dashed border-line bg-bg-block"
       role="img"
-      aria-label="Hero visual — pendiente"
+      aria-label={T.heroPlaceholderAlt[lang]}
     >
       <div className="flex h-full items-center justify-center text-eyebrow uppercase tracking-eyebrow text-ink-mute">
-        [ hero visual · Store in Store ]
+        {T.heroPlaceholder[lang]}
       </div>
     </div>
   );

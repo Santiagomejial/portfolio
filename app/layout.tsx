@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { Inter, Young_Serif } from 'next/font/google';
+import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import { FloatingNav } from '@/components/floating-nav';
 import { ScrollProgressBar } from '@/components/scroll-progress-bar';
 import { BackToTopButton } from '@/components/back-to-top-button';
@@ -12,8 +13,14 @@ const inter = Inter({
   weight: ['400', '500', '600', '700'],
 });
 
-const youngSerif = Young_Serif({
-  subsets: ['latin'],
+/**
+ * Fuente display del portafolio. Custom local font (Royale Elegance).
+ * Mantiene la variable --font-young-serif para no tener que tocar
+ * tokens.css ni globals.css — solo cambia la fuente que la variable
+ * resuelve.
+ */
+const youngSerif = localFont({
+  src: '../public/fonts/royale-elegance-regular.otf',
   display: 'swap',
   variable: '--font-young-serif',
   weight: '400',

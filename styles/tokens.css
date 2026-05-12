@@ -16,7 +16,7 @@
   --gradient-soft: linear-gradient(135deg, rgba(59,130,246,0.12) 0%, rgba(244,63,94,0.12) 100%);
 
   /* ─── Typography ──────────────────────────────────────── */
-  --font-serif: var(--font-young-serif), 'Young Serif', Georgia, serif;
+  --font-serif: var(--font-young-serif), 'Royale Elegance', Georgia, serif;
   --font-sans: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
 
   --fs-display-xl: clamp(40px, 6vw, 80px);

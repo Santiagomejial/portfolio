@@ -8,6 +8,7 @@ export { SectionHead } from './section-head';
 export { ChipRow } from './chip-row';
 export { PullQuote } from './pull-quote';
 export { PageHero } from './page-hero';
+export { HomeHero } from './home-hero';
 export { CaseHero, type CaseMeta } from './case-hero';
 export { WorkCard } from './work-card';
 export { MetricCard } from './metric-card';

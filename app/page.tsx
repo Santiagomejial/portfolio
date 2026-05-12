@@ -4,7 +4,7 @@ import {
   SectionHead,
   ChipRow,
   PullQuote,
-  PageHero,
+  HomeHero,
   WorkCard,
   Footer,
   Timeline,
@@ -29,13 +29,13 @@ export default function HomePage() {
   return (
     <>
       {/* HERO */}
-      <PageHero
+      <HomeHero
         eyebrow={HOME.hero.eyebrow[lang]}
-        title={<HighlightTitle {...HOME.hero.title[lang]} />}
+        title={HOME.hero.title[lang]}
         sub={HOME.hero.sub[lang]}
       >
         <ChipRow items={[...HOME.hero.chips[lang]]} />
-      </PageHero>
+      </HomeHero>
 
       {/* 01 · SELECTED WORK */}
       <section id="work" className="container-portfolio py-20 md:py-28">

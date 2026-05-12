@@ -295,9 +295,67 @@
 .anim-card-shuffle-2    { animation: anim-card-shuffle-2 4.5s ease-in-out infinite; }
 .anim-card-shuffle-3    { animation: anim-card-shuffle-3 4.5s ease-in-out infinite; }
 
+/* ─── Hero generativo (home) ─────────────────────────────────
+   Blobs gradient flotantes en órbitas suaves + entrada palabra-por-palabra
+   del titular + gradient continuo deslizándose en el highlight.
+   ─────────────────────────────────────────────────────────── */
+
+@keyframes anim-blob-drift-a {
+  0%   { transform: translate3d(-8%, -4%, 0) scale(1); }
+  33%  { transform: translate3d(6%, -10%, 0) scale(1.08); }
+  66%  { transform: translate3d(10%, 8%, 0) scale(0.94); }
+  100% { transform: translate3d(-8%, -4%, 0) scale(1); }
+}
+@keyframes anim-blob-drift-b {
+  0%   { transform: translate3d(8%, 6%, 0) scale(1); }
+  40%  { transform: translate3d(-12%, 4%, 0) scale(1.12); }
+  75%  { transform: translate3d(-4%, -8%, 0) scale(0.92); }
+  100% { transform: translate3d(8%, 6%, 0) scale(1); }
+}
+@keyframes anim-blob-drift-c {
+  0%   { transform: translate3d(0%, 0%, 0) scale(1); }
+  50%  { transform: translate3d(8%, -6%, 0) scale(1.06); }
+  100% { transform: translate3d(0%, 0%, 0) scale(1); }
+}
+@keyframes anim-gradient-pan {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes anim-hero-word-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+@keyframes anim-hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.anim-blob-drift-a   { animation: anim-blob-drift-a 22s ease-in-out infinite; }
+.anim-blob-drift-b   { animation: anim-blob-drift-b 26s ease-in-out infinite; }
+.anim-blob-drift-c   { animation: anim-blob-drift-c 18s ease-in-out infinite; }
+.anim-gradient-pan   { background-size: 220% 220%; animation: anim-gradient-pan 8s ease-in-out infinite; }
+.anim-hero-word-rise { animation: anim-hero-word-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-hero-fade-up   { animation: anim-hero-fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
 /* Reduce-motion: solo desactivamos animaciones de MOVIMIENTO direccional
-   (float, slide, shuffle, organic, spin). Mantenemos las de opacity/scale
-   sutiles (pulse, fade, fill, reveal) que comunican sin desplazamiento. */
+   (float, slide, shuffle, organic, spin, blob, hero-rise). Mantenemos las
+   de opacity/scale sutiles (pulse, fade, fill, reveal) que comunican sin
+   desplazamiento. */
 @media (prefers-reduced-motion: reduce) {
   .anim-float-y,
   .anim-float-y-strong,
@@ -313,8 +371,20 @@
   .anim-card-shuffle-1,
   .anim-card-shuffle-2,
   .anim-card-shuffle-3,
-  .anim-dash-flow {
+  .anim-dash-flow,
+  .anim-blob-drift-a,
+  .anim-blob-drift-b,
+  .anim-blob-drift-c,
+  .anim-gradient-pan {
     animation: none !important;
+  }
+  /* Entrada del hero: directo al estado final, sin slide ni blur. */
+  .anim-hero-word-rise,
+  .anim-hero-fade-up {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
   }
   /* Las de pulse/fade/fill se mantienen pero más lentas */
   .anim-pulse-soft,

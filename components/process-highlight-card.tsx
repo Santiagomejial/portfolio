@@ -45,7 +45,7 @@ export function ProcessHighlightCard({
         <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
           {number} · {label}
         </div>
-        <h3 className="mt-3 font-serif text-[20px] leading-tight tracking-display text-ink">
+        <h3 className="mt-3 font-sans text-[20px] font-semibold leading-tight tracking-tight text-ink">
           {title}
         </h3>
         <p className="mt-3 text-body-sm leading-relaxed text-ink-soft">

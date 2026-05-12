@@ -213,7 +213,7 @@ function FeaturesGrid({ lang }: { lang: Lang }) {
                 <div className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">
                   {f.number} · {f.label}
                 </div>
-                <h3 className="font-serif text-[15px] leading-tight tracking-display text-ink">
+                <h3 className="font-sans text-[15px] font-semibold leading-tight text-ink">
                   {f.title}
                 </h3>
                 <p className="text-body-sm leading-snug text-ink-soft">

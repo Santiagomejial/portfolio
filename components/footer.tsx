@@ -87,7 +87,7 @@ export function Footer({ className }: FooterProps) {
             <a
               href={`mailto:${EMAIL}`}
               className={cn(
-                'mt-2 inline-block font-serif text-[clamp(16px,1.6vw,20px)] leading-tight tracking-display text-ink',
+                'mt-2 inline-block font-sans text-[clamp(16px,1.6vw,20px)] font-semibold leading-tight text-ink',
                 'transition-base',
                 'hover:bg-brand-gradient hover:bg-clip-text hover:text-transparent'
               )}

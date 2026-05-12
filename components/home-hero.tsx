@@ -231,7 +231,7 @@ export function HomeHero({ eyebrow, title, sub, children, className }: HomeHeroP
 
         {sub && (
           <p
-            className="text-body-lg anim-hero-fade-up mt-6 max-w-2xl text-ink-soft"
+            className="text-body-lg anim-hero-fade-up mt-6 max-w-2xl text-ink"
             style={{ animationDelay: `${subDelay}ms` }}
           >
             {sub}

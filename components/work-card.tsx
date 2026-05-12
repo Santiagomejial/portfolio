@@ -90,8 +90,8 @@ export function WorkCard({
         </ul>
         <h3
           className={cn(
-            'font-serif font-normal tracking-display text-ink',
-            featured ? 'text-[clamp(24px,3vw,32px)]' : 'text-[22px]'
+            'font-sans font-semibold tracking-tight text-ink',
+            featured ? 'text-[clamp(22px,2.6vw,28px)] leading-tight' : 'text-[20px] leading-snug'
           )}
         >
           {title}

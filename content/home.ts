@@ -109,15 +109,13 @@ export const HOME: HomeContent = {
     },
     title: {
       es: {
-        pre: 'Mi experiencia marca el paso de ',
-        highlight:
-          'Asesor en innovación → Diseñador UX/UI → Líder de Diseño → BA/PO de App Homecenter',
+        pre: 'Mi experiencia marca el paso de Asesor en innovación → Diseñador UX/UI → Líder de Diseño → ',
+        highlight: 'BA/PO de App Homecenter',
         post: '.',
       },
       en: {
-        pre: 'My career arc: ',
-        highlight:
-          'Innovation Consultant → UX/UI Designer → Design Lead → BA/PO of the Homecenter App',
+        pre: 'My career arc: Innovation Consultant → UX/UI Designer → Design Lead → ',
+        highlight: 'BA/PO of the Homecenter App',
         post: '.',
       },
     },

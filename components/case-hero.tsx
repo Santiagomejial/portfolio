@@ -76,7 +76,7 @@ export function CaseHero({
           )}
           <h1 className="display-xl text-ink">{title}</h1>
           {sub && (
-            <p className="text-body-lg mt-6 max-w-3xl text-ink-soft">{sub}</p>
+            <p className="text-body-lg mt-6 max-w-3xl text-ink">{sub}</p>
           )}
         </header>
 

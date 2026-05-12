@@ -44,7 +44,7 @@ export function Timeline({ items, className }: TimelineProps) {
                 )}
               />
             </span>
-            <span className="font-serif text-[15px] leading-tight text-ink">
+            <span className="font-sans text-[15px] font-semibold leading-tight text-ink">
               {item.year}
             </span>
           </div>

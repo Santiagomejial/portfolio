@@ -46,7 +46,7 @@ export function PageHero({
             {title}
           </h1>
           {sub && (
-            <p className="text-body-lg mt-6 max-w-2xl text-ink-soft">
+            <p className="text-body-lg mt-6 max-w-2xl text-ink">
               {sub}
             </p>
           )}

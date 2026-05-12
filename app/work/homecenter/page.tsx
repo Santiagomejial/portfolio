@@ -622,7 +622,7 @@ function ProcessIllustration({ lang }: { lang: Lang }) {
               <span className="anim-pulse-soft h-2.5 w-2.5 rounded-full bg-brand-gradient" style={{ animationDelay: `${i * 0.5}s` }} />
               <span className="text-eyebrow font-medium uppercase tracking-eyebrow text-ink-mute">{`0${i + 1}`}</span>
             </div>
-            <div className="font-serif text-[18px] leading-tight text-ink">{step.label}</div>
+            <div className="font-sans text-[18px] font-semibold leading-tight text-ink">{step.label}</div>
             <div className="text-body-sm leading-snug text-ink-soft">{step.desc}</div>
           </div>
         ))}
